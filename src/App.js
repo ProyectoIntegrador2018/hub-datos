@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import Navigation from "./components/Navigation";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Proyectos from "./Proyectos";
 import Eventos from "./Eventos";
 import Inicio from "./Inicio";
@@ -27,6 +28,7 @@ function App() {
         <Route path="/Consultas" component={Consultas} />
         <Route path="/IniciarSesion" component={IniciarSesion} />
       </Switch>
+      <Footer/>
     </Router>
   );
 }

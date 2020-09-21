@@ -20,7 +20,7 @@ function Header() {
       <div className="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto ">
           <li className="nav-item">
-            <a className="nav-link" href="/IniciarSesion">
+            <a className="nav-link header-link" href="/IniciarSesion">
               INICIAR SESIÓN / REGISTRARSE
             </a>
           </li>
