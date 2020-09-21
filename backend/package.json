@@ -1,0 +1,28 @@
+{
+  "name": "hub-datos",
+  "version": "1.0.0",
+  "description": "Realizar un sitio que preste servicios web para los miembros del hub de ciencia de datos.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProyectoIntegrador2018/hub-datos.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ProyectoIntegrador2018/hub-datos/issues"
+  },
+  "homepage": "https://github.com/ProyectoIntegrador2018/hub-datos#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.6",
+    "morgan": "^1.10.0",
+    "uuid": "^8.3.0"
+  }
+}
