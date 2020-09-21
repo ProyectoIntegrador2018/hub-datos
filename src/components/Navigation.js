@@ -22,14 +22,14 @@ function Navigation() {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
       <li className="nav-item active">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="/Inicio">
               INICIO <span class="sr-only">(current)</span>
             </a>
           </li>
       <li className="nav-item dropdown">
             <a
               className="nav-link dropdown-toggle"
-              href="#"
+              href="/Proyectos"
               id="navbarDropdownMenuLink"
               role="button"
               data-toggle="dropdown"
@@ -46,7 +46,7 @@ function Navigation() {
           <li className="nav-item dropdown">
             <a
               className="nav-link dropdown-toggle"
-              href="#"
+              href="/Eventos"
               id="navbarDropdownMenuLink"
               role="button"
               data-toggle="dropdown"
@@ -63,7 +63,7 @@ function Navigation() {
       <li className="nav-item dropdown">
             <a
               className="nav-link dropdown-toggle"
-              href=""
+              href="/NuestraGente"
               id="navbarDropdownMenuLink"
               role="button"
               data-toggle="dropdown"
@@ -79,12 +79,12 @@ function Navigation() {
             </div>
           </li>
       <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="/SobreNosotros">
               SOBRE NOSOTROS
             </a>
           </li>
       <li className="nav-item">
-            <a className="nav-link" href="#">
+            <a className="nav-link" href="Consultas">
               CONSULTAS
             </a>
           </li>

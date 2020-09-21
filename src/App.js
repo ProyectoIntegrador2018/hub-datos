@@ -7,6 +7,7 @@ import Eventos from "./Eventos";
 import Inicio from "./Inicio";
 import NuestraGente from "./NuestraGente";
 import SobreNosotros from "./SobreNostros";
+import IniciarSesion from "./IniciarSesion";
 import Consultas from "./Consultas";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {BrowserRouter as Router,Switch,Route,NavLink,} from "react-router-dom";
@@ -24,6 +25,7 @@ function App() {
         <Route path="/NuestraGente" component={NuestraGente} />
         <Route path="/SobreNosotros" component={SobreNosotros} />
         <Route path="/Consultas" component={Consultas} />
+        <Route path="/IniciarSesion" component={IniciarSesion} />
       </Switch>
     </Router>
   );
