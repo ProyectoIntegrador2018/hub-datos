@@ -5,7 +5,7 @@ function Inicio() {
   return (
     
         
-        <h1>INICIO</h1>
+        <h1>Inicio</h1>
 
   );
 }

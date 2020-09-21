@@ -11,7 +11,7 @@ import SobreNosotros from "./SobreNostros";
 import IniciarSesion from "./IniciarSesion";
 import Consultas from "./Consultas";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {BrowserRouter as Router,Switch,Route,NavLink,} from "react-router-dom";
+import {BrowserRouter as Router,Switch,Route } from "react-router-dom";
 
 
 function App() {
@@ -20,13 +20,13 @@ function App() {
       <Header/>
       <Navigation />
       <Switch>
-        <Route path="/" exact component={Inicio} />
         <Route path="/Proyectos" component={Proyectos} />
         <Route path="/Eventos" component={Eventos} />
         <Route path="/NuestraGente" component={NuestraGente} />
         <Route path="/SobreNosotros" component={SobreNosotros} />
         <Route path="/Consultas" component={Consultas} />
         <Route path="/IniciarSesion" component={IniciarSesion} />
+        <Route path="/*" component={Inicio} />
       </Switch>
       <Footer/>
     </Router>
