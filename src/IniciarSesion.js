@@ -5,7 +5,7 @@ function IniciarSesion() {
   return (
     
         
-        <h1>INICIAR SESIÓN</h1>
+        <h1>Iniciar Sesión</h1>
 
   );
 }
