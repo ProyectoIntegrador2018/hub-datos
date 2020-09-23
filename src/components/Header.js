@@ -4,7 +4,8 @@ import "../App.css";
 
 function Header() {
   return (
-    <div className="jumbotron bg-cover text-white darkened-image bg-cover w-100 mb-0">
+    <header className="page-footer fixed-top">
+       <div className="jumbotron bg-cover text-white darkened-image bg-cover w-100 mb-0">
     <nav className="navbar navbar-expand-lg navbar">
       <button
         className="navbar-toggler"
@@ -28,6 +29,8 @@ function Header() {
       </div>
     </nav>
   </div>
+    </header>
+   
   );
 }
 export default Header;
