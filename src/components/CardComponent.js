@@ -4,7 +4,7 @@ import React from "react";
 
 const CardComponent = ({ title, description, route }) => {
   return (
-    <Card className="w-75">
+    <Card>
       <Card.Img variant="top" src="https://picsum.photos/300/170" />
       <Card.Body>
         <Card.Title> {title} </Card.Title>
