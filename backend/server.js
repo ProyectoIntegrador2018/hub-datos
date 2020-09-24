@@ -1,7 +1,10 @@
 const express = require("express");
 const morgan = require("morgan");
 const app = express();
-const data = require("./data/data.json");
+require("./db/mongoose");
+const data = require("./db/data.json");
+const dbConfig = require("./config.js");
+const mongoose = require("mongoose");
 
 app.use(morgan("dev"));
 
@@ -11,6 +14,10 @@ app.get("/", (req, res) => {
 
 app.get("/api/v1", (req, res) => {
   res.json(data);
+});
+
+app.get("/api/v1/:id", (req, res) => {
+  res.json(data.map((name) => name == req.param.id));
 });
 
 app.listen(8080, () => {

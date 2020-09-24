@@ -1,4 +1,5 @@
 [{
+        "id": 1,
         "nombre": "CEMEX VP Operations",
         "descripcion": "Mejorar los diferentes procesos de manufactura",
         "vision": "Satisfacer globalmente las necesidades de construcción de sus clientes y crear valor para sus accionistas, empleados y otras audiencias clave, consolidándose como la organización cementera multinacional más eficiente y rentable del mundo.",
@@ -10,6 +11,7 @@
         "imagen": "https://elceo.com/wp-content/uploads/2020/06/cmx.jpg"
     },
     {
+        "id": 2,
         "nombre": "Heineken Commercial Management",
         "descripcion": "Optimizacion de los diferentes procesos en el desarrollo de los diferentes productos de la familia Heineken",
         "vision": "Ser una compañía de referencia, liderando la industria cervecera a nivel global en su compromiso con la excelencia de sus productos, marcas, servicios y resultados, la cercanía al mercado y el respeto y la transparencia en la relación con los empleados y con los consumidores.",
@@ -21,6 +23,7 @@
         "imagen": "https://blogs.uninter.edu.mx/ENDECS/wp-content/uploads/2020/04/Heineken-5.jpg"
     },
     {
+        "id": 3,
         "nombre": "ArcaContinental Data Science management",
         "descripcion": "Obtener informacion de analisis estadisticos y poder generar modelos para la optimizacion de dichos procesos",
         "vision": "Ser líderes en todas las ocasiones de consumo de bebidas y alimentos en los mercados donde participamos, de forma rentable y sustentable.",
@@ -32,6 +35,7 @@
         "imagen": "https://www.foodnewslatam.com/images/stories/2016/Abril/Arca-Continental-invierte-coca-cola.jpg"
     },
     {
+        "id": 4,
         "nombre": "Chevron Maintenance management",
         "descripcion": "Crear modelo predictivo para la optimizacion de los diferentes recursos al momento de dar mantenimiento a las diferentes maquinarias",
         "vision": "Ser la empresa global de energía más admirada por su gente, sus alianzas y su desempeño.",
