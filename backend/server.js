@@ -1,18 +1,39 @@
 const express = require("express");
 const morgan = require("morgan");
+const mongoose = require("mongoose");
+const { DATABASE_URL, PORT } = require("./config");
+const api = require("./api");
+
 const app = express();
-const data = require("./data/data.json");
 
 app.use(morgan("dev"));
+app.use("/api/v1", api);
 
 app.get("/", (req, res) => {
-  res.send("Hola mundo");
+    res.send("Hola mundo");
 });
 
-app.get("/api/v1", (req, res) => {
-  res.json(data);
-});
+app.listen(PORT, () => {
+    console.log("Servidor corriendo en el puerto 8080");
 
-app.listen(8080, () => {
-  console.log("Servidor corriendo en el puerto 8080");
+    const settings = {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true
+    };
+
+    new Promise((resolve, reject) => {
+        mongoose.connect(DATABASE_URL, settings, (err) => {
+            if (err) {
+                return reject(err);
+            }
+            else {
+                console.log("Base de datos conectada.");
+                return resolve;
+            }
+        });
+    })
+        .catch(err => {
+            console.log(err);
+        });
 });
