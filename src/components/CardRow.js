@@ -4,7 +4,7 @@ import CardComponent from "./CardComponent";
 
 const CardRow = ({ projects, rowNumber }) => {
   return (
-    <CardColumns>
+    <CardColumns className="mb-4 mt-2">
       {projects.map((project, i) => (
         <CardComponent
           title={project.title}

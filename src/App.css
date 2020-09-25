@@ -57,3 +57,7 @@ footer{
     transform: rotate(360deg);
   }
 }
+
+.card-shadow {
+  box-shadow: 2px 4px 9px rgba(0, 0, 0, 0.2);
+}

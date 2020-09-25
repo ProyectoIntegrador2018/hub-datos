@@ -37,25 +37,6 @@ function Proyectos() {
           title: "Universities for Founders MTY",
           description: "Universities for Founders Description",
           route: "#UniversitiesForFounders",
-        },
-        {
-          title: "Universities for Founders MTY",
-          description: "Universities for Founders Description",
-          route: "#UniversitiesForFounders",
-        },{
-          title: "Universities for Founders MTY",
-          description: "Universities for Founders Description",
-          route: "#UniversitiesForFounders",
-        },
-        {
-          title: "Universities for Founders MTY",
-          description: "Universities for Founders Description",
-          route: "#UniversitiesForFounders",
-        },
-        {
-          title: "Universities for Founders MTY",
-          description: "Universities for Founders Description",
-          route: "#UniversitiesForFounders",
         }
       ];
 
