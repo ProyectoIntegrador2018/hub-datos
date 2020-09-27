@@ -6,86 +6,21 @@
   height: 40vmin;
   pointer-events: none;
 }
-.darkened-image { 
-  background-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 100%), url('assets/headerBackground.jpg');
-  height: 100px; 
-  width: 1400px; 
-  margin-top: -20px;
-} 
+
 .nav-link{
   color:white;
 }
-footer{
-  background-color:#111;
-  border: 1px solid;
-  border-color: white black black black;
+body{
+  height:100%;
+}
+#container{
+  min-height:61vh;
+}
+#main{
+  overflow:auto;
+padding-bottom: 20px;
 }
 
-.header-link{
-  color:rgb(255, 255, 255);
-}
-.bg-cover {
-  background-attachment: static;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-
-.split {
-  height: 100%;
-  width: 50%;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  overflow-x: hidden;
-  padding-top: 20px;
-}
-
-.left {
-  left: 0;
-  background-color: #111;
-}
-
-.right {
-  right: 0;
-  background-color: white;
-}
-
-.centered {
-  position: absolute;
-  top: 50%;
-  left: 45%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-.lbInicioSesion{
- color: white;
-}
-.lbRegistro{
-  color: black;
-  font-weight: bold;
-  font-size: 14px;
- }
-.formRegistro{
-  margin-top:60px;
-  width: 120%;
-}
-.lbRegistro{
-  font-family: arial;
-}
-#btnRegistro{
-  background-color: #111; 
-  border: none;
-  color: white;
-  padding: 12px 26px;
-  text-align: center;
-  font-size: 16px;
-  margin:auto;
-}
-#btnRegistro:hover{
-  background-color: rgb(37, 36, 36);
-}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

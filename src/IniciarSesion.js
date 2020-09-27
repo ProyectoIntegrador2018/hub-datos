@@ -1,109 +1,151 @@
 import React, { Component } from "react";
-import "./App.css";
+import "./IniciarSesion.css";
+import { Button } from "./components/button";
+import { Subbutton } from "./components/Subbutton";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-function IniciarSesion() {
-  return (
-    <body>
-      <div class="split left">
-        <div class="centered">
-          <form>
-            <div class="form-group">
-              <label className="lbInicioSesion" for="exampleInputEmail1">
-                Correo Electrónico
-              </label>
-              <input
-                type="email"
-                class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-              />
-              <div class="form-group">
-                <label className="lbInicioSesion" for="exampleInputPassword1">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  class="form-control"
-                  id="exampleInputPassword1"
-                />
-              </div>
-              <button type="submit" class="btn btn-light">
-                Iniciar sesión
-              </button>
+class IniciarSesion extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showLogin: true,
+      showRegister: false,
+    };
+  }
+  operation() {
+    this.setState({
+      showLogin: this.state.showRegister,
+      showRegister: this.state.showLogin,
+    });
+  }
+  render() {
+    return (
+      <div class="d-md-flex h-md-100 align-items-center">
+        <div class="col-md-6 p-0 bg-indigo h-md-100">
+          <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
+            <div class="logoarea pt-5 pb-5">
+              {this.state.showRegister ? <h1>REGISTRO</h1> : null}
+              {this.state.showLogin ? <h1>INICIAR SESIÓN</h1> : null}
             </div>
-          </form>
+          </div>
+        </div>
+
+        <div class="col-md-6 p-0 bg-white h-md-100 loginarea">
+          <div class="d-md-flex align-items-center h-md-100 p-5 justify-content-center">
+            <div>
+              {this.state.showLogin ? (
+                <form class="form-inline">
+                  <input
+                    type="text"
+                    class="nombre"
+                    name="nombre"
+                    placeholder="Correo Electrónico"
+                  />
+                  <input
+                    type="text"
+                    class="nombre"
+                    name="nombre"
+                    placeholder="Contraseña"
+                  />
+                  <div className="btnLoginRegistro">
+                  <Button>Iniciar Sesión</Button>
+                  </div>
+                  <div className="bottom">
+                    <p class="mensaje">
+                      ¿Aún no te registras?{" "}
+                      <Subbutton onClick={() => this.operation()} type="submit">
+                        Registrarme
+                      </Subbutton>
+                    </p>
+                  </div>
+                </form>
+              ) : null}
+              {this.state.showRegister ? (
+                <form class="form-inline">
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <input
+                        type="text"
+                        class="nombre"
+                        name="nombre"
+                        placeholder="Nombre"
+                      />
+                    </div>
+                    <div class="form-group col-md-6">
+                      <input
+                        type="text"
+                        class="nombre"
+                        name="nombre"
+                        placeholder="Apellido"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col-md-6">
+                      <input
+                        type="text"
+                        class="nombre"
+                        name="nombre"
+                        placeholder="Edad"
+                      />
+                    </div>
+                    <div class="form-group col-md-6">
+                      <select class="form-control" id="inputGenero">
+                        <option>Género</option>
+                      </select>{" "}
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    class="nombre"
+                    name="nombre"
+                    placeholder="Universidad / Compañia"
+                  />
+                  <select class="form-control inputPerfil">
+                    <option>Selecciona tu perfil</option>
+                  </select>
+                  <div class="custom-file inputFile">
+                    <input
+                      type="file"
+                      class="custom-file-input"
+                      id="validatedCustomFile"
+                      required
+                    />
+                    <label class="custom-file-label" for="validatedCustomFile">
+                      Choose file...
+                    </label>
+                  </div>
+                  <input
+                    type="text"
+                    class="nombre"
+                    name="nombre"
+                    placeholder="Correo Electrónico"
+                  />
+                  <input
+                    type="text"
+                    class="nombre"
+                    name="nombre"
+                    placeholder="Contraseña"
+                  />
+<div className="btnLoginRegistro">
+                  <Button>Registrarse</Button>
+                  </div>
+                  <div className="bottom">
+                    <p class="mensaje">
+                      ¿Ya te registraste?{" "}
+                      <Subbutton onClick={() => this.operation()} type="submit">
+                        {" "}
+                        Iniciar Sesión
+                      </Subbutton>
+                    </p>
+                  </div>
+                </form>
+              ) : null}
+            </div>
+          </div>
         </div>
       </div>
-      <div class="split right">
-        <div class="centered">
-          <form className="formRegistro">
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label className="lbRegistro">Nombre</label>
-                <input type="email" className="form-control"  id="inputEmail4" />
-              </div>
-              <div class="form-group col-md-6">
-                <label className="lbRegistro">Apellido</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  id="inputPassword4"
-                />
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label className="lbRegistro">Edad</label>
-                <input type="email" class="form-control" id="inputEmail4" />
-              </div>
-              <div class="form-group col-md-6">
-                <label className="lbRegistro">Género</label>
-                <select id="inputState" class="form-control">
-                  <option selected>Femenino</option>
-                  <option>Masculino</option>
-                  <option>Otro</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label className="lbRegistro">Universidad / Compañia</label>
-              <input
-                type="text"
-                class="form-control"
-                id="formGroupExampleInput"
-              />
-            </div>
-            <div class="form-group">
-              <label className="lbRegistro">Selecciona tu perfil</label>
-              <select id="inputState" class="form-control">
-                <option selected>Selecciona una opción</option>
-                <option>Estudiante</option>
-                <option>Maestro</option>
-              </select>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label className="lbRegistro">Correo Electrónico</label>
-                <input type="email" className="form-control"  id="inputEmail4" />
-              </div>
-              <div class="form-group col-md-6">
-                <label className="lbRegistro">Contraseña</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  id="inputPassword4"
-                />
-               </div>
-             <button type="submit" class="btn btn-light" id="btnRegistro">
-                Registrarme
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </body>
-  );
+    );
+  }
 }
-
 export default IniciarSesion;
