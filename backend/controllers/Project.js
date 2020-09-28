@@ -11,15 +11,15 @@ const getAllProjects = async function (req, res) {
 
 const newProject = async function (req, res) {
   const project = new projectModel();
-  project.nombre = "proyecto de prueba";
-  project.descripcion = "descripcion de prueba";
-  project.vision = "vision de prueba";
-  project.tipo = "tipo de prueba";
-  project.numeroTotalAlumnos = 12;
-  project.metodologia = "metodologia de prueba";
-  project.entregables = "entregables de prueba";
-  project.estatus = "estatus de prueba";
-  project.imagen = "imagen de prueba";
+  project.nombre = req.body.nombre;
+  project.descripcion = req.body.descripcion;
+  project.vision = req.body.vision;
+  project.tipo = req.body.tipo;
+  project.numeroTotalAlumnos = req.body.numeroTotalAlumnos;
+  project.metodologia = req.body.metodologia;
+  project.entregables = req.body.entregables;
+  project.estatus = req.body.estatus;
+  project.imagen = req.body.imagen;
   try {
     await project.save();
     res.send(project);
