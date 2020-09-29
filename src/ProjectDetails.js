@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import Button from "react-bootstrap/Button"
-import Card from "react-bootstrap/Card"
+import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import ProjectBanner from "./components/ProjectBanner";
@@ -41,22 +40,22 @@ Vivamus eget sem blandit, varius diam a, consectetur enim. Duis scelerisque quis
         title={"Nombre del Proyecto"}
         imgUrl={"https://picsum.photos/2000/400"}
       />
-      <Container fluid className="pb-5" style={{width: "90%"}}>
-        <Row>
-          <Col xs={10} className="card-shadow rounded">
-            <h1 className="pb-5 pt-5 underline">Detalles</h1>
+      <Container fluid className="pb-3" style={{ width: "90%" }}>
+        <Row className="justify-content-center">
+          <Col xs={10} className="card-shadow rounded mb-3 p-5">
+            <h1 className="pb-4 underline">Detalles</h1>
             {description
               ? description.map((paragraph, i) => (
                   <p key={`paragraph_${i}`}>{paragraph}</p>
                 ))
               : ""}
           </Col>
-          <Col>
-            <Card className="card-shadow border-0">
-                <Card.Body>
-                    <Button block variant="dark">Inscribirse</Button>
-                </Card.Body>
-            </Card>
+          <Col className="px-4">
+            <div className="card-shadow p-3 rounded">
+              <Button block variant="dark">
+                Inscribirse
+              </Button>
+            </div>
           </Col>
         </Row>
       </Container>
