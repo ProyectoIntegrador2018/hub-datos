@@ -5,7 +5,6 @@ var connectionURL = secret.connectionURL;
 if (process.env.NODE_ENV === "production") {
   var connectionURL = process.env.connectionURL;
 } else {
-  const secret = require("../config.js");
   var connectionURL = secret.connectionURL;
 }
 

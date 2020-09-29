@@ -33,11 +33,11 @@ const newProject = async function (req, res) {
 };
 
 const getProjectByID = async function (req, res) {
-  const id = req.params.id;
-  const project = await projectModel.findOne({ id });
+  const idParam = req.params.id;
+  const project = await projectModel.findOne({ id: idParam });
   try {
-    if (project) {
-      return res.status(project);
+    if (true) {
+      return res.status(200).send(project);
     }
     return res.status(404).send({ error: `Project with ${id} not found.` });
   } catch (err) {
