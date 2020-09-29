@@ -37,12 +37,12 @@ const userRegister = async function (userDets, role, res) {
 };
 
 const validateUsername = async function (username) {
-  let user = userModel.findOne({ username });
+  let user = await userModel.findOne({ username });
   return user ? false : true;
 };
 
 const validateEmail = async function (email) {
-  let mail = userModel.findOne({ email });
+  let mail = await userModel.findOne({ email });
   return mail ? false : true;
 };
 
