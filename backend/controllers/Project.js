@@ -1,7 +1,7 @@
 const projectModel = require("../models/Project");
 
 const getAllProjects = async function (req, res) {
-  const project = await projectModel.find({});
+  const project = await projectModel.find({}).exec();
   try {
     res.send(project);
   } catch (err) {
@@ -28,19 +28,17 @@ const newProject = async function (req, res) {
   }
 };
 
-const getProjectByID = function (req, res) {
-  const _id = req.params.id;
-  projectModel
-    .findOne({ _id })
-    .then(function (project) {
-      if (!project) {
-        return res.status(404).send({ error: `Project with ${_id} not found.` });
-      }
+const getProjectByID = async function (req, res) {
+  const project = await projectModel.findOne({ id: req.params.projectid }).exec();
+  console.log(req.params.projectid);
+  try {
+    if (project) {
       return res.status(project);
-    })
-    .catch(function (err) {
-      return res.status(500).send({ error: error });
-    });
+    }
+    return res.status(404).send({ error: `Project with ${id} not found.` });
+  } catch (err) {
+    res.status(500).send(err);
+  }
 };
 
 module.exports = {

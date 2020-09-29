@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const uuid = require("uuid");
 
-const projectSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   id: {
     type: String,
     required: true,
@@ -12,11 +12,12 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  descripcion: {
+  username: {
     type: String,
     required: true,
+    unique: true,
   },
-  vision: {
+  password: {
     type: String,
     required: true,
   },
@@ -24,20 +25,10 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  numeroTotalAlumnos: {
-    type: Number,
-    required: true,
-  },
-  metodologia: {
+  role: {
     type: String,
-    required: true,
-  },
-  entregables: {
-    type: String,
-    required: true,
-  },
-  estatus: {
-    type: String,
+    default: "alumno",
+    enum: ["alumno, maestro, administrador"],
     required: true,
   },
   imagen: {
@@ -46,6 +37,6 @@ const projectSchema = new mongoose.Schema({
   },
 });
 
-const projectModel = mongoose.model("Project", projectSchema);
+const userModel = mongoose.model("User", userSchema);
 
-module.exports = projectModel;
+module.exports = userModel;

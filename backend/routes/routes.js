@@ -8,6 +8,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/api/all", project.getAllProjects);
+router.get("/api/:projectid", project.getProjectByID);
 router.post("/create", project.newProject);
 
 //La ruta no existe
