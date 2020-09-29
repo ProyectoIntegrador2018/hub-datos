@@ -36,10 +36,11 @@ const getProjectByID = async function (req, res) {
   const idParam = req.params.id;
   const project = await projectModel.findOne({ id: idParam });
   try {
-    if (true) {
+    if (project) {
       return res.status(200).send(project);
+    } else {
+      return res.status(404).send({ error: `No se encontro el proyecto con id ${idParam}` });
     }
-    return res.status(404).send({ error: `Project with ${id} not found.` });
   } catch (err) {
     res.status(500).send(err);
   }
