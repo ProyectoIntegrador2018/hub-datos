@@ -1,9 +1,17 @@
 const projectModel = require("../models/Project");
 
 const getAllProjects = async function (req, res) {
+<<<<<<< HEAD
   const project = await projectModel.find({}).exec();
+=======
+  const projects = await projectModel.find({});
+  const paginas = 1;
+  if(projects.length > 12) {
+    paginas = Math.ceil(projects.length / 12);
+  }
+>>>>>>> backend
   try {
-    res.send(project);
+    res.send({projects, paginas});
   } catch (err) {
     res.status(500).send(err);
   }
@@ -29,6 +37,7 @@ const newProject = async function (req, res) {
 };
 
 const getProjectByID = async function (req, res) {
+<<<<<<< HEAD
   const project = await projectModel.findOne({ id: req.params.projectid }).exec();
   console.log(req.params.projectid);
   try {
@@ -38,6 +47,14 @@ const getProjectByID = async function (req, res) {
     return res.status(404).send({ error: `Project with ${id} not found.` });
   } catch (err) {
     res.status(500).send(err);
+=======
+  const id = req.params.id;
+  const project = await projectModel.findOne({id});
+  if(!project) {
+    return res.status(404).send({error: `Project with ${id} not found.`});
+  } else {
+    return res.status(200).send(project);
+>>>>>>> backend
   }
 };
 
