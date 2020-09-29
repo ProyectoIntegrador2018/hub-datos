@@ -3,6 +3,7 @@ import "./App.css";
 import Navigation from "./components/Navigation";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ProjectDetails from "./ProjectDetails";
 import Proyectos from "./Proyectos";
 import Eventos from "./Eventos";
 import Inicio from "./Inicio";
@@ -20,6 +21,7 @@ function App() {
       <Header/>
       <Navigation />
       <Switch>
+        <Route path="/Proyectos/Detalles" component ={ProjectDetails} />
         <Route path="/Proyectos" component={Proyectos} />
         <Route path="/Eventos" component={Eventos} />
         <Route path="/NuestraGente" component={NuestraGente} />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import CardRow from "./components/CardRow";
 import "./App.css";
@@ -31,12 +31,12 @@ function Proyectos() {
         {
           title: "10K Challenge",
           description: "10K Description",
-          route: "#10KChallenge",
+          route: "/Proyectos/Detalles",
         },
         {
           title: "Universities for Founders MTY",
           description: "Universities for Founders Description",
-          route: "#UniversitiesForFounders",
+          route: "/Proyectos/Detalles",
         }
       ];
 
