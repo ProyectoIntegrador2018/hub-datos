@@ -16,7 +16,7 @@ router.get("/projects/:id", project.getProjectByID);
 
 //La ruta no existe
 router.get("*", function (req, res) {
-  res.send("La ruta no existe", 404);
+  res.status(404).send("La ruta no existe");
 });
 
 module.exports = router;
