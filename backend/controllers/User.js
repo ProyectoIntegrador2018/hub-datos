@@ -22,10 +22,22 @@ const userRegister = async function (userDets, role, res) {
     }
 
     const hashedPassword = await bcrypt.hash(userDets.password, 12);
-    const user = new userModel({
-      ...userDets,
-      password: hashedPassword,
-    });
+    const user = new userModel();
+    user.username = userDets.username;
+    user.email = userDets.email;
+    user.nombre = userDets.nombre;
+    user.apellido = userDets.apellido;
+    user.edad = userDets.edad;
+    user.genero = userDets.genero;
+    user.role = role;
+    if (role == "alumno") {
+      user.universidad = userDets.universidad;
+    }
+    if (role == "socio_comercial") {
+      user.compañia = userDets.compañia;
+    }
+    user.password = hashedPassword;
+    user.imagen = userDets.imagen;
     await user.save();
     res.status(201).send({
       message: "El usuario ha sido exitosamente registrado",
