@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   edad: {
-    type: Int32Array,
+    type: Number,
     required: true,
   },
   genero: {
