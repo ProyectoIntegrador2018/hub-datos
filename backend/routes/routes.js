@@ -7,11 +7,18 @@ router.get("/", (req, res) => {
   res.send("hola mundo");
 });
 
-/*
-PROJECTS ROUTES
-*/
+
+/*  "/projects"
+ *    GET: finds all projects
+ *    POST: creates a new project
+ */
 router.get("/projects", project.getAllProjects);
 router.post("/projects", project.newProject);
+
+/*  "/projects/:id"
+ *    GET: find project by id
+ */
+
 router.get("/projects/:id", project.getProjectByID);
 
 //La ruta no existe
