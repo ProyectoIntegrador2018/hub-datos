@@ -8,37 +8,59 @@ const userSchema = new mongoose.Schema({
     default: uuid.v4,
     unique: true,
   },
-  nombre: {
-    type: String,
-    required: true,
-  },
   username: {
     type: String,
     required: true,
     unique: true,
   },
-  password: {
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  nombre: {
     type: String,
     required: true,
   },
-  tipo: {
+  apellido: {
+    type: String,
+    required: true,
+  },
+  edad: {
+    type: Number,
+    required: true,
+  },
+  genero: {
     type: String,
     required: true,
   },
   role: {
     type: String,
     default: "alumno",
-    enum: ["alumno, maestro, administrador"],
+    enum: ["alumno", "maestro", "administrador, socio_comercial"],
+    required: true,
+  },
+  universidad: {
+    type: String,
+    required: function () {
+      return this.role == "alumno";
+    },
+    enum: ["ITESM", "UANL", "UDEM"],
+  },
+  compañia: {
+    type: String,
+    required: function () {
+      return this.role == "socio_comercial";
+    },
+    enum: ["microsoft", "google", "chevron"],
+  },
+  password: {
+    type: String,
     required: true,
   },
   imagen: {
     type: String,
     required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
   },
 });
 
