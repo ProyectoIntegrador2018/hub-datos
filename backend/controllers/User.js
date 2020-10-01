@@ -6,7 +6,7 @@ const userRegister = async function (userDets, role, res) {
     let usernameTaken = await validateUsername(userDets.username);
     if (!usernameTaken) {
       return res.status(400).send({
-        message: `EL usuario ${userDets.username} ha sido tomado`,
+        message: `El usuario ${userDets.username} ha sido tomado`,
         succes: false,
       });
     }
