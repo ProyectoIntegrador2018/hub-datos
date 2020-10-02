@@ -45,7 +45,7 @@ const userSchema = new mongoose.Schema({
     required: function () {
       return this.role == "alumno";
     },
-    enum: ["ITESM", "UANL", "UDEM"],
+    enum: ["ITESM", "UANL", "UDEM", null],
   },
   compañia: {
     type: String,
@@ -53,7 +53,7 @@ const userSchema = new mongoose.Schema({
     required: function () {
       return this.role == "socio_comercial";
     },
-    enum: ["microsoft", "google", "chevron"],
+    enum: ["microsoft", "google", "chevron", null],
   },
   password: {
     type: String,

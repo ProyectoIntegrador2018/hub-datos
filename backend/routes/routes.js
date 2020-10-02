@@ -25,8 +25,8 @@ router.get("/projects/:id", async (req, res) => {
 /*
 REGISTER ROUTES
 */
-router.get("/registrar/alumno", (req, res) => {
-  res.send("Registrar alumno");
+router.get("/registrar/alumno", async (req, res) => {
+  await user.getAllUsers(req, res);
 });
 router.get("/registrar/maestro", (req, res) => {
   res.send("registrar maestro");
