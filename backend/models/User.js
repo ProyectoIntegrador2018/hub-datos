@@ -41,6 +41,7 @@ const userSchema = new mongoose.Schema({
   },
   universidad: {
     type: String,
+    default: null,
     required: function () {
       return this.role == "alumno";
     },
@@ -48,6 +49,7 @@ const userSchema = new mongoose.Schema({
   },
   compañia: {
     type: String,
+    default: null,
     required: function () {
       return this.role == "socio_comercial";
     },

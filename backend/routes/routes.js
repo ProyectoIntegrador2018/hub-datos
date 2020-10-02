@@ -40,9 +40,15 @@ router.get("/registrar/socio_comercial", (req, res) => {
 router.post("/registrar/alumno", async (req, res) => {
   await user.userRegister(req.body, "alumno", res);
 });
-router.post("/registrar/maestro");
-router.post("/registrar/admin");
-router.post("/registrar/socio_comercial");
+router.post("/registrar/maestro", async (req, res) => {
+  await user.userRegister(req.body, "maestro", res);
+});
+router.post("/registrar/admin", async (req, res) => {
+  await user.userRegister(req.body, "admin", res);
+});
+router.post("/registrar/socio_comercial", async (req, res) => {
+  await user.userRegister(req.body, "socio_comercial", res);
+});
 
 //La ruta no existe
 router.get("*", function (req, res) {
