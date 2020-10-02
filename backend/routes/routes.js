@@ -11,9 +11,16 @@ router.get("/", (req, res) => {
 /*
 PROJECTS ROUTES
 */
-router.get("/projects", project.getAllProjects);
-router.post("/projects", project.newProject);
-router.get("/projects/:id", project.getProjectByID);
+router.get("/projects", async (req, res) => {
+  await project.getAllProjects(req, res);
+});
+router.post("/projects", async (req, res) => {
+  await project.newProject(req, res);
+});
+
+router.get("/projects/:id", async (req, res) => {
+  await project.getProjectByID(req, res);
+});
 
 /*
 REGISTER ROUTES
@@ -30,7 +37,9 @@ router.get("/registrar/admin", (req, res) => {
 router.get("/registrar/socio_comercial", (req, res) => {
   res.send("registrar socio comercial");
 });
-router.post("/registrar/alumno");
+router.post("/registrar/alumno", async (req, res) => {
+  await user.userRegister(req.body, "alumno", res);
+});
 router.post("/registrar/maestro");
 router.post("/registrar/admin");
 router.post("/registrar/socio_comercial");
