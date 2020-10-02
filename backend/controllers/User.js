@@ -30,11 +30,26 @@ const userRegister = async function (userDets, role, res) {
     user.edad = userDets.edad;
     user.genero = userDets.genero;
     user.role = role;
-    if (role == "alumno") {
+    if (role == "alumno" && userDets.universidad) {
       user.universidad = userDets.universidad;
+    } else {
+      res.status(400).send({
+        message: "El alumno debe de tener una universidad obligatoriamente",
+      });
     }
-    if (role == "socio_comercial") {
+    if (role == "socio_comercial" && userDets.compañia) {
       user.compañia = userDets.compañia;
+    } else {
+      res.status(400).send({
+        message: "El socio comercial debe de tener una compañia obligatoriamente",
+      });
+    }
+    if (role == "maestro" && userDets.universidad) {
+      user.universidad = userDets.universidad;
+    } else {
+      res.status(400).send({
+        message: "El maestro debe de tener una universidad obligatoriamente",
+      });
     }
     user.password = hashedPassword;
     user.imagen = userDets.imagen;
