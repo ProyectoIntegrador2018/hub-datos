@@ -77,7 +77,7 @@ const validateEmail = async function (email) {
 const getAllUsers = async function (req, res) {
   const user = await userModel.find({});
   try {
-    res.send(user);
+    res.status(200).send(user);
   } catch (err) {
     res.status(500).send(err);
   }
