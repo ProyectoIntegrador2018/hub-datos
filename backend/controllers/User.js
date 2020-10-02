@@ -30,23 +30,24 @@ const userRegister = async function (userDets, role, res) {
     user.edad = userDets.edad;
     user.genero = userDets.genero;
     user.role = role;
-    if (role == "alumno" && userDets.universidad) {
+    console.log(role);
+    if (role == "alumno" && userDets.universidad && userDets.universidad !== "") {
       user.universidad = userDets.universidad;
-    } else {
+    } else if (user.role === "alumno") {
       res.status(400).send({
         message: "El alumno debe de tener una universidad obligatoriamente",
       });
     }
-    if (role == "socio_comercial" && userDets.compañia) {
+    if (user.role === "socio_comercial" && userDets.compañia && userDets.compañia !== "") {
       user.compañia = userDets.compañia;
-    } else {
+    } else if (user.role === "socio_comercial") {
       res.status(400).send({
         message: "El socio comercial debe de tener una compañia obligatoriamente",
       });
     }
-    if (role == "maestro" && userDets.universidad) {
+    if (user.role === "maestro" && userDets.universidad && userDets.universidad !== "") {
       user.universidad = userDets.universidad;
-    } else {
+    } else if (user.role === "maestro") {
       res.status(400).send({
         message: "El maestro debe de tener una universidad obligatoriamente",
       });
@@ -73,6 +74,15 @@ const validateEmail = async function (email) {
   return mail ? false : true;
 };
 
+const getAllUsers = async function (req, res) {
+  const user = await userModel.find({});
+  try {
+    res.send(user);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
 module.exports = {
   userRegister: userRegister,
+  getAllUsers: getAllUsers,
 };
