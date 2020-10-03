@@ -1,8 +1,9 @@
-import React from "react";
+import React, {Component} from "react";
 import "./App.css";
 import Navigation from "./components/Navigation";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import LinkHeader from "./components/LinkHeader";
 import Proyectos from "./Proyectos";
 import Eventos from "./Eventos";
 import Inicio from "./Inicio";
@@ -12,15 +13,23 @@ import IniciarSesion from "./IniciarSesion";
 import Consultas from "./Consultas";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {BrowserRouter as Router,Switch,Route } from "react-router-dom";
-
-
-function App() {
+import {withRouter} from "react-router-dom";
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      backgroundUrl: "",
+    };
+  }
+ render() {
   return (
     <Router>
-      <Header/>
-      <Navigation />
+      <div>
+      {this.props.location.pathname === "/IniciarSesion" ? ("") : (<Header/>)}
+          {this.props.location.pathname === "/IniciarSesion" ? ("") : (<LinkHeader/>)}
+          {this.props.location.pathname === "/IniciarSesion" ? ("") : (<Navigation />)}
       <Switch>
-        <Route path="/Proyectos" component={Proyectos} />
+        <Route  path="/Proyectos" component={Proyectos} />
         <Route path="/Eventos" component={Eventos} />
         <Route path="/NuestraGente" component={NuestraGente} />
         <Route path="/SobreNosotros" component={SobreNosotros} />
@@ -28,8 +37,10 @@ function App() {
         <Route path="/IniciarSesion" component={IniciarSesion} />
         <Route path="/*" component={Inicio} />
       </Switch>
+      </div>
       <Footer/>
     </Router>
   );
 }
-export default App;
+}
+export default withRouter(App);

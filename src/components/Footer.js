@@ -1,13 +1,8 @@
 import React from "react";
-import "../App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./css/Footer.css";
 
 function Footer() {
-  return (
-    <footer className="page-footer font-small fixed-bottom text-white">
-      <div className="footer-copyright text-center py-3 float-left">
-        Contacto: correo@prueba.com
-      </div>
-    </footer>
-  );
+  return <footer id="footer">Información de contacto</footer>;
 }
 export default Footer;

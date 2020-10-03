@@ -6,28 +6,21 @@
   height: 40vmin;
   pointer-events: none;
 }
-.darkened-image { 
-  /*filter: brightness(100%); 
-  background-image: url('assets/headerBackground.jpg'); */
-  background-image: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 100%), url('assets/headerBackground.jpg');
-  height: 100px; 
-  width: 1400px; 
-} 
+
 .nav-link{
   color:white;
 }
-footer{
-  background-color:black;
+body{
+  height:100%;
 }
-.header-link{
-  color:rgb(255, 255, 255);
+#container{
+  min-height:61vh;
 }
-.bg-cover {
-  background-attachment: static;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+#main{
+  overflow:auto;
+padding-bottom: 20px;
 }
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
