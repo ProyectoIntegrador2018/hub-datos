@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./IniciarSesion.css";
-import { Button } from "./components/button";
+import { Button } from "./components/Button";
 import { Subbutton } from "./components/Subbutton";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -10,14 +10,19 @@ class IniciarSesion extends Component {
     this.state = {
       showLogin: true,
       showRegister: false,
+      value: "hide",
     };
   }
+  inputUniv = (e) => {
+    this.setState({ value: e.target.value });
+  };
   operation() {
     this.setState({
       showLogin: this.state.showRegister,
       showRegister: this.state.showLogin,
     });
   }
+
   render() {
     return (
       <div class="d-md-flex h-md-100 align-items-center">
@@ -37,18 +42,18 @@ class IniciarSesion extends Component {
                 <form class="form-inline">
                   <input
                     type="text"
-                    class="nombre"
-                    name="nombre"
+                    class="loginInput"
+                    name="correo electrónico"
                     placeholder="Correo Electrónico"
                   />
                   <input
                     type="text"
-                    class="nombre"
-                    name="nombre"
+                    class="loginInput"
+                    name="contraseña"
                     placeholder="Contraseña"
                   />
                   <div className="btnLoginRegistro">
-                  <Button>Iniciar Sesión</Button>
+                    <Button>Iniciar Sesión</Button>
                   </div>
                   <div className="bottom">
                     <p class="mensaje">
@@ -66,7 +71,7 @@ class IniciarSesion extends Component {
                     <div class="form-group col-md-6">
                       <input
                         type="text"
-                        class="nombre"
+                        class="inputRegistro"
                         name="nombre"
                         placeholder="Nombre"
                       />
@@ -74,8 +79,8 @@ class IniciarSesion extends Component {
                     <div class="form-group col-md-6">
                       <input
                         type="text"
-                        class="nombre"
-                        name="nombre"
+                        class="inputRegistro"
+                        name="apellido"
                         placeholder="Apellido"
                       />
                     </div>
@@ -84,51 +89,65 @@ class IniciarSesion extends Component {
                     <div class="form-group col-md-6">
                       <input
                         type="text"
-                        class="nombre"
-                        name="nombre"
+                        class="inputRegistro"
+                        name="edad"
                         placeholder="Edad"
                       />
                     </div>
                     <div class="form-group col-md-6">
-                      <select class="form-control" id="inputGenero">
+                      <select class="form-control inputRegistro" id="inputGenero">
                         <option>Género</option>
+                        <option>Femenino</option>
+                        <option>Masculino</option>
+                        <option>Otro</option>
                       </select>{" "}
                     </div>
                   </div>
+                  <select
+                    id="perfilSelect"
+                    onChange={this.inputUniv}
+                    class="form-control inputPerfil inputRegistro"
+                  >
+                    <option value="hide">Selecciona tu perfil</option>
+                    <option value="show">Alumno</option>
+                    <option value="show">Profesor</option>
+                    <option value="show">Investigador</option>
+                    <option value="hide">Socio Comercial</option>
+                    <option value="hide">Socio Tecnológico</option>
+                  </select>
                   <input
+                    className={this.state.value}
                     type="text"
-                    class="nombre"
+                    id="univInput"
                     name="nombre"
                     placeholder="Universidad / Compañia"
                   />
-                  <select class="form-control inputPerfil">
-                    <option>Selecciona tu perfil</option>
-                  </select>
+
                   <div class="custom-file inputFile">
                     <input
                       type="file"
-                      class="custom-file-input"
+                      class="custom-file-input inputRegistro"
                       id="validatedCustomFile"
                       required
                     />
                     <label class="custom-file-label" for="validatedCustomFile">
-                      Choose file...
+                      Buscar archivo...
                     </label>
                   </div>
                   <input
                     type="text"
-                    class="nombre"
-                    name="nombre"
+                    class="inputRegistro"
+                    name="correo electrónico"
                     placeholder="Correo Electrónico"
                   />
                   <input
                     type="text"
-                    class="nombre"
-                    name="nombre"
+                    class="inputRegistro"
+                    name="contraseña"
                     placeholder="Contraseña"
                   />
-<div className="btnLoginRegistro">
-                  <Button>Registrarse</Button>
+                  <div className="btnLoginRegistro">
+                    <Button>Registrarse</Button>
                   </div>
                   <div className="bottom">
                     <p class="mensaje">
@@ -148,4 +167,5 @@ class IniciarSesion extends Component {
     );
   }
 }
+
 export default IniciarSesion;

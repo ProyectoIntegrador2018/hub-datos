@@ -1,99 +1,61 @@
-import React from "react";
-import "./App.css";
+import React, { useState, useEffect } from "react";
+import JumbotronList from "./components/ListOfNews";
 
+function News() {
+  const [news, setNews] = useState(null);
 
-function Inicio() {
+  const splitNews = (newsList) => {
+    const newsChunks = [];
+    while (newsList.length) {
+      newsChunks.push(newsList.splice(0, 3));
+    }
+    return newsChunks;
+  };
+
+  useEffect(() => {//Function to fecth data from db
+    const fetchProjects = async () => {
+   
+
+      let newsList = [
+        {
+          title: "10K Challenge",
+          description: "10K Description",
+          route: "/Proyectos/Detalles",
+          imgUrl:'"https://blog.educacionit.com/wp-content/uploads/2019/04/blog-educacionit-12.jpg"'
+        },
+        {
+          title: "Universities for Founders MTY",
+          description: "Universities for Founders Description",
+          route: "/Proyectos/Detalles",
+          imgUrl:'"https://www.labelium.com/blog/wp-content/uploads/2020/06/data-science-retail.jpg"'
+        },
+        {
+          title: "Universities for Founders MTY",
+          description: "Universities for Founders Description",
+          route: "/Proyectos/Detalles",
+          imgUrl:'"https://www.american.edu/programs/shared/data-science/images/datascience-og.jpg"'
+        }
+      ];
+
+      const newsChunks = splitNews(newsList);
+
+      setNews(newsChunks);
+    };
+
+    fetchProjects();
+  }, []);
+
   return (
-    <body>
-    <div id="container">
-      <div id="main">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-          aliquam ac enim aliquam mollis. Ut non egestas quam, sed semper odio.
-          Nullam at faucibus urna. Quisque sagittis finibus viverra. Nulla
-       esuada. Aliquam tincidunt quis purus a pretium. Maecenas
-          rutrum congue est ac ornare. Duis blandit a metus id pretium. Nam
-         m ut commodo porta.
-          psum leo, et semper ipsum vulputate id. Nulla facilisi. tetur
-          adipiscing elit. Mauris aliquam ac enim aliquam mollis. Ut non egestas
-          quam, sed semper odio. Nullam at faucibus urna. Quisque sagittis
-          finibus viverra. Nulla varius dictum neque, eget ullamcorper libero
-          venenatis eget. Donec faucibus ultrices purus, vel tristique dui
-          sodales vitae. Sed congue nulla venenatis augue convallis, vulputate
-          suscipit mi ornare. Duis eros magna, interdum non hendrerit ut,
-          eleifend ac neque. Phasellus ullamcorper mollis leo. Vestibulum
-          tincidunt lorem ut commodo porta.
-          psum leo, et semper ipsum vulputate id. Nulla facilisi. tetur
-          adipiscing elit. Mauris aliquam ac enim aliquam mollis. Ut non egestas
-          quam, sed semper odio. Nullam at faucibus urna. Quisque sagittis
-          finibus viverra. Nulla varius dictum neque, eget ullamcorper libero
-          venenatis eget. Donec faucibus ultrices purus, vel tristique dui
-          sodales vitae. Sed congue nulla venenatis augue convallis, vulputate
-          suscipit mi ornare. Duis eros magna, interdum non hendrerit ut,
-          eleifend ac neque. Phasellus ullamcorper mollis leo. Vestibulum
-          tincidunt lorem ut commodo porta.
-          psum leo, et semper ipsum vulputate id. Nulla facilisi. tetur
-          adipiscing elit. Mauris aliquam ac enim aliquam mollis. Ut non egestas
-          quam, sed semper odio. Nullam at faucibus urna. Quisque sagittis
-          finibus viverra. Nulla varius dictum neque, eget ullamcorper libero
-          venenatis eget. Donec faucibus ultrices purus, vel tristique dui
-          sodales vitae. Sed congue nulla venenatis augue convallis, vulputate
-          suscipit mi ornare. Duis eros magna, interdum non hendrerit ut,
-          eleifend ac neque. Phasellus ullamcorper mollis leo. Vestibulum
-          tincidunt lorem ut commodo porta.
-          psum leo, et semper ipsum vulputate id. Nulla facilisi. tetur
-          adipiscing elit. Mauris aliquam ac enim aliquam mollis. Ut non egestas
-          quam, sed semper odio. Nullam at faucibus urna. Quisque sagittis
-          finibus viverra. Nulla varius dictum neque, eget ullamcorper libero
-          venenatis eget. Donec faucibus ultrices purus, vel tristique dui
-          sodales vitae. Sed congue nulla venenatis augue convallis, vulputate
-          suscipit mi ornare. Duis eros magna, interdum non hendrerit ut,
-          eleifend ac neque. Phasellus ullamcorper mollis leo. Vestibulum
-          tincidunt lorem ut commodo porta.
-          psum leo, et semper ipsum vulputate id. Nulla facilisi. tetur
-          adipiscing elit. Mauris aliquam ac enim aliquam mollis. Ut non egestas
-          quam, sed semper odio. Nullam at faucibus urna. Quisque sagittis
-          finibus viverra. Nulla varius dictum neque, eget ullamcorper libero
-          venenatis eget. Donec faucibus ultrices purus, vel tristique dui
-          sodales vitae. Sed congue nulla venenatis augue convallis, vulputate
-          suscipit mi ornare. Duis eros magna, interdum non hendrerit ut,
-          eleifend ac neque. Phasellus ullamcorper mollis leo. Vestibulum
-          tincidunt lorem ut commodo porta.
-          psum leo, et semper ipsum vulputate id. Nulla facilisi. tetur
-          adipiscing elit. Mauris aliquam ac enim aliquam mollis. Ut non egestas
-          quam, sed semper odio. Nullam at faucibus urna. Quisque sagittis
-          finibus 
-          psum leo, et semper ipsum vulputate id. Nulla facilisi. tetur
-          adipiscing elit. Mauris aliquam ac enim aliquam mollis. Ut non egestas
-          quam, sed semper odio. Nullam at faucibus urna. Quisque sagittis
-          finibus viverra. Nulla varius dictum neque, eget ullamcorper libero
-          venenatis eget. Donec faucibus ultrices purus, vel tristique dui
-          sodales vitae. Sed congue nulla venenatis augue convallis, vulputate
-          suscipit mi ornare. Duis eros magna, interdum non hendrerit ut,
-          eleifend ac neque. Phasellus ullamcorper mollis leo. Vestibulum
-          tincidunt lorem ut commodo porta.
-          psum leo, et semper ipsum vulputate id. Nulla facilisi. tetur
-          adipiscing elit. Mauris aliquam ac enim aliquam mollis. Ut non egestas
-          quam, sed semper odio. Nullam at faucibus urna. Quisque sagittis
-          finibus 
-          psum leo, et semper ipsum vulputate id. Nulla facilisi. tetur
-          adipiscing elit. Mauris aliquam ac enim aliquam mollis. Ut non egestas
-          quam, sed semper odio. Nullam at faucibus urna. Quisque sagittis
-          finibus viverra. Nulla varius dictum neque, eget ullamcorper libero
-          venenatis eget. Donec faucibus ultrices purus, vel tristique dui
-          sodales vitae. Sed congue nulla venenatis augue convallis, vulputate
-          suscipit mi ornare. Duis eros magna, interdum non hendrerit ut,
-          eleifend ac neque. Phasellus ullamcorper mollis leo. Vestibulum
-          tincidunt lorem ut commodo porta.
-          psum leo, et semper ipsum vulputate id. Nulla facilisi. tetur
-          adipiscing elit. Mauris aliquam ac enim aliquam mollis. Ut non egestas
-          quam, sed semper odio. Nullam at faucibus urna. Quisque sagittis
-          finibus 
-        </p>
-      </div>
+    <div className="pb-3">
+            {news
+              ? news.map((newsDeck, i) => (
+                  <JumbotronList
+                    news={newsDeck}
+                  />
+                ))
+              : ""}
     </div>
-    </body>
   );
 }
 
-export default Inicio;
+export default News;

@@ -3,6 +3,7 @@ import "./App.css";
 import Navigation from "./components/Navigation";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import LinkHeader from "./components/LinkHeader";
 import Proyectos from "./Proyectos";
 import Eventos from "./Eventos";
 import Inicio from "./Inicio";
@@ -23,12 +24,12 @@ class App extends Component {
  render() {
   return (
     <Router>
-      <Header/>
       <div>
+      {this.props.location.pathname === "/IniciarSesion" ? ("") : (<Header/>)}
+          {this.props.location.pathname === "/IniciarSesion" ? ("") : (<LinkHeader/>)}
           {this.props.location.pathname === "/IniciarSesion" ? ("") : (<Navigation />)}
-     
       <Switch>
-        <Route path="/Proyectos" component={Proyectos} />
+        <Route  path="/Proyectos" component={Proyectos} />
         <Route path="/Eventos" component={Eventos} />
         <Route path="/NuestraGente" component={NuestraGente} />
         <Route path="/SobreNosotros" component={SobreNosotros} />

@@ -1,6 +1,6 @@
 import React from "react";
 import "../App.css";
-import "./css/button.css";
+import "./css/BlackButton.css";
 
 export const Button = ({ children, type, onClick }) => {
   return (
@@ -9,3 +9,5 @@ export const Button = ({ children, type, onClick }) => {
     </button>
   );
 };
+
+export default Button;
