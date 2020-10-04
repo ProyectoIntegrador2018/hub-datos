@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import ProjectBanner from "./components/ProjectBanner";
+import RoundedButton from "./components/RoundedButton";
 import Row from "react-bootstrap/Row";
 
 function ProjectDetails() {
@@ -52,9 +52,9 @@ Vivamus eget sem blandit, varius diam a, consectetur enim. Duis scelerisque quis
           </Col>
           <Col className="px-4">
             <div className="card-shadow p-3 rounded">
-              <Button block variant="dark">
+              <RoundedButton>
                 Inscribirse
-              </Button>
+              </RoundedButton>
             </div>
           </Col>
         </Row>
