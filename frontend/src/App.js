@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import "./App.css";
 import Navigation from "./components/Navigation";
 import Header from "./components/Header";
@@ -13,8 +13,9 @@ import SobreNosotros from "./SobreNostros";
 import IniciarSesion from "./IniciarSesion";
 import Consultas from "./Consultas";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { withRouter } from "react-router-dom";
+import {BrowserRouter as Router,Switch,Route } from "react-router-dom";
+import {withRouter} from "react-router-dom";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -22,6 +23,7 @@ class App extends Component {
       backgroundUrl: "",
     };
   }
+  
   render() {
     return (
       <Router>
