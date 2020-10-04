@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./IniciarSesion.css";
-import { Button } from "./components/Button";
+import RoundedButton from "./components/RoundedButton"
 import { Subbutton } from "./components/Subbutton";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -53,7 +53,7 @@ class IniciarSesion extends Component {
                     placeholder="Contraseña"
                   />
                   <div className="btnLoginRegistro">
-                    <Button>Iniciar Sesión</Button>
+                    <RoundedButton>Iniciar Sesión</RoundedButton>
                   </div>
                   <div className="bottom">
                     <p class="mensaje">
@@ -147,7 +147,7 @@ class IniciarSesion extends Component {
                     placeholder="Contraseña"
                   />
                   <div className="btnLoginRegistro">
-                    <Button>Registrarse</Button>
+                    <RoundedButton>Registrarse</RoundedButton>
                   </div>
                   <div className="bottom">
                     <p class="mensaje">

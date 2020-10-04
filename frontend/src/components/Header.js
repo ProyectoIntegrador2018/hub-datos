@@ -1,8 +1,5 @@
 import "./css/Header.css";
-import Button from "react-bootstrap/Button";
 import Jumbotron from "react-bootstrap/Jumbotron";
-import Nav from "react-bootstrap/Nav";
-import NavBar from "react-bootstrap/Navbar";
 import React from "react";
 
 
