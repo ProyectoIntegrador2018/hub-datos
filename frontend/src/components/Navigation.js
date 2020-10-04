@@ -4,14 +4,12 @@ import NavBar from "react-bootstrap/Navbar";
 import "./css/Navigation.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-
-
 function Navigation() {
   return (
     <NavBar expand="lg" className="navBar">
       <NavBar.Toggle aria-controls="basic-navbar-nav" />
       <NavBar.Collapse id="navbarSupportedContent">
-        <Nav className="ml-auto ">
+        <Nav className="ml-auto">
           <Nav.Link className="NavItem" href="/">INICIO</Nav.Link>
           <Nav.Link className="NavItem" href="/Proyectos"> PROYECTOS </Nav.Link>
           <Nav.Link className="NavItem" href="/Eventos"> EVENTOS </Nav.Link>
