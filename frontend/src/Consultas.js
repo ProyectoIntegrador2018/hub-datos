@@ -1,11 +1,12 @@
-import React from "react";
-import "./App.css";
+import React from 'react';
+import './App.css';
 
 function Consultas() {
   return (
-    <div>
-      <h1>Hola</h1>
-    </div>
+    
+        
+        <h1>Consultas</h1>
+
   );
 }
 
