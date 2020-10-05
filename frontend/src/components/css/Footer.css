@@ -8,4 +8,7 @@ footer{
   color:white;
   height:50px;
   margin: auto;
+  position: fixed;
+  width:100%;
+  bottom: 0;
 }

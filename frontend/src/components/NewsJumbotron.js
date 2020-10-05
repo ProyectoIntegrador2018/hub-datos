@@ -1,5 +1,4 @@
 import Button from "./WhiteButton";
-//import Button2 from "./WhiteButton";
 import "./css/NewsJumbotron.css";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import React from "react";
@@ -10,7 +9,6 @@ const JumbotronComponent = ({ title, description, route, imgUrl }) => {
     backgroundImage: "url(" + imgUrl + ")",
     borderRadius:0,
   };
-
   return (
     <Jumbotron className="jmbHome" style={divStyle}>
       <h1>{title}</h1>
@@ -21,5 +19,4 @@ const JumbotronComponent = ({ title, description, route, imgUrl }) => {
     </Jumbotron>
   );
 };
-
 export default JumbotronComponent;

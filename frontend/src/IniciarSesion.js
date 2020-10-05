@@ -23,6 +23,7 @@ class IniciarSesion extends Component {
     });
   }
 
+
   render() {
     return (
       <div class="d-md-flex h-md-100 align-items-center">
@@ -85,17 +86,22 @@ class IniciarSesion extends Component {
                       />
                     </div>
                   </div>
-                  <div class="form-row">
+                   <div class="form-row">
                     <div class="form-group col-md-6">
                       <input
-                        type="text"
-                        class="inputRegistro"
-                        name="edad"
-                        placeholder="Edad"
+                        class="form-control"
+                        type="date"
+                        value="Date"
+                        ref = "cpDev1"
+                        id="inputDate"
+                        placeholder="Nacimiento"
                       />
                     </div>
                     <div class="form-group col-md-6">
-                      <select class="form-control inputRegistro" id="inputGenero">
+                      <select
+                        class="form-control inputRegistro"
+                        id="inputGenero"
+                      >
                         <option>Género</option>
                         <option>Femenino</option>
                         <option>Masculino</option>
