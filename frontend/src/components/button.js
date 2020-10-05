@@ -1,10 +1,10 @@
 import React from "react";
 import "../App.css";
-import "./css/BlackButton.css";
+import "./css/Button.css";
 
 export const Button = ({ children, type, onClick }) => {
   return (
-    <button class="template" onClick={onClick} type={type}>
+    <button className="blackBtn" onClick={onClick} type={type}>
       {children}
     </button>
   );

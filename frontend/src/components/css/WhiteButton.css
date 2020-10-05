@@ -1,4 +1,4 @@
-button {
+.whiteBtn {
   background-color: white !important;
   cursor: pointer;
   border-radius: 40px;
@@ -14,7 +14,7 @@ button {
   outline: white;
 }
 
-button:hover {
+.whiteBtn:hover {
   background-color:white;
   transform: scale(1.2);
 }

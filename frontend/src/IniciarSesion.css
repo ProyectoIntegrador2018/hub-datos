@@ -1,8 +1,8 @@
-
 .form-inline {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
+
 }
 .form-inline input {
   width: 100%;
@@ -43,11 +43,22 @@
   justify-content: center;
 }
 
-.show{
-display:block;
+.show {
+  display: block;
 }
-.hide{
-  display:none;
+.hide {
+  display: none;
+}
+#inputDate {
+  width:100%;
+}
+input[type="date"]:before {
+  content: attr(placeholder) !important;
+ 
+}
+input[type="date"]:focus:before,
+input[type="date"]:valid:before {
+  content: "";
 }
 
 @media (min-width: 768px) {
@@ -68,8 +79,9 @@ display:block;
   display: flex;
   justify-content: center;
 }
-.btnLoginRegistro{
- width:100%;
- display:flex;
- justify-content: center;
+.btnLoginRegistro {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
+
