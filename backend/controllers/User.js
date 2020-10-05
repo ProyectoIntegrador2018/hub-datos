@@ -6,7 +6,7 @@ const userRegister = async function (userDets, role, res) {
     let usernameTaken = await validateUsername(userDets.username);
     if (!usernameTaken) {
       return res.status(400).send({
-        message: `EL usuario ${userDets.username} ha sido tomado`,
+        message: `El usuario ${userDets.username} ha sido tomado`,
         succes: false,
       });
     }
@@ -22,10 +22,38 @@ const userRegister = async function (userDets, role, res) {
     }
 
     const hashedPassword = await bcrypt.hash(userDets.password, 12);
-    const user = new userModel({
-      ...userDets,
-      password: hashedPassword,
-    });
+    const user = new userModel();
+    user.username = userDets.username;
+    user.email = userDets.email;
+    user.nombre = userDets.nombre;
+    user.apellido = userDets.apellido;
+    user.edad = userDets.edad;
+    user.genero = userDets.genero;
+    user.role = role;
+    console.log(role);
+    if (role == "alumno" && userDets.universidad && userDets.universidad !== "") {
+      user.universidad = userDets.universidad;
+    } else if (user.role === "alumno") {
+      res.status(400).send({
+        message: "El alumno debe de tener una universidad obligatoriamente",
+      });
+    }
+    if (user.role === "socio_comercial" && userDets.compañia && userDets.compañia !== "") {
+      user.compañia = userDets.compañia;
+    } else if (user.role === "socio_comercial") {
+      res.status(400).send({
+        message: "El socio comercial debe de tener una compañia obligatoriamente",
+      });
+    }
+    if (user.role === "maestro" && userDets.universidad && userDets.universidad !== "") {
+      user.universidad = userDets.universidad;
+    } else if (user.role === "maestro") {
+      res.status(400).send({
+        message: "El maestro debe de tener una universidad obligatoriamente",
+      });
+    }
+    user.password = hashedPassword;
+    user.imagen = userDets.imagen;
     await user.save();
     res.status(201).send({
       message: "El usuario ha sido exitosamente registrado",
@@ -46,6 +74,15 @@ const validateEmail = async function (email) {
   return mail ? false : true;
 };
 
+const getAllUsers = async function (req, res) {
+  const user = await userModel.find({});
+  try {
+    res.status(200).send(user);
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
 module.exports = {
   userRegister: userRegister,
+  getAllUsers: getAllUsers,
 };

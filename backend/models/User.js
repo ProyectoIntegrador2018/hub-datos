@@ -36,23 +36,24 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    default: "alumno",
     enum: ["alumno", "maestro", "administrador, socio_comercial"],
     required: true,
   },
   universidad: {
     type: String,
+    default: null,
     required: function () {
       return this.role == "alumno";
     },
-    enum: ["ITESM", "UANL", "UDEM"],
+    enum: ["ITESM", "UANL", "UDEM", null],
   },
   compañia: {
     type: String,
+    default: null,
     required: function () {
       return this.role == "socio_comercial";
     },
-    enum: ["microsoft", "google", "chevron"],
+    enum: ["microsoft", "google", "chevron", null],
   },
   password: {
     type: String,
