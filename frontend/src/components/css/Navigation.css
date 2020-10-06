@@ -1,0 +1,22 @@
+.NavItem{
+    font-weight: bold;
+    font-size: 18px;
+    color: white !important;
+    margin:5px;
+}
+.NavItem:hover{
+    font-weight: bold;
+    color: rgb(37, 219, 143) !important;
+}
+.navBar{
+    background-color:#111;
+}
+.fixed{
+    position: fixed !important;
+    width:100%;
+   top:0;
+   z-index: 20;
+}
+.active{
+    color: rgb(37, 219, 143) !important;
+}

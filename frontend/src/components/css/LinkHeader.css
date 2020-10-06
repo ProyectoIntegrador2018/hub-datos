@@ -1,0 +1,16 @@
+#btnIniciarSesion{
+    color: black;
+    margin-top:-50px;
+    margin-right:10px;
+    height:40px;
+    transition: 0.4s;
+    text-decoration: none;
+}
+#btnIniciarSesion:hover {
+    color: #111;
+    font-size: 1.01rem;
+    font-weight: bold;
+  }
+  #navBarBtnIniciarSesion{
+      padding:0px;
+  }
