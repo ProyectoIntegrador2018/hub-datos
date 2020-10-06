@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Container from "react-bootstrap/Container";
-import CardRow from "./components/CardRow";
-import "./App.css";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
+import CardView from "./components/CardView";
 
 function Proyectos() {
   const [projects, setProjects] = useState(null);
 
   const splitProjects = (projectList) => {
-      // split projects into chunks of 5 to map in the card rows
+    // split projects into chunks of 5 to map in the card rows
     const projectChunks = [];
     while (projectList.length) {
       projectChunks.push(projectList.splice(0, 3));
@@ -37,7 +33,7 @@ function Proyectos() {
           title: "Universities for Founders MTY",
           description: "Universities for Founders Description",
           route: "/Proyectos/Detalles",
-        }
+        },
       ];
 
       const projectChunks = splitProjects(projectList);
@@ -48,26 +44,7 @@ function Proyectos() {
     fetchProjects();
   }, []);
 
-  return (
-    <div className="pb-3">
-      <Container fluid className="px-5 pb-5">
-        <h1>Proyectos</h1>
-        <Row>
-          <Col>
-            {projects
-              ? projects.map((projectDeck, i) => (
-                  <CardRow
-                    projects={projectDeck}
-                    rowNumber={i + 1}
-                    key={`project_row_${i + 1}`}
-                  />
-                ))
-              : ""}
-          </Col>
-        </Row>
-      </Container>
-    </div>
-  );
+  return <CardView header="Eventos" collection={projects} type="proyecto" />;
 }
 
 export default Proyectos;

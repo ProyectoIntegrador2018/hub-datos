@@ -54,7 +54,7 @@ class IniciarSesion extends Component {
                     placeholder="Contraseña"
                   />
                   <div className="btnLoginRegistro">
-                    <RoundedButton>Iniciar Sesión</RoundedButton>
+                    <RoundedButton type="blackBtn">Iniciar Sesión</RoundedButton>
                   </div>
                   <div className="bottom">
                     <p class="mensaje">
@@ -153,7 +153,7 @@ class IniciarSesion extends Component {
                     placeholder="Contraseña"
                   />
                   <div className="btnLoginRegistro">
-                    <RoundedButton>Registrarse</RoundedButton>
+                    <RoundedButton type="blackBtn">Registrarse</RoundedButton>
                   </div>
                   <div className="bottom">
                     <p class="mensaje">
