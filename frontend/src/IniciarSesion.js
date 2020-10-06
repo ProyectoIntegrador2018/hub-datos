@@ -3,6 +3,7 @@ import "./IniciarSesion.css";
 import RoundedButton from "./components/RoundedButton"
 import { Subbutton } from "./components/Subbutton";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Logo from "./assets/Picture2.png";
 
 class IniciarSesion extends Component {
   constructor(props) {
@@ -30,6 +31,10 @@ class IniciarSesion extends Component {
         <div class="col-md-6 p-0 bg-indigo h-md-100">
           <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
             <div class="logoarea pt-5 pb-5">
+				<a href="/">
+                {" "}
+					<img src={Logo}></img>
+				</a>
               {this.state.showRegister ? <h1>REGISTRO</h1> : null}
               {this.state.showLogin ? <h1>INICIAR SESIÓN</h1> : null}
             </div>
@@ -46,12 +51,14 @@ class IniciarSesion extends Component {
                     class="loginInput"
                     name="correo electrónico"
                     placeholder="Correo Electrónico"
+					required
                   />
                   <input
                     type="text"
                     class="loginInput"
                     name="contraseña"
                     placeholder="Contraseña"
+					required
                   />
                   <div className="btnLoginRegistro">
                     <RoundedButton type="blackBtn">Iniciar Sesión</RoundedButton>
@@ -75,6 +82,7 @@ class IniciarSesion extends Component {
                         class="inputRegistro"
                         name="nombre"
                         placeholder="Nombre"
+						required
                       />
                     </div>
                     <div class="form-group col-md-6">
@@ -83,6 +91,7 @@ class IniciarSesion extends Component {
                         class="inputRegistro"
                         name="apellido"
                         placeholder="Apellido"
+						required
                       />
                     </div>
                   </div>
@@ -95,12 +104,14 @@ class IniciarSesion extends Component {
                         ref = "cpDev1"
                         id="inputDate"
                         placeholder="Nacimiento"
+						required
                       />
                     </div>
                     <div class="form-group col-md-6">
                       <select
                         class="form-control inputRegistro"
                         id="inputGenero"
+						required
                       >
                         <option>Género</option>
                         <option>Femenino</option>
@@ -113,6 +124,7 @@ class IniciarSesion extends Component {
                     id="perfilSelect"
                     onChange={this.inputUniv}
                     class="form-control inputPerfil inputRegistro"
+					required
                   >
                     <option value="hide">Selecciona tu perfil</option>
                     <option value="show">Alumno</option>
@@ -127,6 +139,7 @@ class IniciarSesion extends Component {
                     id="univInput"
                     name="nombre"
                     placeholder="Universidad / Compañia"
+					required
                   />
 
                   <div class="custom-file inputFile">
@@ -145,12 +158,14 @@ class IniciarSesion extends Component {
                     class="inputRegistro"
                     name="correo electrónico"
                     placeholder="Correo Electrónico"
+					required
                   />
                   <input
                     type="text"
                     class="inputRegistro"
                     name="contraseña"
                     placeholder="Contraseña"
+					required
                   />
                   <div className="btnLoginRegistro">
                     <RoundedButton type="blackBtn">Registrarse</RoundedButton>

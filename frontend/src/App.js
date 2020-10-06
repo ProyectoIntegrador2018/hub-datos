@@ -8,6 +8,7 @@ import Proyectos from "./Proyectos";
 import ProjectDetails from "./ProjectDetails";
 import Eventos from "./Eventos";
 import EventDetails from "./EventDetails";
+import NewsDetails from "./NewsDetails";
 import Inicio from "./Inicio";
 import NuestraGente from "./NuestraGente";
 import SobreNosotros from "./SobreNostros";
@@ -44,6 +45,7 @@ class App extends Component {
             <Route path="/Proyectos/Detalles" component={ProjectDetails} />
             <Route path="/Proyectos" component={Proyectos} />
             <Route path="/Eventos/Detalles" component={EventDetails} />
+			<Route path="/Noticias/Detalles" component={NewsDetails} />
             <Route path="/Eventos" component={Eventos} />
             <Route path="/NuestraGente" component={NuestraGente} />
             <Route path="/SobreNosotros" component={SobreNosotros} />
