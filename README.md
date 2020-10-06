@@ -20,7 +20,7 @@ Realizar un sitio que preste servicios web para los miembros del hub de ciencia 
 ### Environment URLS
 
 - **Production** - [TBD](TBD)
-- **Development** - [TBD](TBD)
+- **Development** - [https://petify-application.herokuapp.com/](https://petify-application.herokuapp.com/)
 
 ### Digital HUB Team
 
@@ -45,8 +45,8 @@ Realizar un sitio que preste servicios web para los miembros del hub de ciencia 
 | Reactscripts     | 3.4.3   |
 | yarn             | 1.22.5  |
 | boostrap         | 2.0.0   |
-| bootstrap        | ^4.5.2  |
-| jquery           | 3.5.1", |
+| bootstrap        | 4.5.2   |
+| jquery           | 3.5.1   |
 
 #### BackEnd
 
