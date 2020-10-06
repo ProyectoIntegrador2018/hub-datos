@@ -92,18 +92,18 @@ After installing please you can follow this simple steps:
 
 1. Clone this repository into your local machine
 
-```bash
-$ git clone https://github.com/ProyectoIntegrador2018/hub-datos.gitgit
-```
+   ```bash
+   git clone https://github.com/ProyectoIntegrador2018/hub-datos.gitgit
+   ```
 
 2. Run the following command to install all the dependencies inside Frontend and Backend:
 
-```bash
-$ npm install
-```
+   ```bash
+   npm install
+   ```
 
 3. Request the MongoDB Atlas login information to Lorena Gomez. Generate an appropriate user for each team member and then modify the following link in the mongoose.js document according to the link provided by mongoDB Atlas
 
-```bash
-mongodb+srv://hubdatos:<password>@hubdatos.oijcd.mongodb.net/<dbname>?retryWrites=true&w=majority
-```
+   ```bash
+   mongodb+srv://hubdatos:<password>@hubdatos.oijcd.mongodb.net/<dbname>?retryWrites=true&w=majority
+   ```
