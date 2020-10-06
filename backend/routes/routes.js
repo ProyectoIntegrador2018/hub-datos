@@ -49,6 +49,13 @@ router.post("/registrar/socio_comercial", async (req, res) => {
   await user.userRegister(req.body, "socio_comercial", res);
 });
 
+/*
+ * Iniciar sesión
+ */
+router.post("/iniciar-sesion", async (req, res) => {
+  await user.login(req, res);
+});
+
 //La ruta no existe
 router.get("*", function (req, res) {
   res.status(404).send("La ruta no existe");

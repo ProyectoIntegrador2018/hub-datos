@@ -1,5 +1,9 @@
 const userModel = require("../models/User");
 const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken');
+
+const { use } = require("../routes/routes");
+const { SECRET_TOKEN } = require("./../config");
 
 const userRegister = async function (userDets, role, res) {
   try {
@@ -82,7 +86,51 @@ const getAllUsers = async function (req, res) {
     res.status(500).send(err);
   }
 };
+
+const login = async (req, res) => {
+  const { email, password } = req.body;
+  if (!email) {
+    res.statusMessage = `Correo electronico no proporcionado`;
+    return res.status(406).end();
+  }
+  if (!password) {
+    res.statusMessage = `Contraseña no proporcionado`;
+    return res.status(406).end();
+  }
+
+  let user = await userModel.findOne({ email });
+  if (!user) {
+    res.statusMessage = `Usuario no registrado`;
+    return res.status(401).end();
+  }
+
+  bcrypt.compare(password, user.password)
+    .then((result) => {
+      if (!result) {
+        res.statusMessage = "Contraseña incorrecta";
+        return res.status(401).end();
+      }
+      let tokenData = {
+        email: user.email,
+        role: user.role
+      }
+      jwt.sign(tokenData, SECRET_TOKEN, { expiresIn: "15m" }, (err, token) => {
+        if (err) {
+          res.statusMessage = `Error al generar el token. Por favor intentelo de nuevo.`;
+          return res.status(400).end();
+        }
+        return res.status(200).json({ token });
+      });
+    })
+    .catch((err) => {
+      res.statusMessage = `Error al comparar la contraseña. Por favor intentelo de nuevo`;
+      return res.status(500).end();
+    });
+};
+
+
 module.exports = {
   userRegister: userRegister,
   getAllUsers: getAllUsers,
+  login: login
 };
