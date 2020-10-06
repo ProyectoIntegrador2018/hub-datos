@@ -20,7 +20,7 @@ Realizar un sitio que preste servicios web para los miembros del hub de ciencia 
 ### Environment URLS
 
 - **Production** - [TBD](TBD)
-- **Development** - [https://petify-application.herokuapp.com/](https://petify-application.herokuapp.com/)
+- **Development** - [https://data-hub-api.herokuapp.com/](https://data-hub-api.herokuapp.com/)
 
 ### Digital HUB Team
 
