@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-const CardComponent = ({ title, description, route }) => {
+const CardComponent = ({ title, description, route, type }) => {
   let history = useHistory();
 
   const goToRoute = (e) => {
@@ -19,7 +19,7 @@ const CardComponent = ({ title, description, route }) => {
         <Card.Text>{description}</Card.Text>
       </Card.Body>
       <Card.Footer className="bg-white border-top-0">
-        <RoundedButton onClick={goToRoute}>Ver Proyecto</RoundedButton>
+        <RoundedButton onClick={goToRoute} type="blackBtn">Ver {type}</RoundedButton>
       </Card.Footer>
     </Card>
   );

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Details from "./components/Details";
 
-function ProjectDetails() {
+function EventDetails() {
   const [description, setDescription] = useState(null);
+  const [date] = useState("10/10/2020");
 
   useEffect(() => {
-    const fetchProject = async () => {
+    const fetchEvents = async () => {
       /* code needed later to fetch data needed for the page */
 
       let descriptionParagraphs = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam euismod lacus at est cursus egestas. Vestibulum blandit, orci a bibendum dignissim, massa justo scelerisque massa, non consectetur velit urna vitae urna. Sed purus lacus, eleifend id pharetra dictum, aliquet faucibus lectus. Proin at nisl eleifend, aliquam diam ac, tempor odio. Mauris laoreet nulla non imperdiet volutpat. Sed sit amet odio a odio commodo sagittis quis a nisl. Duis ornare eu orci id placerat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean arcu ex, sagittis et pulvinar et, gravida eget lectus. Aliquam elementum, nisl sit amet dignissim lobortis, quam lorem bibendum mi, quis lobortis nulla elit ac nibh. Aenean id tellus hendrerit, lobortis urna vitae, lacinia est. Curabitur in rhoncus urna, quis commodo tortor. In ultrices mauris at suscipit pharetra.
@@ -23,19 +24,20 @@ Vivamus eget sem blandit, varius diam a, consectetur enim. Duis scelerisque quis
       setDescription(paragraphs.filter((section) => section !== ""));
     };
 
-    fetchProject();
+    fetchEvents();
   }, []);
 
   console.log(description);
 
   return (
     <Details
-      author="Encargado del proyecto"
+      author="Autor del evento"
+      date={date}
       description={description}
       imgUrl="https://picsum.photos/2000/400"
-      title="Nombre del Proyecto"
+      title="Titulo del Evento"
     />
   );
 }
 
-export default ProjectDetails;
+export default EventDetails;

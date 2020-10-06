@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-import Image from "react-bootstrap/Image";
 import Img from "./assets/avatar2.png";
 import Img2 from "./assets/avatar6.png";
 import "./NuestraGente.css";

@@ -2,7 +2,7 @@ import "../App.css";
 import React from "react";
 import Jumbotron from "react-bootstrap/Jumbotron";
 
-function ProjectBanner({ title, imgUrl, author }) {
+function ProjectBanner({ title, imgUrl, author, date }) {
   return (
     <Jumbotron
       fluid
@@ -19,6 +19,7 @@ function ProjectBanner({ title, imgUrl, author }) {
       >
         <h1>{title}</h1>
         <p>Encargado: {author}</p>
+        {date ? <p className="font-weight-bold">Fecha: {date}</p> : ""}
       </div>
     </Jumbotron>
   );
