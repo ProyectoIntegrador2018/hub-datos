@@ -10,12 +10,6 @@ Realizar un sitio que preste servicios web para los miembros del hub de ciencia 
 - [Technology Stack](#technology-stack)
 - [Management resources](#management-resources)
 - [Setup the project](#setup-the-project)
-- [Running the stack for development](#running-the-stack-for-development)
-- [Stop the project](#stop-the-project)
-- [Restoring the database](#restoring-the-database)
-- [Debugging](#debugging)
-- [Running specs](#running-specs)
-- [Checking code for potential issues](#checking-code-for-potential-issues)
 
 ### Client Details
 
