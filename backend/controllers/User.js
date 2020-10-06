@@ -98,7 +98,12 @@ const login = async (req, res) => {
     return res.status(406).end();
   }
 
-  let user = await userModel.findOne({ email });
+  let user;
+  try {
+    user = await userModel.findOne({ email });
+  } catch (error) {
+    console.log(error);
+  }
   if (!user) {
     res.statusMessage = `Usuario no registrado`;
     return res.status(401).end();
