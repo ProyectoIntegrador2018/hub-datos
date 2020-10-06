@@ -42,7 +42,7 @@ class App extends Component {
             <Navigation />
           )}
           <Switch>
-            <Route path="/Proyectos/Detalles" component={ProjectDetails} />
+            <Route path="/Proyectos/:id" component={ProjectDetails} />
             <Route path="/Proyectos" component={Proyectos} />
             <Route path="/Eventos/Detalles" component={EventDetails} />
 			<Route path="/Noticias/Detalles" component={NewsDetails} />

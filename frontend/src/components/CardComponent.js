@@ -3,7 +3,7 @@ import Card from "react-bootstrap/Card";
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-const CardComponent = ({ title, description, route, type }) => {
+const CardComponent = ({ title, description, route, type, img }) => {
   let history = useHistory();
 
   const goToRoute = (e) => {
@@ -12,8 +12,8 @@ const CardComponent = ({ title, description, route, type }) => {
   };
 
   return (
-    <Card className="border-0 card-shadow pb-2 mt-2" style={{ width: "93%" }}>
-      <Card.Img variant="top" src="https://picsum.photos/300/170" />
+    <Card className="border-0 card-shadow pb-2 mt-2" style={{ width: "93%"}}>
+      <Card.Img variant="top" src={img} />
       <Card.Body>
         <Card.Title> {title} </Card.Title>
         <Card.Text>{description}</Card.Text>

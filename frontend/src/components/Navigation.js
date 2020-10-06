@@ -34,6 +34,7 @@ function Navigation() {
         </NavBar.Collapse>
       </NavBar>
     </header>
+
   );
 }
 export default Navigation;

@@ -27,12 +27,12 @@ function Proyectos() {
         {
           title: "10K Challenge",
           description: "10K Description",
-          route: "/Eventos/Detalles",
+          id: "/Eventos/Detalles",
         },
         {
           title: "Universities for Founders MTY",
           description: "Universities for Founders Description",
-          route: "/Eventos/Detalles",
+          id: "/Eventos/Detalles",
         },
       ];
 
@@ -44,7 +44,7 @@ function Proyectos() {
     fetchEvents();
   }, []);
 
-  return <CardView header="Proyectos" collection={events} type="evento"/>;
+  return <CardView header="Eventos" collection={events} type="evento"/>;
 }
 
 export default Proyectos;
