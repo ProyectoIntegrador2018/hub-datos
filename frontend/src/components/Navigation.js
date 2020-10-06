@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function Navigation() {
   return (
-    <header class="header sticky-top">
+    <header className="header sticky-top">
       <NavBar expand="lg" className="navBar">
       <NavBar.Toggle aria-controls="basic-navbar-nav" />
       <NavBar.Collapse id="navbarSupportedContent">

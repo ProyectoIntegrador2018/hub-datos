@@ -15,7 +15,7 @@ function ProjectBanner({ title, imgUrl, author, date }) {
     >
       <div
         className="px-5 py-4 text-white"
-        style={{ backgroundColor: "black" }}
+        style={{ backgroundColor: "rgba(0, 0, 0, .75)" }}
       >
         <h1>{title}</h1>
         <p>Encargado: {author}</p>
