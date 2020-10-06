@@ -1,16 +1,20 @@
 <<<<<<< HEAD
+
 # hub-datos
+
 Realizar un sitio que preste servicios web para los miembros del hub de ciencia de datos.
 
-
 ## Teams
+
 =======
+
 # Hub Datos
 
 Realizar un sitio que preste servicios web para los miembros del hub de ciencia de datxos.
 
 ## Table of contents
->>>>>>> gerardo
+
+> > > > > > > gerardo
 
 - [Client Details](#client-details)
 - [Environment URLS](#environment-urls)
@@ -112,13 +116,6 @@ $ npm install
 
 3. Request the MongoDB Atlas login information to Lorena Gomez. Generate an appropriate user for each team member and then modify the following link in the mongoose.js document according to the link provided by mongoDB Atlas
 
-<<<<<<< HEAD
-- Github
-- Trello
-- Microsoft Teams
-
-=======
 ```bash
 mongodb+srv://hubdatos:<password>@hubdatos.oijcd.mongodb.net/<dbname>?retryWrites=true&w=majority
 ```
->>>>>>> gerardo
