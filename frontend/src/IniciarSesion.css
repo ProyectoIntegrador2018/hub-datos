@@ -57,10 +57,10 @@
 input[type="date"]:before {
   content: attr(placeholder) !important;
 }
-input[type="date"]:focus:before,
+/*input[type="date"]:focus:before,
 input[type="date"]:valid:before {
   content: "";
-}
+}*/
 .mensaje {
   text-align: center;
 }
