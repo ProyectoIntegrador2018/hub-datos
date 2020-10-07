@@ -60,6 +60,7 @@ Realizar un sitio que preste servicios web para los miembros del hub de ciencia 
 | mongoose     | 5.10.7  |
 | morgan       | 1.10.0  |
 | uuid         | 8.3.0   |
+| cors         | 2.8.5   |
 
 #### DataBase
 
