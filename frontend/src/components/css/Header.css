@@ -1,13 +1,29 @@
 .darkened-image {
- background-color:white;
+  background-color: white;
   height: 100px;
   width: 1400px;
 }
-
 
 .bg-cover {
   background-attachment: static;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+.logo {
+  width: 240px;
+  margin-top: -55px;
+  margin-left: 70px;
+  position: absolute;
+  z-index: 1;
+}
+
+@media (max-width: 601px) {
+  .logo {
+    width: 180px;
+    margin-top: -25px;
+    margin-left: 20px;
+    position: absolute;
+    z-index: 1;
+  }
 }
