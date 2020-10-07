@@ -24,31 +24,6 @@ const JumbotronComponent = ({ title, description, route, imgUrl }) => {
         <Col className="colsImage" xs={8} style={divStyle}></Col>
       </Row>
     </Container>
-    /*
-<Col xs lg="2"></Col>
-<Container fluid className="containerNews">
-  <Row className=".rows">
-    <Col className="colsText" xs={4}>
-      <div className="newsInfo">
-      <h1>{title}</h1>
-      <p>{description}</p>
-      <Button href={route}>LEER MÁS</Button>  
-      </div>
-      </Col>
-    <Col className="colsImage" xs={8} style={divStyle}></Col>
-  </Row>
-</Container>*/
   );
 };
 export default JumbotronComponent;
-{
-  /*<Jumbotron fluid style={divStyle} className="jmbHome">
-  <Container>
-    <h1>{title}</h1>
-    <p>
-    {description}
-    </p>
-    <Button href={route}>LEER MÁS</Button>
-  </Container>
-</Jumbotron> */
-}

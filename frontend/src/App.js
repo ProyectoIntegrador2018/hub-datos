@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import "./App.css";
 import Navigation from "./components/Navigation";
 import Header from "./components/Header";
@@ -15,8 +15,8 @@ import SobreNosotros from "./SobreNostros";
 import IniciarSesion from "./IniciarSesion";
 import Consultas from "./Consultas";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {BrowserRouter as Router,Switch,Route } from "react-router-dom";
-import {withRouter} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 class App extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class App extends Component {
       backgroundUrl: "",
     };
   }
-  
+
   render() {
     return (
       <Router>
@@ -45,7 +45,7 @@ class App extends Component {
             <Route path="/Proyectos/:id" component={ProjectDetails} />
             <Route path="/Proyectos" component={Proyectos} />
             <Route path="/Eventos/Detalles" component={EventDetails} />
-			<Route path="/Noticias/Detalles" component={NewsDetails} />
+            <Route path="/Noticias/Detalles" component={NewsDetails} />
             <Route path="/Eventos" component={Eventos} />
             <Route path="/NuestraGente" component={NuestraGente} />
             <Route path="/SobreNosotros" component={SobreNosotros} />

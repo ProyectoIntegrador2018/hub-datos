@@ -25,14 +25,16 @@ function Proyectos() {
       // mock data for the time being
       let eventList = [
         {
-          title: "10K Challenge",
-          description: "10K Description",
-          id: "/Eventos/Detalles",
+          nombre: "10K Challenge",
+          descripcion: "10K Description",
+          id: "Detalles",
+          imagen: "https://picsum.photos/300/170"
         },
         {
-          title: "Universities for Founders MTY",
-          description: "Universities for Founders Description",
-          id: "/Eventos/Detalles",
+          nombre: "Universities for Founders MTY",
+          descripcion: "Universities for Founders Description",
+          id: "Detalles",
+          imagen: "https://picsum.photos/300/170"
         },
       ];
 

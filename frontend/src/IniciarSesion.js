@@ -32,7 +32,7 @@ class IniciarSesion extends Component {
             <div class="logoarea pt-5 pb-5">
               <a href="/">
                 {" "}
-                <img src={Logo}></img>
+                <img src={Logo} alt="digital-hub logo"></img>
               </a>
               {this.state.showRegister ? <h1>REGISTRO</h1> : null}
               {this.state.showLogin ? <h1>INICIAR SESIÓN</h1> : null}
