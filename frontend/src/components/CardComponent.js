@@ -1,6 +1,6 @@
-import RoundedButton from "./RoundedButton";
 import Card from "react-bootstrap/Card";
 import React from "react";
+import RoundedButton from "./RoundedButton";
 import { useHistory } from "react-router-dom";
 
 const CardComponent = ({ title, description, route, type, img }) => {
@@ -12,7 +12,7 @@ const CardComponent = ({ title, description, route, type, img }) => {
   };
 
   return (
-    <Card className="border-0 card-shadow pb-2 mt-2" style={{ width: "93%"}}>
+    <Card className="border-0 card-shadow pb-2 mt-2 mr-3" style={{ width: "93%"}}>
       <Card.Img variant="top" src={img} />
       <Card.Body>
         <Card.Title> {title} </Card.Title>

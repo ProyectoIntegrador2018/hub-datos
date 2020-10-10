@@ -18,7 +18,7 @@ const Details = ({ date, author, title, imgUrl, description}) => {
       />
       <Container fluid className="pb-3" style={{ width: "90%" }}>
         <Row className="justify-content-center">
-          <Col xs={10} className="card-shadow rounded mb-3 p-5">
+          <Col xs={9} className="card-shadow rounded mb-3 p-5">
             <h1 className="pb-4">Detalles</h1>
             {description
               ? description.map((paragraph, i) => (

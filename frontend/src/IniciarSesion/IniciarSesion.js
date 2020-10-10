@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import "./IniciarSesion.css";
-import RoundedButton from "./components/RoundedButton";
-import { Subbutton } from "./components/Subbutton";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Logo from "./assets/Picture2.png";
+import "./IniciarSesion.css";
+import Logo from "../assets/Picture2.png";
+import React, { Component } from "react";
+import RoundedButton from "../components/RoundedButton";
+import { Subbutton } from "../components/Subbutton";
 
 class IniciarSesion extends Component {
   constructor(props) {
