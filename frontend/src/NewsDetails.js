@@ -26,8 +26,6 @@ Vivamus eget sem blandit, varius diam a, consectetur enim. Duis scelerisque quis
     fetchProject();
   }, []);
 
-  console.log(description);
-
   return (
     <div className="pb-5">
       <NewsBanner

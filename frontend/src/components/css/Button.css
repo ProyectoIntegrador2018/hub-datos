@@ -15,6 +15,6 @@
 }
 
 .blackBtn:hover {
-  background-color: rgb(39, 36, 36);
-  transform: scale(1.2);
+  background-color: rgb(27, 27, 27) !important;
+  color: rgb(37, 219, 143) !important;
 }

@@ -1,8 +1,8 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
 import Details from "./components/Details";
+import Loader from "./components/Loader";
+import React, { useState, useEffect } from "react";
 import URI from "./URI";
-import Spinner from 'react-bootstrap/Spinner'
 
 function ProjectDetails() {
   const [name, setName] = useState("");
@@ -38,7 +38,7 @@ function ProjectDetails() {
   }, []);
 
   return loading ? (
-    <Spinner animation="grow" variant="dark" />
+    <Loader/>
   ) : (
     <Details
       author="Encargado del proyecto"

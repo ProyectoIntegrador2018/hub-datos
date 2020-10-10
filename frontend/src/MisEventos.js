@@ -5,11 +5,12 @@ import React, { useState, useEffect } from "react";
 import URI from "./URI";
 import { splitProjects } from "./Utilities";
 
-function Proyectos() {
+function MisEventos() {
   const [projects, setProjects] = useState(null);
 
   useEffect(() => {
-    const fetchProjects = async () => {
+    const fetchEvents = async () => {
+      /* code needed later to fetch data needed for the page */
       const { data } = await axios(`${URI.base}${URI.routes.allProjects}`);
       const { projects, } = data;
       const projectChunks = splitProjects(projects);
@@ -17,14 +18,14 @@ function Proyectos() {
       setProjects(projectChunks);
     };
 
-    fetchProjects();
+    fetchEvents();
   }, []);
-
+  
   return !projects ? (
     <Loader />
   ) : (
-    <CardView header="Proyectos" collection={projects} type="proyecto" />
+    <CardView header="Mis Eventos" collection={projects} type="proyecto" />
   );
 }
 
-export default Proyectos;
+export default MisEventos;

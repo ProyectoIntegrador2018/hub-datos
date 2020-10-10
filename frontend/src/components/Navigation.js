@@ -5,7 +5,7 @@ import "./css/Navigation.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 function Navigation() {
   return (
-    <header class="header sticky-top">
+    <header className="header sticky-top">
       <NavBar expand="lg" variant="dark" className="navBar">
         <NavBar.Toggle aria-controls="basic-navbar-nav" />
         <NavBar.Collapse id="navbarSupportedContent">
@@ -29,7 +29,6 @@ function Navigation() {
               {" "}
               SOBRE NOSOTROS{" "}
             </Nav.Link>
-            {/*<Nav.Link className="NavItem" href="/Consultas"> CONSULTAS </Nav.Link>*/}
           </Nav>
         </NavBar.Collapse>
       </NavBar>

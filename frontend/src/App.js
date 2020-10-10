@@ -1,21 +1,24 @@
-import React, { Component } from "react";
 import "./App.css";
-import Navigation from "./components/Navigation";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import LinkHeader from "./components/LinkHeader";
-import Proyectos from "./Proyectos";
-import ProjectDetails from "./ProjectDetails";
-import Eventos from "./Eventos";
-import EventDetails from "./EventDetails";
-import NewsDetails from "./NewsDetails";
-import Inicio from "./Inicio";
-import NuestraGente from "./NuestraGente";
-import SobreNosotros from "./SobreNostros";
-import IniciarSesion from "./IniciarSesion";
-import Consultas from "./Consultas";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Consultas from "./Consultas";
+import EditarProyecto from "./EditCollections/EditarProyecto";
+import Eventos from "./Eventos";
+import EventDetails from "./EventDetails";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import IniciarSesion from "./IniciarSesion/IniciarSesion";
+import Inicio from "./Inicio";
+import LinkHeader from "./components/LinkHeader";
+import MisEventos from "./MisEventos";
+import MisProyectos from "./MisProyectos";
+import Navigation from "./components/Navigation";
+import NewsDetails from "./NewsDetails";
+import NuestraGente from "./NuestraGente/NuestraGente";
+import ProjectDetails from "./ProjectDetails";
+import Proyectos from "./Proyectos";
+import React, { Component } from "react";
+import SobreNosotros from "./SobreNostros";
 import { withRouter } from "react-router-dom";
 
 class App extends Component {
@@ -29,7 +32,6 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
           {this.props.location.pathname === "/IniciarSesion" ? "" : <Header />}
           {this.props.location.pathname === "/IniciarSesion" ? (
             ""
@@ -42,6 +44,10 @@ class App extends Component {
             <Navigation />
           )}
           <Switch>
+            <Route path="/MisEventos/:id" component={MisEventos} />
+            <Route path="/MisEventos" component={MisEventos} />
+            <Route path="/MisProyectos/:id" component={EditarProyecto} />
+            <Route path="/MisProyectos" component={MisProyectos} />
             <Route path="/Proyectos/:id" component={ProjectDetails} />
             <Route path="/Proyectos" component={Proyectos} />
             <Route path="/Eventos/Detalles" component={EventDetails} />
@@ -53,7 +59,6 @@ class App extends Component {
             <Route path="/IniciarSesion" component={IniciarSesion} />
             <Route path="/*" component={Inicio} />
           </Switch>
-        </div>
         <Footer />
       </Router>
     );
