@@ -29,7 +29,7 @@ const newProject = async function (req, res) {
   project.imagen = req.body.imagen;
   try {
     await project.save();
-    res.status(200).send(project);
+    res.status(201).send(project);
   } catch (err) {
     res.status(500).send(err);
   }

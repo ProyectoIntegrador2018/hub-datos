@@ -31,8 +31,12 @@ router.get("/projects/:id", async (req, res) => {
 REGISTER ROUTES
 * GET /registrar/alumno - Returns all registered users
 */
-router.get("/registrar/alumno", auth, async (req, res) => {
+router.get("/users", async (req, res) => {
   await user.getAllUsers(req, res);
+});
+
+router.get("/registrar/alumno", auth, async (req, res) => {
+  res.send("registrar alumno");
 });
 
 router.get("/registrar/maestro", (req, res) => {

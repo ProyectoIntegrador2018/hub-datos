@@ -32,7 +32,7 @@ describe("Test de los endpoints de Projects", () => {
       imagen: "https://www.foodnewslatam.com/images/stories/2016/Abril/Arca-Continental-invierte-coca-cola.jpg",
     };
     const result = await request.post("/projects").send(data);
-    expect(result.statusCode).toBe(200);
+    expect(result.statusCode).toBe(201);
     done();
   });
 });
