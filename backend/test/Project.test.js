@@ -4,15 +4,17 @@ const mongoose = require("mongoose");
 
 afterAll(() => mongoose.disconnect());
 
-test("Se comprueba la ruta GET /projects", async () => {
+test("Se comprueba la ruta GET /projects", async (done) => {
   const response = await request(app).get("/projects");
   expect(response.statusCode).toBe(200);
+  done();
 });
 
-test("Se comprueba la ruta GET /projects/:id", async () => {
+test("Se comprueba la ruta GET /projects/:id", async (done) => {
   const projectId = "52094ba7-e844-4256-bac8-0f984360bea7";
   const response = await request(app).get("/projects/" + projectId);
   expect(response.statusCode).toBe(200);
+  done();
 });
 
 test("Se comprueba la ruta POST /projects", async (done) => {
