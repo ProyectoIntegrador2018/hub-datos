@@ -35,8 +35,8 @@ const newProject = async function (req, res) {
   }
 };
 
-const getProjectByID = async function (req, res) {
-  const idParam = req.params.id;
+const getProjectByID = async function (projectId, res) {
+  const idParam = projectId;
   const project = await projectModel.findOne({
     id: idParam,
   });
@@ -53,8 +53,17 @@ const getProjectByID = async function (req, res) {
   }
 };
 
+const getHello = async function (req, res) {
+  try {
+    res.status(200).send("hello world");
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
 module.exports = {
   getAllProjects: getAllProjects,
   newProject: newProject,
   getProjectByID: getProjectByID,
+  getHello: getHello,
 };

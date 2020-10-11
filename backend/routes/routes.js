@@ -5,12 +5,16 @@ const project = require("../controllers/Project");
 const user = require("../controllers/User");
 const auth = require("./../middleware/auth");
 
+router.get("/hello", (req, res) => {
+  res.status(200).send("Hello World!");
+});
+
 /*
-* PROJECTS ROUTES
-* GET /projects - Returns all the projects
-* POST /projects - Creates a new project in the data base.
-* GET /projects/:id - Searches a project by id
-*/
+ * PROJECTS ROUTES
+ * GET /projects - Returns all the projects
+ * POST /projects - Creates a new project in the data base.
+ * GET /projects/:id - Searches a project by id
+ */
 router.get("/projects", async (req, res) => {
   await project.getAllProjects(req, res);
 });
@@ -20,7 +24,7 @@ router.post("/projects", async (req, res) => {
 });
 
 router.get("/projects/:id", async (req, res) => {
-  await project.getProjectByID(req, res);
+  await project.getProjectByID(req.params.id, res);
 });
 
 /*
@@ -36,7 +40,7 @@ router.get("/registrar/maestro", (req, res) => {
 });
 
 router.get("/registrar/admin", (req, res) => {
-  res.send("registrar admin");
+  res.status(200).send("registrar admin");
 });
 
 router.get("/registrar/socio_comercial", (req, res) => {
@@ -60,9 +64,9 @@ router.post("/registrar/socio_comercial", async (req, res) => {
 });
 
 /*
-* Iniciar sesión
-* POST /iniciar-sesion - Generates a jsonwebtoken for a users with the correct credentials
-*/
+ * Iniciar sesión
+ * POST /iniciar-sesion - Generates a jsonwebtoken for a users with the correct credentials
+ */
 router.post("/iniciar-sesion", async (req, res) => {
   await user.login(req, res);
 });
