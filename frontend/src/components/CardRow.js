@@ -2,7 +2,7 @@ import React from "react";
 import CardColumns from "react-bootstrap/CardColumns";
 import CardComponent from "./CardComponent";
 
-const CardRow = ({ projects, rowNumber, type, header }) => {
+const CardRow = ({ projects, rowNumber, type, header, variant }) => {
   let route = header;
   const removeSpaces = () => {
     route = route.replace(" ", "");
@@ -19,6 +19,7 @@ const CardRow = ({ projects, rowNumber, type, header }) => {
           key={`project_${rowNumber}_${i}`}
           type={type}
           img={project.imagen}
+          variant={variant}
         />
       ))}
     </CardColumns>

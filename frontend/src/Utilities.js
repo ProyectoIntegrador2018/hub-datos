@@ -7,3 +7,17 @@ export const splitProjects = (projectList) => {
 
   return projectChunks;
 };
+
+export const _handlePreview = (e, setImage, setImgUrl) => {
+  e.preventDefault();
+
+  let reader = new FileReader();
+  let file = e.target.files[0];
+
+  reader.onloadend = () => {
+    setImage(file);
+    setImgUrl(reader.result);
+  };
+
+  reader.readAsDataURL(file);
+};
