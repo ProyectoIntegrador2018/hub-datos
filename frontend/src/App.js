@@ -1,8 +1,8 @@
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Consultas from "./Consultas";
-import EditarProyecto from "./EditCollections/EditarProyecto";
+import CrearProyecto from "./CrearProyecto";
+import EditarProyecto from "./EditarProyecto";
 import Eventos from "./Eventos";
 import EventDetails from "./EventDetails";
 import Footer from "./components/Footer";
@@ -44,6 +44,7 @@ class App extends Component {
             <Navigation />
           )}
           <Switch>
+            <Route path="/CrearProyecto" component={CrearProyecto} />
             <Route path="/MisEventos/:id" component={MisEventos} />
             <Route path="/MisEventos" component={MisEventos} />
             <Route path="/MisProyectos/:id" component={EditarProyecto} />

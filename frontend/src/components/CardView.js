@@ -4,7 +4,7 @@ import CardRow from "./CardRow";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
-const CardView = ({ collection, header, type}) => {
+const CardView = ({ collection, header, type, variant }) => {
   return (
     <div className="pb-3">
       <Container fluid className="px-5 pb-5 pt-3">
@@ -19,6 +19,7 @@ const CardView = ({ collection, header, type}) => {
                     key={`${type}_row_${i + 1}`}
                     type={type}
                     header={header}
+                    variant={variant}
                   />
                 ))
               : ""}

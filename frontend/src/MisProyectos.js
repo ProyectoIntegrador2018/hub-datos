@@ -24,7 +24,7 @@ function MisProyectos() {
   return !projects ? (
     <Loader />
   ) : (
-    <CardView header="Mis Proyectos" collection={projects} type="proyecto" />
+    <CardView header="Mis Proyectos" collection={projects} type="proyecto" variant="delete" />
   );
 }
 

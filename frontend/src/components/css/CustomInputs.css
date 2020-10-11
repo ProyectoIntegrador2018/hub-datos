@@ -6,3 +6,7 @@
     border-bottom: 2px #111 solid;
     border-radius: 0%;
 }
+
+.warning {
+    color: rgb(209, 153, 0) !important;
+}
