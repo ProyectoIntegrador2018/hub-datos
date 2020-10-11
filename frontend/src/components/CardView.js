@@ -18,6 +18,7 @@ const CardView = ({ collection, header, type}) => {
                     rowNumber={i + 1}
                     key={`${type}_row_${i + 1}`}
                     type={type}
+                    header={header}
                   />
                 ))
               : ""}

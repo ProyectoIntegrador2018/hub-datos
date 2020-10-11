@@ -1,6 +1,8 @@
-import RoundedButton from "./RoundedButton";
+import Button from "./WhiteButton";
 import "./css/NewsJumbotron.css";
-import Jumbotron from "react-bootstrap/Jumbotron";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import React from "react";
 
 const JumbotronComponent = ({ title, description, route, imgUrl }) => {
@@ -9,17 +11,19 @@ const JumbotronComponent = ({ title, description, route, imgUrl }) => {
     backgroundImage: "url(" + imgUrl + ")",
     borderRadius: 0,
   };
-
   return (
-    <Jumbotron className="jmbHome" style={divStyle}>
-      <h1>{title}</h1>
-      <p>{description}</p>
-      <p>
-        <RoundedButton type="whiteBtn" href={route}>
-          LEER MÁS
-        </RoundedButton>
-      </p>
-    </Jumbotron>
+    <Container fluid>
+      <Row>
+        <Col className="colsText">
+          <div className="newsInfo">
+            <h1>{title}</h1>
+            <p>{description}</p>
+            <Button href={route}>LEER MÁS</Button>
+          </div>
+        </Col>
+        <Col className="colsImage" xs={8} style={divStyle}></Col>
+      </Row>
+    </Container>
   );
 };
 export default JumbotronComponent;

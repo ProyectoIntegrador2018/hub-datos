@@ -1,7 +1,20 @@
-.jmbHome{
-   
-      background-size: cover;
-      padding-top: 15%;
-      padding-bottom: 15%;
-      margin: 0px;
+.colsImage {
+  background-size: cover;
+  padding-top: 15%;
+  padding-bottom: 15%;
+  margin: 0px;
+}
+.colsText {
+  background-color: #111;
+}
+.newsInfo {
+  color: white;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 10px;
+}
+@media (max-width: 799px) {
+  .colsImage {
+    border-radius: 50;
+  }
 }

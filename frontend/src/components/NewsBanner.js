@@ -2,7 +2,7 @@ import "../App.css";
 import React from "react";
 import Jumbotron from "react-bootstrap/Jumbotron";
 
-function ProjectBanner({ title, imgUrl, author, date }) {
+function NewsBanner({ title, imgUrl, author, date }) {
   return (
     <Jumbotron
       fluid
@@ -15,14 +15,14 @@ function ProjectBanner({ title, imgUrl, author, date }) {
     >
       <div
         className="px-5 py-4 text-white"
-        style={{ backgroundColor: "rgba(0, 0, 0, .75)" }}
+        style={{ backgroundColor: "black" }}
       >
         <h1>{title}</h1>
         <p>Encargado: {author}</p>
-        {date ? <p className="font-weight-bold">Fecha: {date}</p> : ""}
+        <p>Fecha: {date}</p>
       </div>
     </Jumbotron>
   );
 }
 
-export default ProjectBanner;
+export default NewsBanner;
