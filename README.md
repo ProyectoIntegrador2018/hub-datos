@@ -20,7 +20,7 @@ Realizar un sitio que preste servicios web para los miembros del hub de ciencia 
 ### Environment URLS
 
 - **Production** - [TBD](TBD)
-- **Development** - [https://data-hub-api.herokuapp.com/](https://data-hub-api.herokuapp.com/)
+- **Development** - [https://data-hub-app.herokuapp.com](https://data-hub-app.herokuapp.com)
 
 ### Digital HUB Team
 
@@ -60,6 +60,7 @@ Realizar un sitio que preste servicios web para los miembros del hub de ciencia 
 | mongoose     | 5.10.7  |
 | morgan       | 1.10.0  |
 | uuid         | 8.3.0   |
+| cors         | 2.8.5   |
 
 #### DataBase
 
