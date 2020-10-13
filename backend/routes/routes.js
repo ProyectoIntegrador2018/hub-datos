@@ -27,6 +27,13 @@ router.get("/projects/:id", async (req, res) => {
   await project.getProjectByID(req.params.id, res);
 });
 
+router.put("/projects/edit/:id", async (req, res) => {
+  await project.editProjectByID(req, res);
+});
+router.delete("/projects/delete/:id", async (req, res) => {
+  await project.deleteProjectByID(req.params.id, res);
+});
+
 /*
 REGISTER ROUTES
 * GET /registrar/alumno - Returns all registered users
