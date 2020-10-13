@@ -37,6 +37,7 @@ function EditarProyecto() {
       setDescription={setDescription}
       imgUrl={imgUrl}
       _handleChange={_handleChange}
+      variant="Proyecto"
     />
   );
 }

@@ -7,6 +7,12 @@
     border-radius: 0% !important;
 }
 
+.custom-input:disabled {
+    background-color: #f0f0f0 !important;
+    border-bottom: 2px rgb(165, 165, 165) solid !important;
+    color: rgb(165, 165, 165) !important;
+}
+
 .warning {
     color: rgb(209, 153, 0) !important;
 }
