@@ -98,6 +98,7 @@ function CollectionForm({
                   type="radio"
                   className="pr-5"
                   size="lg"
+                  name="status"
                 />
                 <Form.Check
                   inline
@@ -105,6 +106,7 @@ function CollectionForm({
                   type="radio"
                   className="pl-5"
                   size="lg"
+                  name="status"
                 />
               </Form.Group>
               <Form.Row className="pt-2">
