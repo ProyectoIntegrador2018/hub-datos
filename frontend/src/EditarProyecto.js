@@ -23,10 +23,10 @@ function EditarProyecto() {
       }
 
       fetchData();
-  })
+  }, []);
 
   const _handleChange = (e) => { _handlePreview(e, setImage, setImgUrl) };
-
+  console.log(title);
   return (
     <CollectionForm
       title={title}
