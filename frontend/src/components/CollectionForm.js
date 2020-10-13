@@ -17,9 +17,9 @@ function CollectionForm({
   setTitle,
   setAbstract,
   setDescription,
-  _handleChange
+  _handleChange,
+  variant,
 }) {
-
   const counterClass = (count, middle, limit) => {
     if (count < middle) {
       return "text-muted";
@@ -31,13 +31,13 @@ function CollectionForm({
 
   return (
     <Container fluid className="mt-3 mb-3">
-      <h1 className="mb-3"> Editar Proyecto </h1>
+      <h1 className="mb-3"> Editar {variant} </h1>
       <Row className="mb-5">
         <Col className="mb-4">
           <div className="card-shadow p-5">
             <Form className="ml-auto mr-auto">
               <Form.Group>
-                <h3 className="mb-3">Datos del proyecto:</h3>
+                <h3 className="mb-3">Datos del {variant}</h3>
                 <Form.Control
                   size="lg"
                   type="text"
@@ -51,7 +51,6 @@ function CollectionForm({
                 <Form.Control
                   size="lg"
                   as="textarea"
-                  rows={4}
                   placeholder="Descripción Corta"
                   className="mt-4 custom-input"
                   maxLength={280}
@@ -66,7 +65,7 @@ function CollectionForm({
                 <Form.Control
                   size="lg"
                   as="textarea"
-                  rows={8}
+                  rows={5}
                   placeholder="Descripción Detallada"
                   className="mt-4 custom-input"
                   maxLength={560}
@@ -81,13 +80,56 @@ function CollectionForm({
                   Characters: {description.length}/560
                 </Form.Text>
               </Form.Group>
+              <Form.Group>
+                <Form.Control
+                  type="text"
+                  placeholder={`Encargado del ${variant}`}
+                  className="custom-input"
+                  size="lg"
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label className="pt-3 mr-4">
+                  Estatus del {variant}:
+                </Form.Label>
+                <Form.Check
+                  inline
+                  label="Activo"
+                  type="radio"
+                  className="pr-5"
+                  size="lg"
+                />
+                <Form.Check
+                  inline
+                  label="Finalizado"
+                  type="radio"
+                  className="pl-5"
+                  size="lg"
+                />
+              </Form.Group>
+              <Form.Row className="pt-2">
+                <Form.Group as={Col}>
+                  <Form.Label>
+                    {variant === "Proyecto"
+                      ? `Inicio del ${variant}`
+                      : `Fecha del ${variant}`}
+                  </Form.Label>
+                  <Form.Control type="date" className="custom-input" />
+                </Form.Group>
+                <Form.Group as={Col}>
+                  <Form.Label>Fin del Proyecto</Form.Label>
+                  <Form.Control type="date" className="custom-input" />
+                </Form.Group>
+              </Form.Row>
             </Form>
           </div>
         </Col>
         <Col className="mb-4">
           <div className="card-shadow p-5 mb-4">
             <Form.Group>
-              <h3 className="mb-3">Sube una imágen para tu proyecto</h3>
+              <h3 className="mb-3">
+                Sube una imágen para tu {variant.toLowerCase()}
+              </h3>
               <Form.File
                 accept="image/jpeg, imgage/jpg, image/png"
                 className="mt-5"
