@@ -17,8 +17,9 @@ function CollectionForm({
   setTitle,
   setAbstract,
   setDescription,
-  _handleChange,
+  _handleChange
 }) {
+
   const counterClass = (count, middle, limit) => {
     if (count < middle) {
       return "text-muted";
