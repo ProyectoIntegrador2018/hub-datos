@@ -53,8 +53,9 @@ class App extends Component {
             <Route path="/IniciarSesion" component={IniciarSesion} />
             <Route path="/*" component={Inicio} />
           </Switch>
+          {this.props.location.pathname === "/IniciarSesion" ? "" : <Footer />}
         </div>
-        <Footer />
+    
       </Router>
     );
   }

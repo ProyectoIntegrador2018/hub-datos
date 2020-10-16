@@ -1,10 +1,29 @@
+body {
+  overflow: auto;
+}
+
 .form-inline {
-  display: flex;
+  /*display: flex;
   flex-flow: row wrap;
   align-items: center;
+  flex-direction: column;
+  align-items: stretch;*/
+}
+
+.inputRegistro{
+  background-color: #fff;
+  border: none;
+  border-radius: 0;
+  border-bottom: 2px solid #111;
+ margin-top:-5px;
+
+  
+}
+label{
+  font-weight: bold;
 }
 .form-inline input {
-  width: 100%;
+  /*width: 100%;
   vertical-align: middle;
   margin: 5px 10px 5px 0;
   padding: 10px;
@@ -12,33 +31,30 @@
   border: none;
   border-bottom: 2px solid #111;
   background: transparent;
-  outline: none;
+  outline: none;*/
 }
 #inputGenero {
-  width: 100%;
+ /* width: 100%;
   border: none;
   border-bottom: 2px solid #111;
-  border-radius: 0;
+  border-radius: 0;*/
 }
 .form-inline .inputPerfil {
-  vertical-align: middle;
+ /* vertical-align: middle;
   margin: 5px 10px 5px 0;
   padding: 8px;
   background-color: #fff;
   border: none;
-  border-bottom: 2px solid #111;
+  border-bottom: 2px solid #111;*/
 }
-.form-inline input {
-  margin: 10px 0;
+.inputDependency{
+  margin-bottom: 15px;
 }
 .form-inline .inputPerfil {
   margin: 10px 0;
   border-radius: 0;
 }
-.form-inline {
-  flex-direction: column;
-  align-items: stretch;
-}
+
 .bottom {
   display: flex;
   justify-content: center;
@@ -50,6 +66,10 @@
 .hide {
   display: none;
 }
+.loginForm{
+  margin-top:120px;
+ margin-bottom: 100px;
+}
 #inputDate {
   width: 100%;
   border-radius:0;
@@ -57,10 +77,6 @@
 input[type="date"]:before {
   content: attr(placeholder) !important;
 }
-/*input[type="date"]:focus:before,
-input[type="date"]:valid:before {
-  content: "";
-}*/
 .mensaje {
   text-align: center;
 }
