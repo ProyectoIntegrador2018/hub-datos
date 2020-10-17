@@ -29,7 +29,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.7",
     "morgan": "^1.10.0",
-    "uuid": "^8.3.0"
+    "uuid": "^8.3.0",
+    "validator": "^13.1.17"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
