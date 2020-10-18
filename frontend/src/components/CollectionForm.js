@@ -18,6 +18,8 @@ function CollectionForm({
   setTitle,
   setAbstract,
   setDescription,
+  encargado,
+  setEncargado,
   _handleChange,
   startDate,
   setStartDate,
@@ -61,6 +63,13 @@ function CollectionForm({
   );
 
   const [partnerList, setPartnerList] = useState([partnerSelect]);
+  const [titleError, setTitleError] = useState("");
+  const [abstractError, setAbstractError] = useState("");
+  const [descriptionError, setDescriptionError] = useState("");
+  const [encargadoError, setEncargadoError] = useState("");
+  const [imgError, setImgError] = useState("");
+  const [startDateError, setStartDateError] = useState("");
+  const [endDateError, setEndDateError] = useState("");
 
   const _handleClick = (e) => {
     e.preventDefault();
@@ -77,6 +86,37 @@ function CollectionForm({
     return "text-danger";
   };
 
+  const checkInputs = () => {
+    !/\S/.test(title)
+      ? setTitleError("Favor de escribir un título")
+      : setTitleError("");
+    !/\S/.test(abstract)
+      ? setAbstractError("Favor de escribir descripción corta")
+      : setAbstractError("");
+    !/\S/.test(description)
+      ? setDescriptionError("Favor de escribir la descripción detallada")
+      : setDescriptionError("");
+    !/\S/.test(encargado)
+      ? setEncargadoError("Favor de escribir el nombre del encargado")
+      : setEncargadoError("");
+    !imgUrl
+      ? setImgError("Favor de elegir una imágen para el proyecto")
+      : setImgError("");
+    !/\S/.test(startDate)
+      ? setStartDateError("Favor de elegir una fecha de inicio")
+      : setStartDateError("");
+    !/\S/.test(endDate)
+      ? setEndDateError("Favor de elegir una fecha de fin")
+      : setEndDateError("");
+
+    // necesario para comparar fechas
+    const stDateObj = new Date(startDate);
+    const edDateObj = new Date(endDate);
+    edDateObj < stDateObj
+      ? setEndDateError("La fecha de fin tiene que ser después del inicio")
+      : setEndDateError("");
+  };
+
   return (
     <Container fluid className="mt-3 mb-3">
       <h1 className="mb-3"> Editar {variant} </h1>
@@ -86,7 +126,7 @@ function CollectionForm({
             <Form className="ml-auto mr-auto">
               <Form.Group>
                 <h3 className="mb-3">Datos del {variant}</h3>
-                <Form.Label className="font-weight-bold">Title</Form.Label>
+                <Form.Label className="font-weight-bold">Titulo</Form.Label>
                 <Form.Control
                   size="lg"
                   type="text"
@@ -96,6 +136,7 @@ function CollectionForm({
                   }}
                   value={title}
                 />
+                <Form.Text className="text-danger">{titleError}</Form.Text>
                 <Form.Label className="font-weight-bold mt-4">
                   Descripción Corta
                 </Form.Label>
@@ -109,8 +150,16 @@ function CollectionForm({
                   }}
                   value={abstract}
                 />
-                <Form.Text className={counterClass(abstract.length, 140, 280)}>
-                  Characters: {abstract.length}/280
+                <Form.Text
+                  className={
+                    abstractError === ""
+                      ? counterClass(abstract.length, 140, 280)
+                      : "text-danger"
+                  }
+                >
+                  {abstractError === ""
+                    ? `Characters: ${abstract.length}/280`
+                    : abstractError}
                 </Form.Text>
                 <Form.Label className="font-weight-bold mt-4">
                   Descripción Detallada
@@ -127,20 +176,41 @@ function CollectionForm({
                   value={description}
                 />
                 <Form.Text
-                  className={counterClass(description.length, 460, 560)}
+                  className={
+                    descriptionError === ""
+                      ? counterClass(description.length, 460, 560)
+                      : "text-danger"
+                  }
                 >
-                  Characters: {description.length}/560
+                  {descriptionError === ""
+                    ? `Characters: ${description.length}/560`
+                    : descriptionError}
                 </Form.Text>
               </Form.Group>
               <Form.Group>
                 <Form.Label className="font-weight-bold">{`Encargado del ${variant}`}</Form.Label>
-                <Form.Control type="text" className="custom-input" size="lg" />
+                <Form.Control
+                  type="text"
+                  className="custom-input"
+                  size="lg"
+                  value={encargado}
+                  onChange={(e) => {
+                    setEncargado(e.target.value);
+                  }}
+                />
+                <Form.Text className="text-danger">
+                  {encargadoError === "" ? "" : encargadoError}
+                </Form.Text>
               </Form.Group>
               <Form.Group>
                 <Form.Label className="pt-3 mr-4 font-weight-bold">
                   Estatus del {variant}:
                 </Form.Label>
-                <div onChange={(e) => {setStatus(e.target.value)}}>
+                <div
+                  onChange={(e) => {
+                    setStatus(e.target.value);
+                  }}
+                >
                   <Form.Check
                     inline
                     label="Activo"
@@ -148,7 +218,8 @@ function CollectionForm({
                     className="pr-5"
                     size="lg"
                     name="status"
-                    value="activo"
+                    value="Activo"
+                    defaultChecked={status === "Activo" ? true : false}
                   />
                   <Form.Check
                     inline
@@ -157,7 +228,8 @@ function CollectionForm({
                     className="pl-5"
                     size="lg"
                     name="status"
-                    value="finalizado"
+                    value="Finalizado"
+                    defaultChecked={status === "Finalizado" ? true : false}
                   />
                 </div>
               </Form.Group>
@@ -174,7 +246,11 @@ function CollectionForm({
                     onChange={(e) => {
                       setStartDate(e.target.value);
                     }}
+                    value={startDate}
                   />
+                  <Form.Text className="text-danger">
+                    {startDateError === "" ? "" : startDateError}
+                  </Form.Text>
                 </Form.Group>
                 <Form.Group as={Col}>
                   <Form.Label className="font-weight-bold">
@@ -186,7 +262,11 @@ function CollectionForm({
                     onChange={(e) => {
                       setEndDate(e.target.value);
                     }}
+                    value={endDate}
                   />
+                  <Form.Text className="text-danger">
+                    {endDateError === "" ? "" : endDateError}
+                  </Form.Text>
                 </Form.Group>
               </Form.Row>
             </Form>
@@ -202,6 +282,7 @@ function CollectionForm({
                 accept="image/jpeg, imgage/jpg, image/png"
                 className="mt-5"
                 id="fileItem"
+                multiple={false}
                 onChange={(e) => _handleChange(e)}
               />
               <Image
@@ -209,6 +290,9 @@ function CollectionForm({
                 fluid
                 className="mt-3"
               />
+              <Form.Text className="text-danger">
+                {imgError === "" ? "" : imgError}
+              </Form.Text>
             </Form.Group>
           </div>
           <div className="card-shadow p-4 mb-3">
@@ -221,7 +305,9 @@ function CollectionForm({
             <Subbutton onClick={_handleClick}>Agregar Partner</Subbutton>
           </div>
           <div className="card-shadow p-3 d-flex justify-content-center">
-            <RoundedButton type="blackBtn">Editar</RoundedButton>
+            <RoundedButton type="blackBtn" onClick={checkInputs}>
+              Editar
+            </RoundedButton>
           </div>
         </Col>
       </Row>

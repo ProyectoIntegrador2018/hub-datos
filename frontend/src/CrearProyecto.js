@@ -7,6 +7,7 @@ function CrearProyecto() {
   const [title, setTitle] = useState("");
   const [abstract, setAbstract] = useState("");
   const [description, setDescription] = useState("");
+  const [encargado, setEncargado] = useState("");
   const [image, setImage] = useState(null);
   const [imgUrl, setImgUrl] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -34,6 +35,8 @@ function CrearProyecto() {
       setAbstract={setAbstract}
       description={description}
       setDescription={setDescription}
+      encargado={encargado}
+      setEncargado={setEncargado}
       imgUrl={imgUrl}
       _handleChange={_handleChange}
       startDate={startDate}
