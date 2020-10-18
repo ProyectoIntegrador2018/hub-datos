@@ -14,6 +14,8 @@ import NuestraGente from "./NuestraGente";
 import SobreNosotros from "./SobreNostros";
 import IniciarSesion from "./IniciarSesion";
 import Consultas from "./Consultas";
+import MiPerfil from "./MiPerfil";
+import Registro from "./Registro.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { withRouter } from "react-router-dom";
@@ -30,17 +32,10 @@ class App extends Component {
     return (
       <Router>
         <div>
-          {this.props.location.pathname === "/IniciarSesion" ? "" : <Header />}
-          {this.props.location.pathname === "/IniciarSesion" ? (
-            ""
-          ) : (
-            <LinkHeader />
-          )}
-          {this.props.location.pathname === "/IniciarSesion" ? (
-            ""
-          ) : (
-            <Navigation />
-          )}
+          {this.props.location.pathname === "/IniciarSesion" || this.props.location.pathname === "/Registro" ? "" : <Header />}
+          {this.props.location.pathname === "/IniciarSesion" || this.props.location.pathname === "/Registro" ? ( "") : (<LinkHeader /> )}
+          {this.props.location.pathname === "/IniciarSesion" || this.props.location.pathname === "/Registro" ? ( "") : ( <Navigation />)}
+          
           <Switch>
             <Route path="/Proyectos/:id" component={ProjectDetails} />
             <Route path="/Proyectos" component={Proyectos} />
@@ -51,9 +46,11 @@ class App extends Component {
             <Route path="/SobreNosotros" component={SobreNosotros} />
             <Route path="/Consultas" component={Consultas} />
             <Route path="/IniciarSesion" component={IniciarSesion} />
+            <Route path="/Registro" component={Registro} />
+            <Route path="/MiPerfil" component={MiPerfil}/>
             <Route path="/*" component={Inicio} />
           </Switch>
-          {this.props.location.pathname === "/IniciarSesion" ? "" : <Footer />}
+          {this.props.location.pathname === "/IniciarSesion" || this.props.location.pathname === "/Registro" ? "" : <Footer />}
         </div>
     
       </Router>
