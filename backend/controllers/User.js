@@ -31,7 +31,7 @@ const userRegister = async function (userDets, role, res) {
     user.email = userDets.email;
     user.nombre = userDets.nombre;
     user.apellido = userDets.apellido;
-    user.edad = userDets.edad;
+    user.fechaDeNacimiento = userDets.fechaDeNacimiento;
     user.genero = userDets.genero;
     user.role = role;
     console.log(role);
