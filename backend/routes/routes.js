@@ -3,11 +3,7 @@ const router = express.Router();
 
 const project = require("../controllers/Project");
 const user = require("../controllers/User");
-const auth = require("./../middleware/auth");
-
-router.get("/hello", (req, res) => {
-  res.status(200).send("Hello World!");
-});
+const { auth, verifyRole } = require("./../middleware/auth");
 
 /*
  * PROJECTS ROUTES
@@ -19,7 +15,7 @@ router.get("/projects", async (req, res) => {
   await project.getAllProjects(req, res);
 });
 
-router.post("/projects", async (req, res) => {
+router.post("/projects", auth, verifyRole(["investigador", "socio_comercial", "socio_tecnologico", "administrador", "maestro"]), async (req, res) => {
   await project.newProject(req, res);
 });
 
@@ -27,7 +23,7 @@ router.get("/projects/:id", async (req, res) => {
   await project.getProjectByID(req.params.id, res);
 });
 
-router.put("/projects/edit/:id", async (req, res) => {
+router.put("/projects/edit/:id", auth, verifyRole(["investigador", "socio_comercial", "socio_tecnologico", "administrador", "maestro"]), async (req, res) => {
   await project.editProjectByID(req, res);
 });
 router.delete("/projects/delete/:id", async (req, res) => {

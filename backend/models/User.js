@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 const uuid = require("uuid");
 var validator = require("validator");
 
+const roles = ["alumno", "maestro", "investigador", "administrador, socio_comercial", "socio_tecnologico", "super_admin'"];
+const universities = ["ITESM", "UANL", "UDEM", null];
+const companies = ["microsoft", "google", "chevron", null];
+
 const userSchema = new mongoose.Schema({
   id: {
     type: String,
@@ -42,7 +46,7 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["alumno", "maestro", "investigador", "administrador, socio_comercial", "socio_tecnologico", "super_admin'"],
+    enum: roles,
     required: true,
   },
   universidad: {
@@ -51,7 +55,7 @@ const userSchema = new mongoose.Schema({
     required: function () {
       return this.role == "alumno";
     },
-    enum: ["ITESM", "UANL", "UDEM", null],
+    enum: universities,
   },
   compañia: {
     type: String,
@@ -59,7 +63,7 @@ const userSchema = new mongoose.Schema({
     required: function () {
       return this.role == "socio_comercial";
     },
-    enum: ["microsoft", "google", "chevron", null],
+    enum: companies,
   },
   password: {
     type: String,
