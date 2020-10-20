@@ -2,6 +2,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import React from "react";
 import Col from "react-bootstrap/Col";
+import { FiMinus } from "react-icons/fi";
 
 const PartnerSelect = ({ value, setPartners, index, _deletePartner }) => {
   const options = [
@@ -37,10 +38,11 @@ const PartnerSelect = ({ value, setPartners, index, _deletePartner }) => {
         </Form.Control>
         <Button
           variant="outline-danger"
-          className="rounded-circle h-25 mt-2"
+          className="rounded-circle mt-4"
           onClick={(e) => {setPartners(e, index, "delete")}}
+          style={{height: "2em", width: "2em", paddingTop: ".1em", paddingLeft: ".4em"}}
         >
-          -
+          <FiMinus />
         </Button>
       </Form.Row>
     </Col>

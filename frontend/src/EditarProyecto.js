@@ -54,7 +54,6 @@ function EditarProyecto() {
     _handlePreview(e, setImage, setImgUrl);
   };
   
-  console.log(partners)
   return loading ? (
     <Loader />
   ) : (

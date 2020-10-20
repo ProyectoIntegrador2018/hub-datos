@@ -30,7 +30,7 @@ function CollectionForm({
   setStatus,
   partners,
   setPartners,
-  variant
+  variant,
 }) {
   const [titleError, setTitleError] = useState("");
   const [abstractError, setAbstractError] = useState("");
@@ -89,7 +89,7 @@ function CollectionForm({
   const _handlePartners = (e, index, option) => {
     e.preventDefault();
     setPartners(e.target.value, index, option);
-  }
+  };
 
   return (
     <Container fluid className="mt-3 mb-3">
@@ -226,22 +226,26 @@ function CollectionForm({
                     {startDateError === "" ? "" : startDateError}
                   </Form.Text>
                 </Form.Group>
-                <Form.Group as={Col}>
-                  <Form.Label className="font-weight-bold">
-                    Fin del Proyecto
-                  </Form.Label>
-                  <Form.Control
-                    type="date"
-                    className="custom-input"
-                    onChange={(e) => {
-                      setEndDate(e.target.value);
-                    }}
-                    value={endDate}
-                  />
-                  <Form.Text className="text-danger">
-                    {endDateError === "" ? "" : endDateError}
-                  </Form.Text>
-                </Form.Group>
+                {variant === "Evento" ? (
+                  ""
+                ) : (
+                  <Form.Group as={Col}>
+                    <Form.Label className="font-weight-bold">
+                      Fin del Proyecto
+                    </Form.Label>
+                    <Form.Control
+                      type="date"
+                      className="custom-input"
+                      onChange={(e) => {
+                        setEndDate(e.target.value);
+                      }}
+                      value={endDate}
+                    />
+                    <Form.Text className="text-danger">
+                      {endDateError === "" ? "" : endDateError}
+                    </Form.Text>
+                  </Form.Group>
+                )}
               </Form.Row>
             </Form>
           </div>
