@@ -59,7 +59,7 @@ const editProjectByID = async function (req, res) {
   try {
     var query = await projectModel.findOne({
       id: req.params.id,
-  });
+  }).lean();
   } catch(err) {
     return res.status(500).send(err);
   }
@@ -79,7 +79,7 @@ const editProjectByID = async function (req, res) {
   try {
     await projectModel.updateOne(query, project);
     let response = {
-      ...query._doc,
+      ...query,
       ...project
     }
     return res.status(200).json( response );
