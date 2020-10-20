@@ -69,9 +69,11 @@ const editProjectByID = async function (req, res) {
     return res.status(404).end();
   }
 
-  if( !query.createdBy.equals(req.user._id) ) {
-    res.statusMessage = "No tiene permiso para editar este proyecto.";
-    return res.status(403).end();
+  if( req.user.role !== "admin" ) {
+    if( !query.createdBy.equals(req.user._id) ) {
+      res.statusMessage = "No tiene permiso para editar este proyecto.";
+      return res.status(403).end();
+    }
   }
   
   const project = req.body;

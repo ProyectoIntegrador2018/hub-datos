@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const uuid = require("uuid");
 var validator = require("validator");
 
-const roles = ["alumno", "maestro", "investigador", "administrador, socio_comercial", "socio_tecnologico", "super_admin'"];
+const roles = ["alumno", "maestro", "investigador", "administrador", "socio_comercial", "socio_tecnologico", "super_admin'"];
 const universities = ["ITESM", "UANL", "UDEM", null];
 const companies = ["microsoft", "google", "chevron", null];
 

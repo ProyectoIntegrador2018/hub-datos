@@ -26,7 +26,7 @@ router.get("/projects/:id", async (req, res) => {
 router.put("/projects/edit/:id", auth, verifyRole(["investigador", "socio_comercial", "socio_tecnologico", "administrador", "maestro"]), async (req, res) => {
   await project.editProjectByID(req, res);
 });
-router.delete("/projects/delete/:id", async (req, res) => {
+router.delete("/projects/delete/:id", auth, verifyRole(["administrador"]), async (req, res) => {
   await project.deleteProjectByID(req.params.id, res);
 });
 
@@ -38,20 +38,16 @@ router.get("/users", async (req, res) => {
   await user.getAllUsers(req, res);
 });
 
-router.get("/registrar/alumno", auth, async (req, res) => {
-  res.send("registrar alumno");
+router.post("/registrar/super_admin", auth, verifyRole(["super_admin"]), async (req, res) => {
+  await user.userRegister(req.body, "super_admin", res);
 });
 
-router.get("/registrar/maestro", (req, res) => {
-  res.send("registrar maestro");
+router.post("/registrar/socio_tecnologico", async (req, res) => {
+  await user.userRegister(req.body, "socio_tecnologico", res);
 });
 
-router.get("/registrar/admin", (req, res) => {
-  res.status(200).send("registrar admin");
-});
-
-router.get("/registrar/socio_comercial", (req, res) => {
-  res.send("registrar socio comercial");
+router.post("/registrar/investigador", async (req, res) => {
+  await user.userRegister(req.body, "investigador", res);
 });
 
 router.post("/registrar/alumno", async (req, res) => {
@@ -62,8 +58,8 @@ router.post("/registrar/maestro", async (req, res) => {
   await user.userRegister(req.body, "maestro", res);
 });
 
-router.post("/registrar/admin", async (req, res) => {
-  await user.userRegister(req.body, "admin", res);
+router.post("/registrar/admin", auth, verifyRole(["super_admin"]), async (req, res) => {
+  await user.userRegister(req.body, "administrador", res);
 });
 
 router.post("/registrar/socio_comercial", async (req, res) => {
