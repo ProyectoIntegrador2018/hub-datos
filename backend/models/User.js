@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const uuid = require("uuid");
 var validator = require("validator");
+const companyModel = require("./Company.model");
+const universityModel = require("./University.model");
 
 const roles = ["alumno", "maestro", "investigador", "administrador", "socio_comercial", "socio_tecnologico", "super_admin'"];
-const universities = ["ITESM", "UANL", "UDEM", null];
-const companies = ["microsoft", "google", "chevron", null];
 
 const userSchema = new mongoose.Schema({
   id: {
@@ -51,19 +51,37 @@ const userSchema = new mongoose.Schema({
   },
   universidad: {
     type: String,
-    default: null,
     required: function () {
       return this.role == "alumno";
     },
-    enum: universities,
+    validate: {
+      validator: ( universityName ) => {
+        return universityModel.exists( { name: universityName} );
+      },
+      message: "Universidad no registrada en la base de datos."
+    }
   },
   compañia: {
     type: String,
-    default: null,
     required: function () {
       return this.role == "socio_comercial";
     },
-    enum: companies,
+    validate: {
+      validator: (name) => {
+        // return companyModel.findOne({name})
+        //   .then( res => {
+        //     if( !res ) {
+        //       return Promise.resolve(false);
+        //     }
+        //     return Promise.resolve(true);
+        //   })
+        //   .catch( err => {
+        //     return Promise.reject(err);
+        //   });
+        return companyModel.exists({name});
+      },
+      message: "Compañia no registrada en la base de datos."
+    },
   },
   password: {
     type: String,
