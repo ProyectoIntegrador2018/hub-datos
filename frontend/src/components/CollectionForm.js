@@ -5,6 +5,7 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Image from "react-bootstrap/Image";
 import placeholder from "../assets/placeholder.png";
+import PartnerSelect from "./PartnerSelect";
 import React, { useState } from "react";
 import RoundedButton from "./RoundedButton";
 import Row from "react-bootstrap/Row";
@@ -29,40 +30,8 @@ function CollectionForm({
   setStatus,
   partners,
   setPartners,
-  variant,
+  variant
 }) {
-  const options = [
-    "",
-    "Microsoft",
-    "Saphana",
-    "Intel",
-    "Amazon Web Services",
-    "Dell EMC",
-    "Oracle",
-    "IBM Watson",
-    "Cisco",
-    "Tableau",
-    "Cemex",
-    "Heineken",
-    "Chevron",
-    "Arca Continental",
-  ];
-
-  const partnerSelect = (
-    <Form.Control
-      as="select"
-      className="my-2 custom-input"
-      onChange={(e) => {
-        setPartners(e);
-      }}
-    >
-      {options.map((option, i) => (
-        <option key={`option_${i}`}>{option}</option>
-      ))}
-    </Form.Control>
-  );
-
-  const [partnerList, setPartnerList] = useState([partnerSelect]);
   const [titleError, setTitleError] = useState("");
   const [abstractError, setAbstractError] = useState("");
   const [descriptionError, setDescriptionError] = useState("");
@@ -70,12 +39,6 @@ function CollectionForm({
   const [imgError, setImgError] = useState("");
   const [startDateError, setStartDateError] = useState("");
   const [endDateError, setEndDateError] = useState("");
-
-  const _handleClick = (e) => {
-    e.preventDefault();
-    let newPartners = [...partnerList, partnerSelect];
-    setPartnerList(newPartners);
-  };
 
   const counterClass = (count, middle, limit) => {
     if (count < middle) {
@@ -116,6 +79,17 @@ function CollectionForm({
       ? setEndDateError("La fecha de fin tiene que ser después del inicio")
       : setEndDateError("");
   };
+
+  const _handlePartnerSelect = (e) => {
+    e.preventDefault();
+    let newPartners = [...partners, ""];
+    setPartners(newPartners, -1, "add");
+  };
+
+  const _handlePartners = (e, index, option) => {
+    e.preventDefault();
+    setPartners(e.target.value, index, option);
+  }
 
   return (
     <Container fluid className="mt-3 mb-3">
@@ -298,11 +272,18 @@ function CollectionForm({
           <div className="card-shadow p-4 mb-3">
             <h3 className="mb-2">Partners</h3>
             <Form.Group>
-              {partnerList.map((partner, i) => (
-                <div key={i}>{partner}</div>
+              {partners.map((partner, i) => (
+                <PartnerSelect
+                  value={partner}
+                  key={`partner_${i}`}
+                  setPartners={_handlePartners}
+                  index={i}
+                />
               ))}
             </Form.Group>
-            <Subbutton onClick={_handleClick}>Agregar Partner</Subbutton>
+            <Subbutton onClick={_handlePartnerSelect}>
+              Agregar Partner
+            </Subbutton>
           </div>
           <div className="card-shadow p-3 d-flex justify-content-center">
             <RoundedButton type="blackBtn" onClick={checkInputs}>
