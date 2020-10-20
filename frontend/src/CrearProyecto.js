@@ -13,20 +13,25 @@ function CrearProyecto() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [status, setStatus] = useState("Activo");
-  const [partners, setPartners] = useState([]);
+  const [partners, setPartners] = useState([""]);
 
   const _handleChange = (e) => {
     e.preventDefault();
     _handlePreview(e, setImage, setImgUrl);
   };
 
-  const _handlePartners = (e) => {
-    e.preventDefault();
-    const newPartner = e.target.value;
-    const newPartners = [...partners, newPartner];
+  const _handlePartners = (newPartner, index, option) => {
+    let newPartners = [...partners];
+    if (option === "add") {
+      return setPartners(newPartner);
+    } else if (option === "delete") {
+      newPartners.splice(index, 1);
+    } else {
+      newPartners[index] = newPartner;
+    }
     setPartners(newPartners);
   };
-
+  
   return (
     <CollectionForm
       title={title}

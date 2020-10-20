@@ -38,19 +38,23 @@ function EditarProyecto() {
     fetchData();
   }, []);
 
-  const _handlePartners = (e) => {
-    e.preventDefault();
-    const newPartner = e.target.value;
-    const newPartners = [...partners, newPartner];
+  const _handlePartners = (newPartner, index, option) => {
+    let newPartners = [...partners];
+    if (option === "add") {
+      return setPartners(newPartner);
+    } else if (option === "delete") {
+      newPartners.splice(index, 1);
+    } else {
+      newPartners[index] = newPartner;
+    }
     setPartners(newPartners);
   };
 
   const _handleChange = (e) => {
     _handlePreview(e, setImage, setImgUrl);
   };
-
-  console.log(partners);
-
+  
+  console.log(partners)
   return loading ? (
     <Loader />
   ) : (
