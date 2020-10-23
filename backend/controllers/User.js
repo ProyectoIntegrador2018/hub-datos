@@ -2,7 +2,6 @@ const userModel = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 
-const { use } = require("../routes/routes");
 const { SECRET_TOKEN } = require("./../config");
 
 const userRegister = async function (userDets, role, res) {
@@ -31,7 +30,7 @@ const userRegister = async function (userDets, role, res) {
     user.email = userDets.email;
     user.nombre = userDets.nombre;
     user.apellido = userDets.apellido;
-    user.edad = userDets.edad;
+    user.fechaDeNacimiento = userDets.fechaDeNacimiento;
     user.genero = userDets.genero;
     user.role = role;
     console.log(role);
@@ -116,8 +115,7 @@ const login = async (req, res) => {
         return res.status(401).end();
       }
       let tokenData = {
-        email: user.email,
-        role: user.role
+        _id: user._id,
       }
       jwt.sign(tokenData, SECRET_TOKEN, { expiresIn: "15m" }, (err, token) => {
         if (err) {
