@@ -11,6 +11,7 @@ import { toast} from 'react-toastify';
 import { useHistory, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./IniciarSesion.css";
+import {isLoggedIn} from './components/Util/auth';
 
 function checkInputs(email, password) {
   if (email !== "" && password !== "") {
@@ -73,13 +74,17 @@ const IniciarSesion = ({ loginHandler }) => {
   const _loginHandler = _ => {
     if (checkInputs(email, password)) {
       return axios
-        .post(URI + "/iniciar-sesion", {
+        .post("http://localhost:8000/iniciar-sesion", {
           email,
           password
         })
         .then(response => {
+         
           localStorage.setItem("token", response.data.token);
-          localStorage.setItem("userId", response.data.user._id);
+          axios.get("http://localhost:8000/user/data")
+          .then(response=>{
+            console.log(response.data);
+          })
           loginHandler(true);
           return null;
         })

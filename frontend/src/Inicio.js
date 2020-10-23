@@ -1,7 +1,11 @@
+import Axios from "axios";
 import React, { useState, useEffect } from "react";
 import JumbotronList from "./components/ListOfNews";
+import axios from "axios"
+
 
 function News() {
+  
   const [news, setNews] = useState(null);
 
   const splitNews = (newsList) => {

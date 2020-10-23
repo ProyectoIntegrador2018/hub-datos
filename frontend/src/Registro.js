@@ -217,7 +217,6 @@ const Registro = (props) => {
 								<option value="investigador">Investigador</option>
 								<option value="sociocomercial">Socio Comercial</option>
 								<option value="sociotecnologico">Socio Tecnológico</option>
-								<option value="administrador">Administrador</option>
 							</select>
 							<div class="form-group" className={valueCompania}>
 								<label for="inputState">Selecciona Compañia</label>
