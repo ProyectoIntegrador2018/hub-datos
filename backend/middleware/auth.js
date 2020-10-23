@@ -16,17 +16,33 @@ const auth = ( req, res, next ) => {
             res.statusMessage = "Su sesión ha expirado. Por favor inicie sesión nuevamente.";
             return res.status(401).end();
         }
-        userModel.findOne( { email: decoded.email })
+
+        userModel.findById( decoded._id )
             .then( user => {
-                if(!user) {
+                if( !user ) {
                     res.statusMessage = "Usuario no encontrado"
                     return res.status(400).end();
                 }
                 req.user = user;
                 next();
-            })
+            });
     });
 
 };
 
-module.exports = auth;
+const verifyRole = ( rolesList ) => {
+    return (req, res, next) => {
+        if( rolesList.includes(req.user.role) ) {
+            next();
+        }
+        else {
+            res.statusMessage = "El usuario no cuenta con los permisos necesarios para realizar la operación";
+            return res.status(403).end();
+        }
+    };
+};
+
+module.exports = {
+    auth,
+    verifyRole
+};

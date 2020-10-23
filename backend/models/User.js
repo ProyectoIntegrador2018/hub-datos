@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
 const uuid = require("uuid");
+var validator = require("validator");
+const companyModel = require("./Company.model");
+const universityModel = require("./University.model");
+
+const roles = ["alumno", "maestro", "investigador", "administrador", "socio_comercial", "socio_tecnologico", "super_admin'"];
 
 const userSchema = new mongoose.Schema({
   id: {
@@ -17,6 +22,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    validate(value) {
+      if (!validator.isEmail(value)) {
+        throw new Error("Email invalido");
+      }
+    },
   },
   nombre: {
     type: String,
@@ -26,8 +36,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  edad: {
-    type: Number,
+  fechaDeNacimiento: {
+    type: Date,
     required: true,
   },
   genero: {
@@ -36,24 +46,42 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["alumno", "maestro", "investigador", "administrador, socio_comercial", "socio_tecnologico", "super_admin'"],
+    enum: roles,
     required: true,
   },
   universidad: {
     type: String,
-    default: null,
     required: function () {
       return this.role == "alumno";
     },
-    enum: ["ITESM", "UANL", "UDEM", null],
+    validate: {
+      validator: ( universityName ) => {
+        return universityModel.exists( { name: universityName} );
+      },
+      message: "Universidad no registrada en la base de datos."
+    }
   },
   compañia: {
     type: String,
-    default: null,
     required: function () {
       return this.role == "socio_comercial";
     },
-    enum: ["microsoft", "google", "chevron", null],
+    validate: {
+      validator: (name) => {
+        // return companyModel.findOne({name})
+        //   .then( res => {
+        //     if( !res ) {
+        //       return Promise.resolve(false);
+        //     }
+        //     return Promise.resolve(true);
+        //   })
+        //   .catch( err => {
+        //     return Promise.reject(err);
+        //   });
+        return companyModel.exists({name});
+      },
+      message: "Compañia no registrada en la base de datos."
+    },
   },
   password: {
     type: String,
@@ -61,7 +89,8 @@ const userSchema = new mongoose.Schema({
   },
   imagen: {
     type: String,
-    required: true,
+    default: null,
+    required: false,
   },
 });
 
