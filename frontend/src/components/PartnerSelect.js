@@ -38,7 +38,7 @@ const PartnerSelect = ({ value, setPartners, index, _deletePartner }) => {
         </Form.Control>
         <Button
           variant="outline-danger"
-          className="rounded-circle mt-4"
+          className="rounded-circle mt-3"
           onClick={(e) => {setPartners(e, index, "delete")}}
           style={{height: "2em", width: "2em", paddingTop: ".1em", paddingLeft: ".4em"}}
         >
