@@ -17,7 +17,7 @@ const CardComponent = ({ title, description, route, type, img, variant }) => {
       className="border-0 card-shadow pb-2 mt-2 mr-3"
       style={{ width: "93%" }}
     >
-      <Card.Img variant="top" src={img} />
+      <Card.Img variant="top" src={img} alt="project-image"/>
       <Card.Body>
         <Card.Title> {title} </Card.Title>
         <Card.Text>{description}</Card.Text>

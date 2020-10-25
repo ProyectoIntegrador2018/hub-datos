@@ -13,20 +13,24 @@ const CardView = ({ collection, header, type, variant }) => {
     e.preventDefault();
     history.push("/CrearProyecto");
   };
-  
+
   return (
     <div className="pb-3">
       <Container fluid className="px-5 pb-5 pt-3">
         <Row className="justify-content-between ml-1 mr-4">
           <h1>{header}</h1>
-          <RoundedButton
-            type="blackBtn"
-            onClick={(e) => {
-              _handleCreation(e);
-            }}
-          >
-            Crear Proyecto
-          </RoundedButton>
+          {variant === "delete" ? (
+            <RoundedButton
+              type="blackBtn"
+              onClick={(e) => {
+                _handleCreation(e);
+              }}
+            >
+              Crear Proyecto
+            </RoundedButton>
+          ) : (
+            ""
+          )}
         </Row>
         <Row>
           <Col>

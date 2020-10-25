@@ -65,7 +65,7 @@ function CollectionForm({
       ? setEncargadoError("Favor de escribir el nombre del encargado")
       : setEncargadoError("");
     !imgUrl
-      ? setImgError("Favor de elegir una imágen para el proyecto")
+      ? setImgError("Favor de elegir una imagen para el proyecto")
       : setImgError("");
     !/\S/.test(startDate)
       ? setStartDateError("Favor de elegir una fecha de inicio")
@@ -263,7 +263,7 @@ function CollectionForm({
           <div className="card-shadow p-5 mb-4">
             <Form.Group>
               <h3 className="mb-3">
-                Sube una imágen para tu {variant.toLowerCase()}
+                Sube una imagen para tu {variant.toLowerCase()}
               </h3>
               <Form.File
                 accept="image/jpeg, imgage/jpg, image/png"
