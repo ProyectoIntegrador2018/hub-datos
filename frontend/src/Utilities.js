@@ -21,3 +21,11 @@ export const _handlePreview = (e, setImage, setImgUrl) => {
 
   reader.readAsDataURL(file);
 };
+
+export const getId = () => {
+  let route = window.location.href;
+  route = route.split("/");
+  const id = route[route.length - 1];
+
+  return id;
+};

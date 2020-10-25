@@ -3,12 +3,31 @@ import Container from "react-bootstrap/Container";
 import CardRow from "./CardRow";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+import RoundedButton from "./RoundedButton";
+import { useHistory } from "react-router-dom";
 
 const CardView = ({ collection, header, type, variant }) => {
+  let history = useHistory();
+
+  const _handleCreation = (e) => {
+    e.preventDefault();
+    history.push("/CrearProyecto");
+  };
+  
   return (
     <div className="pb-3">
       <Container fluid className="px-5 pb-5 pt-3">
-        <h1>{header}</h1>
+        <Row className="justify-content-between ml-1 mr-4">
+          <h1>{header}</h1>
+          <RoundedButton
+            type="blackBtn"
+            onClick={(e) => {
+              _handleCreation(e);
+            }}
+          >
+            Crear Proyecto
+          </RoundedButton>
+        </Row>
         <Row>
           <Col>
             {collection

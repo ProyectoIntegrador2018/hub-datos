@@ -29,11 +29,13 @@ function Navigation() {
               {" "}
               SOBRE NOSOTROS{" "}
             </Nav.Link>
+            <Nav.Link className="NavItem" href="/MisProyectos">
+              MIS PROYECTOS
+            </Nav.Link>
           </Nav>
         </NavBar.Collapse>
       </NavBar>
     </header>
-
   );
 }
 export default Navigation;
