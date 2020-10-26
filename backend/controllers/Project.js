@@ -3,7 +3,7 @@ const userModel = require("./../models/User");
 
 const getAllProjects = async function (req, res) {
   const projects = await projectModel.find({});
-  const paginas = 1;
+  let paginas = 1;
   if (projects.length > 12) {
     paginas = Math.ceil(projects.length / 12);
   }
@@ -107,19 +107,10 @@ const deleteProjectByID = async function (projectId, res) {
   }
 };
 
-const getHello = async function (req, res) {
-  try {
-    res.status(200).send("hello world");
-  } catch (err) {
-    res.status(500).send(err);
-  }
-};
-
 module.exports = {
   getAllProjects: getAllProjects,
   newProject: newProject,
   getProjectByID: getProjectByID,
-  getHello: getHello,
   editProjectByID: editProjectByID,
   deleteProjectByID: deleteProjectByID,
 };

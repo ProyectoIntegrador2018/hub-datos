@@ -1,6 +1,8 @@
 const userModel = require("../models/User");
+const passwordResetModel = require('./../models/Password-reset.model');
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
+const sgMail = require('@sendgrid/mail');
 
 const { SECRET_TOKEN } = require("./../config");
 
@@ -80,10 +82,10 @@ const register = async (req, res, next) => {
 
     case ROLES.ADMIN:
       return next();
-    
+
     case ROLES.SUPERADMIN:
       return next();
-  
+
     default:
       res.statusMessage = `No existe el tipo de usuario ${req.body.role}`;
       return res.status(400).end();
@@ -93,7 +95,7 @@ const register = async (req, res, next) => {
     await newUser.save();
     // await newUser.validate();
     return res.status(200).json(newUser);
-  } catch(e) {
+  } catch (e) {
     return res.status(500).json(e);
   }
 };
@@ -169,10 +171,74 @@ const login = async (req, res) => {
     });
 };
 
+const rpCreate = async (req, res) => {
+
+  try {
+    var user = await userModel.findOne({ email: req.body.email });
+  } catch (e) {
+    return res.status(500).json(e);
+  }
+
+  if (!user) {
+    res.statusMessage = `El mail ${req.body.email} no ha sido registrado`;
+    return res.status(404).end();
+  }
+
+  try {
+    let passwordReset = new passwordResetModel({ user });
+    await passwordReset.save();
+  } catch(e) {
+    return res.status(500).json(e);
+  }
+
+  res.status(202).end();
+
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  const LINK = 'https://data-hub-app.herokuapp.com/';
+
+  const msg = {
+    to: user.email, // Change to your recipient
+    from: process.env.EMAIL, // Change to your verified sender
+    subject: 'Cambio de contraseña',
+    html: `
+      <strong>Hola ${user.nombre} ${user.apellido}!</strong>
+      <p>Ingresa a la siguiente liga para cambiar tu contraseña: <a href=${LINK}>Cambiar contraseña</a><p>
+    `,
+  }
+
+  // sgMail.send(msg)
+  //   .then( () => console.log('Email sent') )
+  //   .catch( (error) => console.error(error) );
+
+}
+
+const rpUpdate = async (req, res) => {
+  try {
+    var passReset = await passwordResetModel.findOne({
+      token: req.params.token
+    }).populate('user', ["password"]);
+  } catch(e) {
+    return res.status(500).json(e);
+  }
+
+  if( !passReset ) {
+    res.statusMessage = `El URL expiro`;
+    return res.status(404).end();
+  }
+  
+  const { user } = passReset;
+
+  user.set( {password: req.body.password} ).save()
+    .then( () => passReset.remove() )
+    .then( () => res.status(200).end() )
+    .catch( e => res.status(500).json(e) );
+}
 
 module.exports = {
   register: register,
   protectedRegister: protectedRegister,
   getAllUsers: getAllUsers,
-  login: login
+  login: login,
+  rpCreate: rpCreate,
+  rpUpdate: rpUpdate
 };
