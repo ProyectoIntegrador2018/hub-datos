@@ -1,50 +1,37 @@
 const { Router } = require('express');
-const user = require("../controllers/User");
+const userController = require("../controllers/User");
 const { auth, verifyRole } = require("../middleware/auth");
 
 const router = new Router();
 
 /*
  * REGISTER ROUTES
- * GET  /users                      - Returns all registered users
- * POST /users/super_admin          - Create a new user with role super_admin    
- * POST /users/socio_tecnologico    - Create a new user with role socio_tecnologico
- * POST /users/investigador         - Create a new user with role investigador
- * POST /users/alumno               - Create a new user with role alumno
- * POST /users/maestro              - Create a new user with role maestro
- * POST /users/admin                - Create a new user with role admin
- * POST /users/socio_comercial      - Create a new user with role socio_comercial
+ * GET  /users                          - Returns all registered users
+ * POST /users                          - Create a new user with the specified role in the request.   
+ * POST /users/password-resets          - Create entry in DB and send link to reset password
+ * PUT  /users/password-resets/:token   - Modify user password
  */
 router.get("/", async (req, res) => {
-    await user.getAllUsers(req, res);
+    await userController.getAllUsers(req, res);
 });
 
-router.post("/super_admin", auth, verifyRole(["super_admin"]), async (req, res) => {
-    await user.userRegister(req.body, "super_admin", res);
-});
+router.post("/", userController.register);
+router.post("/", auth, verifyRole(["super_admin"]), userController.protectedRegister);
 
-router.post("/socio_tecnologico", async (req, res) => {
-    await user.userRegister(req.body, "socio_tecnologico", res);
-});
+/**
+ * @api {post} /users/password-resets Send email
+ * @apiParam {String} email Email address to receive the password reset token.
+ * @apiSuccess (Success 202) 202 Accepted.
+ * @apiError 404 Email doesn't exist
+ */
+router.post("/password-resets", userController.rpCreate);
 
-router.post("/investigador", async (req, res) => {
-    await user.userRegister(req.body, "investigador", res);
-});
-
-router.post("/alumno", async (req, res) => {
-    await user.userRegister(req.body, "alumno", res);
-});
-
-router.post("/maestro", async (req, res) => {
-    await user.userRegister(req.body, "maestro", res);
-});
-
-router.post("/admin", auth, verifyRole(["super_admin"]), async (req, res) => {
-    await user.userRegister(req.body, "administrador", res);
-});
-
-router.post("/socio_comercial", async (req, res) => {
-    await user.userRegister(req.body, "socio_comercial", res);
-});
+/**
+ * @api {put} /users/password-resets/:token Submit password
+ * @apiParam {String{6..}} password User's new password.
+ * @apiSuccess (Success 200) 200 OK.
+ * @apiError 404 Token has expired or doesn't exist.
+ */
+router.put("/password-resets/:token", userController.rpUpdate);
 
 module.exports = router;
