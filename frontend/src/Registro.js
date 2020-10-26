@@ -14,7 +14,7 @@ const initialState = {
 	email: '',
 	nombre: '',
 	apellido: '',
-	edad: '',
+	fechaDeNacimiento: '',
 	genero: '',
 	role: '',
 	universidad: '',
@@ -39,7 +39,7 @@ function checkInputs(state) {
 		state.email !== '' &&
 		state.nombre !== '' &&
 		state.apellido !== '' &&
-		state.edad !== '' &&
+		state.fechaDeNacimiento !== '' &&
 		state.genero !== '' &&
 		state.role !== '' &&
 		// state.universidad !== "" &&
@@ -77,7 +77,7 @@ const Registro = (props) => {
 				email,
 				nombre,
 				apellido,
-				edad,
+				fechaDeNacimiento,
 				genero,
 				role,
 				universidad,
@@ -86,12 +86,12 @@ const Registro = (props) => {
 				imagen,
 			} = state;
 			return axios
-				.post('http://localhost:8000/registrar/alumno', {
+				.post('http://localhost:8000/users/alumno', {
 					username,
 					email,
 					nombre,
 					apellido,
-					edad,
+					fechaDeNacimiento,
 					genero,
 					role,
 					universidad,
@@ -100,7 +100,7 @@ const Registro = (props) => {
 					imagen,
 				})
 				.then((response) => {
-					console.log(response);
+					
 					return null;
 				})
 				.catch((error) => {
@@ -108,7 +108,7 @@ const Registro = (props) => {
 						return error.response.data.message;
 					} else return error.message;
 				});
-		}
+		} else return "One of your credentials is missing"
 	};
 
 	const _signup = async (e) => {
@@ -117,7 +117,8 @@ const Registro = (props) => {
 		if (respError) {
 			dispatch({ field: 'error', value: respError });
 		} else {
-			props.history.push('/Usuarios');
+			
+			props.history.push('/', {sucess: "Registro éxitoso"});
 		}
 	};
 
@@ -179,7 +180,7 @@ const Registro = (props) => {
 										id="fechaNacimiento"
 										onChange={onChange}
 										onKeyDown={_handleKeyDown}
-										name="edad"
+										name="fechaDeNacimiento"
 										required
 									/>
 								</div>

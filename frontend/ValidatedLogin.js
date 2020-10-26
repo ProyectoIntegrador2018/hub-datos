@@ -11,7 +11,6 @@ import { toast} from 'react-toastify';
 import { useHistory, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./IniciarSesion.css";
-import jwt_decode from 'jwt-decode';
 import {isLoggedIn} from './components/Util/Auth';
 
 const initialState = {
@@ -75,7 +74,7 @@ const onChange = (e) =>{
       toast.error(location.state.error)
     }
     if(localStorage.getItem("token")){
-      history.push("/", {success: "You are already logged in."})
+      //history.push("/", {success: "You are already logged in."})
     }
   }, []);
   const login = async e => {
@@ -84,7 +83,8 @@ const onChange = (e) =>{
     if (respError) {
       toast.error(respError);
     } else {
-      history.push('/MiPerfil');
+      return "ERROR";
+     // history.push("/", {success: "Logged in successfully!"});
     }
   };
   const loginHandler = _ => {
@@ -100,9 +100,6 @@ const onChange = (e) =>{
         })
         .then(response => {
           localStorage.setItem("token", response.data.token);
-          var decoded = jwt_decode(response.data.token);
-          console.log(decoded);
-          localStorage.setItem("role", decoded.role);
           LoginHandler(true);
           return null;
         })
@@ -188,6 +185,3 @@ const onChange = (e) =>{
 
 
 export default IniciarSesion;
-
-
-
