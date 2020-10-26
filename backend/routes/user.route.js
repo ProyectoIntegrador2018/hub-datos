@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const user = require("../controllers/User");
+const userController = require("../controllers/User");
 const { auth, verifyRole } = require("../middleware/auth");
 
 const router = new Router();
@@ -16,35 +16,18 @@ const router = new Router();
  * POST /users/socio_comercial      - Create a new user with role socio_comercial
  */
 router.get("/", async (req, res) => {
-    await user.getAllUsers(req, res);
+    await userController.getAllUsers(req, res);
 });
 
-router.post("/super_admin", auth, verifyRole(["super_admin"]), async (req, res) => {
-    await user.userRegister(req.body, "super_admin", res);
-});
+router.post("/", userController.register);
+router.post("/", auth, verifyRole(["super_admin"]), userController.protectedRegister);
 
-router.post("/socio_tecnologico", async (req, res) => {
-    await user.userRegister(req.body, "socio_tecnologico", res);
-});
+// router.post("/super_admin", auth, verifyRole(["super_admin"]), async (req, res) => {
+//     await user.userRegister(req.body, "super_admin", res);
+// });
 
-router.post("/investigador", async (req, res) => {
-    await user.userRegister(req.body, "investigador", res);
-});
-
-router.post("/alumno", async (req, res) => {
-    await user.userRegister(req.body, "alumno", res);
-});
-
-router.post("/maestro", async (req, res) => {
-    await user.userRegister(req.body, "maestro", res);
-});
-
-router.post("/admin", auth, verifyRole(["super_admin"]), async (req, res) => {
-    await user.userRegister(req.body, "administrador", res);
-});
-
-router.post("/socio_comercial", async (req, res) => {
-    await user.userRegister(req.body, "socio_comercial", res);
-});
+// router.post("/admin", auth, verifyRole(["super_admin"]), async (req, res) => {
+//     await user.userRegister(req.body, "administrador", res);
+// });
 
 module.exports = router;
