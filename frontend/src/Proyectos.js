@@ -10,8 +10,12 @@ function Proyectos() {
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const { data } = await axios(`${URI.base}${URI.routes.allProjects}`);
-      const { projects, } = data;
+     /* const { data } = await axios(`${URI.base}${URI.routes.allProjects}`);
+      const { projects, } = data;*/
+      const { data } = await axios(`http://localhost:8000/${URI.routes.allProjects}`);
+      const {projects, paginas} = data;
+      console.log(projects, paginas);
+
       const projectChunks = splitProjects(projects);
 
       setProjects(projectChunks);
