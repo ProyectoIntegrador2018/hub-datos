@@ -27,7 +27,7 @@ const newProject = async function (req, res) {
   project.descripcionLarga = req.body.descripcionLarga;
   project.fechaInicio = req.body.fechaInicio;
   project.finalizo = req.body.finalizo;
-  if (req.body.finalizo) {
+  if (req.body.fechaFinalizo !== null) {
     project.fechaFinalizo = req.body.fechaFinalizo;
   }
   project.imagen = req.body.imagen;
@@ -110,12 +110,12 @@ const deleteProjectByID = async function (projectId, res) {
 const userProjects = async (req, res) => {
   let projects;
   try {
-    projects = await projectModel.find( {createdBy: req.user._id} );
-  } catch(e) {
+    projects = await projectModel.find({ createdBy: req.user._id });
+  } catch (e) {
     return res.status(500).json(e);
   }
   return res.status(200).json(projects);
-}
+};
 
 module.exports = {
   getAllProjects: getAllProjects,
@@ -123,5 +123,5 @@ module.exports = {
   getProjectByID: getProjectByID,
   editProjectByID: editProjectByID,
   deleteProjectByID: deleteProjectByID,
-  userProjects: userProjects
+  userProjects: userProjects,
 };
