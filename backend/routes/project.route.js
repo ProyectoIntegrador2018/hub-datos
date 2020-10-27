@@ -16,6 +16,8 @@ router.get("/", async (req, res) => {
   await project.getAllProjects(req, res);
 });
 
+router.get("/my-projects", auth, project.userProjects);
+
 router.post("/", auth, verifyRole(["investigador", "socio_comercial", "socio_tecnologico", "administrador", "maestro"]), async (req, res) => {
   await project.newProject(req, res);
 });
