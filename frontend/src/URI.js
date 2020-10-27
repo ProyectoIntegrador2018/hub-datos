@@ -5,6 +5,9 @@ const URI = {
         getAllUsers: "users",
         allProjects: "projects",
         projectByID: "projects/",
+        createProject: "projects",
+        editProject: "projects/",
+        deleteProject: "projects/",
         signIn: "iniciar-sesion/",
     }
 }

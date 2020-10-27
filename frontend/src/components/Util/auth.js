@@ -47,7 +47,7 @@ function isAdmin() {
 		} else {
 			let decoded = jwtDecode(token);
 			let role = decoded.role;
-			if (role === 'admin') return true;
+			if (role === 'administrador') return true;
 			else return false;
 		}
 	} else {

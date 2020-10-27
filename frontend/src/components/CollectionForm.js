@@ -80,11 +80,19 @@ function CollectionForm({
     edDateObj < stDateObj
       ? setEndDateError("La fecha de fin tiene que ser después del inicio")
       : setEndDateError("");
-    
-    const answers = [title, abstract, description, encargado, imgUrl, startDate, endDate];
+
+    const answers = [
+      title,
+      abstract,
+      description,
+      encargado,
+      imgUrl,
+      startDate,
+      endDate,
+    ];
     const flag = edDateObj > stDateObj;
-    console.log(flag)
-    if(answers.every((answer) => (!/S/.test(answer))) && flag) {
+    if (answers.every((answer) => /\S/.test(answer)) && flag) {
+      console.log("hola");
       return action();
     }
   };
@@ -102,7 +110,10 @@ function CollectionForm({
 
   return (
     <Container fluid className="mt-3 mb-3">
-      <h1 className="mb-3"> {type} {variant} </h1>
+      <h1 className="mb-3">
+        {" "}
+        {type} {variant}{" "}
+      </h1>
       <Row className="mb-5">
         <Col className="mb-4">
           <div className="card-shadow p-5">

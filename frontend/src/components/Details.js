@@ -7,18 +7,18 @@ import { useHistory, useLocation } from "react-router-dom";
 import RoundedButton from "./RoundedButton";
 import Row from "react-bootstrap/Row";
 
-const Details = ({ date, author, title, imgUrl, description}) => {
-let history =  useHistory();
-  const _enroll = _ => {
-    let token = localStorage.getItem('token');
-    let role = localStorage.getItem('role');
-    console.log("Hjejeje")
-    if(token && role === 'alumno'){
+const Details = ({ date, author, title, imgUrl, description }) => {
+  let history = useHistory();
+  
+  const _enroll = (_) => {
+    let token = localStorage.getItem("token");
+    let role = localStorage.getItem("role");
+    console.log("Hjejeje");
+    if (token && role === "alumno") {
       history.push("/Inscrito");
-     } else{
-        history.push("/Error");
-       }
-    
+    } else {
+      history.push("/Error");
+    }
   };
 
   return (
@@ -35,13 +35,20 @@ let history =  useHistory();
             <h1 className="pb-4">Detalles</h1>
             {description
               ? description.map((paragraph, i) => (
-                  <p key={`paragraph_${i}`}>{paragraph}</p>
+                  <div
+                    key={`paragraph_${i}`}
+                    style={{ wordWrap: "break-word" }}
+                  >
+                    {paragraph}
+                  </div>
                 ))
               : ""}
           </Col>
           <Col className="px-4">
             <div className="card-shadow p-3 rounded d-flex justify-content-center">
-              <RoundedButton type="blackBtn" onClick={_enroll}>Inscribirse</RoundedButton>
+              <RoundedButton type="blackBtn" onClick={_enroll}>
+                Inscribirse
+              </RoundedButton>
             </div>
           </Col>
         </Row>

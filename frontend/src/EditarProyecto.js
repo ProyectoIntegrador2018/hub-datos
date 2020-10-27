@@ -1,6 +1,5 @@
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
-
 import axios from "axios";
 import CollectionForm from "./components/CollectionForm";
 import Loader from "./components/Loader";
@@ -30,21 +29,20 @@ function EditarProyecto() {
     const fetchData = async () => {
       const { data } = await axios(`${URI.base}${URI.routes.projectByID}${id}`);
       setTitle(data.nombre);
-      setAbstract(data.descripcion);
-      setDescription(data.descripcion);
+      setAbstract(data.descripcionCorta);
+      setDescription(data.descripcionLarga);
       setImgUrl(data.imagen);
 
       // get dates
-      let start = data.createdAt.slice(0,10);
+      let start = data.fechaInicio.slice(0, 10);
       setStartDate(start);
       // let end = data.finishedAt.slice(0,10);
       setEndDate("2020-02-03"); // using dummy data until model updates
 
-      let status = data.estatus.toLowerCase() === "abierto" ? "Activo" : "Finalizado";
-      setStatus(status);
-
-      setEncargado("Lala");
-      setPartners([]);
+      setStatus("Activo");
+      setEncargado(data.encargado);
+      data.socios[1] = "Intel"
+      setPartners(data.socios);
       setLoading(false);
     };
 
@@ -68,68 +66,74 @@ function EditarProyecto() {
   };
 
   const _editHandler = () => {
+    const fechaInicio = new Date(startDate);
+    const fechaFinalizo = new Date(endDate);
+
     const data = {
       nombre: title,
-      abstract: abstract,
-      descripcion: description,
       encargado: encargado,
-      estatus: status,
-      createdAt: new Date(startDate),
-      fechaFin: new Date(endDate),
-      partners: partners
-    }
+      socios: partners,
+      descripcionCorta: abstract,
+      descripcionLarga: description,
+      fechaInicio: fechaInicio,
+      fechaFinalizo: fechaFinalizo,
+      imagen: image,
+      createdBy: localStorage.getItem('token')
+    };
 
-    return axios.put("ruta necesaria", data)
-    .then((response) => {
-      return null;
-    })
-    .catch((error) => {
-      if (error.response) {
-        return error.response.data.message;
-      } else return error.message;
-    });
-  }
+    return axios
+      .put(`${URI.base}${URI.routes.editProject}${id}`, data, {
+        headers: {
+          sessiontoken: `${localStorage.getItem('token')}`,
+        }
+      })
+      .then((response) => {
+        return null;
+      })
+      .catch((error) => {
+        if (error.response) {
+          return error.response.data.message;
+        } else return error.message;
+      });
+  };
 
   const _editProject = async () => {
     let response = await _editHandler();
     if (response) {
       toast.error(response);
     } else {
-      history.push(`/Proyectos/${id}`)
+      history.push(`/Proyectos/${id}`);
     }
-  }
-  
+  };
+
   return loading ? (
     <Loader />
   ) : (
     <>
-    <ToastContainer 
-      draggable={false}
-      autoClose={4000}
-    />
-    <CollectionForm
-      title={title}
-      setTitle={setTitle}
-      abstract={abstract}
-      setAbstract={setAbstract}
-      description={description}
-      setDescription={setDescription}
-      encargado={encargado}
-      setEncargado={setEncargado}
-      imgUrl={imgUrl}
-      _handleChange={_handleChange}
-      startDate={startDate}
-      setStartDate={setStartDate}
-      endDate={endDate}
-      setEndDate={setEndDate}
-      status={status}
-      setStatus={setStatus}
-      partners={partners}
-      setPartners={_handlePartners}
-      variant="Proyecto"
-      action={_editProject}
-      type="Editar"
-    />
+      <ToastContainer draggable={false} autoClose={4000} />
+      <CollectionForm
+        title={title}
+        setTitle={setTitle}
+        abstract={abstract}
+        setAbstract={setAbstract}
+        description={description}
+        setDescription={setDescription}
+        encargado={encargado}
+        setEncargado={setEncargado}
+        imgUrl={imgUrl}
+        _handleChange={_handleChange}
+        startDate={startDate}
+        setStartDate={setStartDate}
+        endDate={endDate}
+        setEndDate={setEndDate}
+        status={status}
+        setStatus={setStatus}
+        partners={partners}
+        setPartners={_handlePartners}
+        variant="Proyecto"
+        action={_editProject}
+        type="Editar"
+      />
     </>
   );
 }

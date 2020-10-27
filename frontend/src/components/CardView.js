@@ -17,13 +17,14 @@ import {
 import RoundedButton from './RoundedButton';
 import { useHistory } from 'react-router-dom';
 
-const CardView = ({ collection, header, type, variant }) => {
+const CardView = ({ collection, header, type, variant, deleteHandler }) => {
 	let history = useHistory();
 
 	const _handleCreation = (e) => {
 		e.preventDefault();
 		history.push('/CrearProyecto');
 	};
+	
 	let button;
 	if (
 		isLoggedIn() &&
@@ -59,6 +60,7 @@ const CardView = ({ collection, header, type, variant }) => {
 										type={type}
 										header={header}
 										variant={variant}
+										deleteHandler={deleteHandler}
 									/>
 							  ))
 							: ''}
