@@ -27,7 +27,7 @@ const newProject = async function (req, res) {
   project.descripcionLarga = req.body.descripcionLarga;
   project.fechaInicio = req.body.fechaInicio;
   project.finalizo = req.body.finalizo;
-  if (req.body.finalizo) {
+  if (req.body.fechaFinalizo !== null) {
     project.fechaFinalizo = req.body.fechaFinalizo;
   }
   project.imagen = req.body.imagen;
@@ -73,7 +73,7 @@ const editProjectByID = async function (req, res) {
     return res.status(404).end();
   }
 
-  if (req.user.role !== "admin") {
+  if (req.user.role !== "administrador") {
     if (!query.createdBy.equals(req.user._id)) {
       res.statusMessage = "No tiene permiso para editar este proyecto.";
       return res.status(403).end();
@@ -107,10 +107,21 @@ const deleteProjectByID = async function (projectId, res) {
   }
 };
 
+const userProjects = async (req, res) => {
+  let projects;
+  try {
+    projects = await projectModel.find({ createdBy: req.user._id });
+  } catch (e) {
+    return res.status(500).json(e);
+  }
+  return res.status(200).json(projects);
+};
+
 module.exports = {
   getAllProjects: getAllProjects,
   newProject: newProject,
   getProjectByID: getProjectByID,
   editProjectByID: editProjectByID,
   deleteProjectByID: deleteProjectByID,
+  userProjects: userProjects,
 };
