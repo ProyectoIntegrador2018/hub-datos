@@ -4,15 +4,15 @@ import Loader from "./components/Loader";
 import React, { useState, useEffect } from "react";
 import URI from "./URI";
 import { splitProjects } from "./Utilities";
+import { ToastContainer, toast } from "react-toastify";
 
 function MisProyectos() {
   const [projects, setProjects] = useState(null);
 
   useEffect(() => {
     const fetchEvents = async () => {
-      /* code needed later to fetch data needed for the page */
       const { data } = await axios(`${URI.base}${URI.routes.allProjects}`);
-      const { projects, } = data;
+      const { projects } = data;
       const projectChunks = splitProjects(projects);
 
       setProjects(projectChunks);
@@ -20,11 +20,55 @@ function MisProyectos() {
 
     fetchEvents();
   }, []);
-  
+
+  const visualDelete = (id) => {
+    let projArray = projects.flat();
+    projArray = projArray.filter((obj) => obj.id !== id);
+    projArray = splitProjects(projArray);
+    setProjects(projArray);
+  }
+
+  const _deleteHandler = (id) => {
+    axios
+      .delete(`${URI.base}${URI.routes.deleteProject}${id}`, {
+        headers: {
+          sessiontoken: `${localStorage.getItem('token')}`
+        }
+      })
+      .then((response) => {
+        return null;
+      })
+      .catch((error) => {
+        if (error.response) {
+          return error.response.data.message;
+        } else return error.message;
+      });
+  };
+
+  const _deleteProject = async (id) => {
+    let response = await _deleteHandler(id);
+    if (response) {
+      toast.error(response);
+    } else {
+      toast.success("Proyecto Eliminado!");
+      visualDelete(id);
+    }
+  };
+
+  console.log(projects);
   return !projects ? (
     <Loader />
   ) : (
-    <CardView header="Mis Proyectos" collection={projects} type="proyecto" variant="delete" />
+    <>
+      <ToastContainer draggable={false} autoClose={4000} />
+      <CardView
+        header="Mis Proyectos"
+        collection={projects}
+        type="proyecto"
+        variant="delete"
+        deleteHandler={_deleteProject}
+      />
+    </>
   );
 }
 

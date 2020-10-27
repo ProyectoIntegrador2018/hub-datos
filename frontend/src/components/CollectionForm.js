@@ -45,7 +45,7 @@ function CollectionForm({
   const counterClass = (count, middle, limit) => {
     if (count < middle) {
       return "text-muted";
-    } else if (count > middle && count < limit) {
+    } else if (count >= middle && count <= limit) {
       return "warning";
     }
     return "text-danger";
@@ -80,11 +80,18 @@ function CollectionForm({
     edDateObj < stDateObj
       ? setEndDateError("La fecha de fin tiene que ser después del inicio")
       : setEndDateError("");
-    
-    const answers = [title, abstract, description, encargado, imgUrl, startDate, endDate];
+
+    const answers = [
+      title,
+      abstract,
+      description,
+      encargado,
+      imgUrl,
+      startDate,
+      endDate,
+    ];
     const flag = edDateObj > stDateObj;
-    console.log(flag)
-    if(answers.every((answer) => (!/S/.test(answer))) && flag) {
+    if (answers.every((answer) => /\S/.test(answer)) && flag) {
       return action();
     }
   };
@@ -102,7 +109,10 @@ function CollectionForm({
 
   return (
     <Container fluid className="mt-3 mb-3">
-      <h1 className="mb-3"> {type} {variant} </h1>
+      <h1 className="mb-3">
+        {" "}
+        {type} {variant}{" "}
+      </h1>
       <Row className="mb-5">
         <Col className="mb-4">
           <div className="card-shadow p-5">
@@ -127,7 +137,7 @@ function CollectionForm({
                   size="lg"
                   as="textarea"
                   className="custom-input"
-                  maxLength={280}
+                  maxLength={200}
                   onChange={(e) => {
                     setAbstract(e.target.value);
                   }}
@@ -136,7 +146,7 @@ function CollectionForm({
                 <Form.Text
                   className={
                     abstractError === ""
-                      ? counterClass(abstract.length, 140, 280)
+                      ? counterClass(abstract.length, 140, 200)
                       : "text-danger"
                   }
                 >

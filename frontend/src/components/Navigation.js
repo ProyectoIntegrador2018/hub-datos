@@ -1,49 +1,62 @@
 import React from "react";
 import Nav from "react-bootstrap/Nav";
 import NavBar from "react-bootstrap/Navbar";
-import {isLoggedIn,LogOut, isStudent, isTeacher, isAdmin, isSuperAdmin, isSocioComercial, isSocioTecnologico, isInvestigator} from './Util/auth';
+import {isLoggedIn, isTeacher, isAdmin, isSuperAdmin, isSocioComercial, isSocioTecnologico, isInvestigator} from './Util/auth';
 import "./css/Navigation.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-const Navigation = ({status})=> {
-  let navItems=[ 
+const Navigation = ({ status }) => {
+  let navItems = [
     <>
-    <Nav.Link className="NavItem" href="/">
-              INICIO
-            </Nav.Link>
-            <Nav.Link className="NavItem" href="/Proyectos">
-              {" "}
-              PROYECTOS{" "}
-            </Nav.Link>
-            <Nav.Link className="NavItem" href="/Eventos">
-              {" "}
-              EVENTOS{" "}
-            </Nav.Link>
-            <Nav.Link className="NavItem" href="/NuestraGente">
-              {" "}
-              NUESTRA GENTE{" "}
-            </Nav.Link>
-            <Nav.Link className="NavItem" href="/SobreNosotros">
-              {" "}
-              SOBRE NOSOTROS{" "}
-            </Nav.Link>
-            </>
+      <Nav.Link className="NavItem" href="/">
+        INICIO
+      </Nav.Link>
+      <Nav.Link className="NavItem" href="/Proyectos">
+        {" "}
+        PROYECTOS{" "}
+      </Nav.Link>
+      <Nav.Link className="NavItem" href="/Eventos">
+        {" "}
+        EVENTOS{" "}
+      </Nav.Link>
+      <Nav.Link className="NavItem" href="/NuestraGente">
+        {" "}
+        NUESTRA GENTE{" "}
+      </Nav.Link>
+      <Nav.Link className="NavItem" href="/SobreNosotros">
+        {" "}
+        SOBRE NOSOTROS{" "}
+      </Nav.Link>
+    </>,
   ];
-  if(isLoggedIn()){
+  if (isLoggedIn()) {
     navItems.push(
-        <>
-        <Nav.Link className="NavItem" href="/Miperfil">MI PERFIL</Nav.Link>
-        <Nav.Link className="NavItem" href="/MisProyectos">MIS PROYECTOS</Nav.Link>
-          </>
-    )
+      <>
+        <Nav.Link className="NavItem" href="/Miperfil">
+          MI PERFIL
+        </Nav.Link>
+        <Nav.Link className="NavItem" href="/MisProyectos">
+          MIS PROYECTOS
+        </Nav.Link>
+      </>
+    );
   }
 
-  if(isLoggedIn() &&( isAdmin() || isTeacher() || isSuperAdmin() || isSocioComercial() || isSocioTecnologico() || isInvestigator()) ){
+  if (
+    isLoggedIn() &&
+    (isAdmin() ||
+      isTeacher() ||
+      isSuperAdmin() ||
+      isSocioComercial() ||
+      isSocioTecnologico() ||
+      isInvestigator())
+  ) {
     navItems.push(
-        <>
-        <Nav.Link className="NavItem" href="/CrearProyecto">CREAR PROYECTO</Nav.Link>
-          </>
-    )
-    
+      <>
+        <Nav.Link className="NavItem" href="/CrearProyecto">
+          CREAR PROYECTO
+        </Nav.Link>
+      </>
+    );
   }
   return (
     <header className="header sticky-top">
@@ -51,16 +64,14 @@ const Navigation = ({status})=> {
         <NavBar.Toggle aria-controls="basic-navbar-nav" />
         <NavBar.Collapse id="navbarSupportedContent">
           <Nav className="ml-auto ">
-            
             {navItems}
-            {/*<Nav.Link className="NavItem" href="/Consultas"> CONSULTAS </Nav.Link>*/ }
- </Nav>
-           </NavBar.Collapse>
+            {/*<Nav.Link className="NavItem" href="/Consultas"> CONSULTAS </Nav.Link>*/}
+          </Nav>
+        </NavBar.Collapse>
       </NavBar>
     </header>
-
   );
-}
+};
 export default Navigation;
 
 /*

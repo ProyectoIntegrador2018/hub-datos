@@ -47,7 +47,7 @@ class App extends Component {
 			backgroundUrl: '',
 		};
 	}
-	render() {
+	render() {				
 		return (
 			<Router>
 				<div>

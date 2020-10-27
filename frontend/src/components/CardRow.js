@@ -2,7 +2,7 @@ import React from "react";
 import CardColumns from "react-bootstrap/CardColumns";
 import CardComponent from "./CardComponent";
 
-const CardRow = ({ projects, rowNumber, type, header, variant }) => {
+const CardRow = ({ projects, rowNumber, type, header, variant, deleteHandler }) => {
   let route = header;
   const removeSpaces = () => {
     route = route.replace(" ", "");
@@ -14,12 +14,14 @@ const CardRow = ({ projects, rowNumber, type, header, variant }) => {
       {projects.map((project, i) => (
         <CardComponent
           title={project.nombre}
-          description={project.descripcion}
+          description={project.descripcionCorta}
           route={`${route}/${project.id}`}
           key={`project_${rowNumber}_${i}`}
           type={type}
           img={project.imagen}
           variant={variant}
+          id={project.id}
+          deleteHandler={deleteHandler}
         />
       ))}
     </CardColumns>

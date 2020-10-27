@@ -36,7 +36,7 @@ const IniciarSesion = ({ loginHandler }) => {
 	const _loginHandler = (_) => {
 		if (checkInputs(email, password)) {
 			return axios
-				.post(`${URI.base}${URI.routes.signIn}` /*'http://localhost:8000/iniciar-sesion/'*/, {
+				.post(`${URI.base}${URI.routes.signIn}`, {
 					email,
 					password,
 				})
