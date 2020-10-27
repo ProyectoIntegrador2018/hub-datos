@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 const uuid = require("uuid");
+const bcrypt = require("bcryptjs");
 var validator = require("validator");
 const companyModel = require("./Company.model");
 const universityModel = require("./University.model");
 
-const roles = ["alumno", "maestro", "investigador", "administrador", "socio_comercial", "socio_tecnologico", "super_admin'"];
+const roles = ["alumno", "maestro", "investigador", "administrador", "socio_comercial", "socio_tecnologico", "super_admin"];
 
 const userSchema = new mongoose.Schema({
   id: {
@@ -52,7 +53,7 @@ const userSchema = new mongoose.Schema({
   universidad: {
     type: String,
     required: function () {
-      return this.role == "alumno";
+      return (this.role == "alumno" || this.role == "maestro");
     },
     validate: {
       validator: ( universityName ) => {
@@ -64,7 +65,7 @@ const userSchema = new mongoose.Schema({
   compañia: {
     type: String,
     required: function () {
-      return this.role == "socio_comercial";
+      return (this.role == "investigador" || this.role == "socio_comercial" || this.role == "socio_tecnologico");
     },
     validate: {
       validator: (name) => {
@@ -86,12 +87,24 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+    minlength: 6
   },
   imagen: {
     type: String,
     default: null,
     required: false,
   },
+});
+
+userSchema.pre('save', function(next) {
+  console.log(this.password);
+  const rounds = 12;
+  bcrypt.hash(this.password, rounds)
+    .then((hash) => {
+      this.password = hash;
+      next();
+    })
+    .catch(next);
 });
 
 const userModel = mongoose.model("User", userSchema);
