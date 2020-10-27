@@ -1,70 +1,110 @@
 const userModel = require("../models/User");
+const passwordResetModel = require('./../models/Password-reset.model');
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
+const sgMail = require('@sendgrid/mail');
 
 const { SECRET_TOKEN } = require("./../config");
 
-const userRegister = async function (userDets, role, res) {
-  try {
-    let usernameTaken = await validateUsername(userDets.username);
-    if (!usernameTaken) {
-      return res.status(400).send({
-        message: `El usuario ${userDets.username} ha sido tomado`,
-        succes: false,
-      });
-    }
-    let emailRegistered = await validateEmail(userDets.email);
-    if (!emailRegistered) {
-      return (
-        res.status(400) -
-        send({
-          message: `El correo ya ha sido registrado`,
-          succes: false,
-        })
-      );
-    }
+const ROLES = {
+  ALUMNO: "alumno",
+  MAESTRO: "maestro",
+  INVESTIGADOR: "investigador",
+  ADMIN: "administrador",
+  SOCIOCOMERCIAL: "socio_comercial",
+  SOCIOTECNOLOGICO: "socio_tecnologico",
+  SUPERADMIN: "super_admin"
+}
 
-    const hashedPassword = await bcrypt.hash(userDets.password, 12);
-    const user = new userModel();
-    user.username = userDets.username;
-    user.email = userDets.email;
-    user.nombre = userDets.nombre;
-    user.apellido = userDets.apellido;
-    user.fechaDeNacimiento = userDets.fechaDeNacimiento;
-    user.genero = userDets.genero;
-    user.role = role;
-    console.log(role);
-    if (role == "alumno" && userDets.universidad && userDets.universidad !== "") {
-      user.universidad = userDets.universidad;
-    } else if (user.role === "alumno") {
-      res.status(400).send({
-        message: "El alumno debe de tener una universidad obligatoriamente",
-      });
-    }
-    if (user.role === "socio_comercial" && userDets.compañia && userDets.compañia !== "") {
-      user.compañia = userDets.compañia;
-    } else if (user.role === "socio_comercial") {
-      res.status(400).send({
-        message: "El socio comercial debe de tener una compañia obligatoriamente",
-      });
-    }
-    if (user.role === "maestro" && userDets.universidad && userDets.universidad !== "") {
-      user.universidad = userDets.universidad;
-    } else if (user.role === "maestro") {
-      res.status(400).send({
-        message: "El maestro debe de tener una universidad obligatoriamente",
-      });
-    }
-    user.password = hashedPassword;
-    user.imagen = userDets.imagen;
-    await user.save();
-    res.status(201).send({
-      message: "El usuario ha sido exitosamente registrado",
-      succes: true,
-    });
+const register = async (req, res, next) => {
+
+  try {
+    var isUserNameFree = await validateUsername(req.body.username);
   } catch (err) {
-    res.status(500).send(err);
+    return res.status(500).json(err);
   }
+
+  if (!isUserNameFree) {
+    let response = {
+      message: `El usuario ${req.body.username} ya existe.`,
+      success: false
+    };
+    res.statusMessage = `El usuario ${req.body.username} ya existe.`;
+    return res.status(400).json(response);
+  }
+
+  try {
+    var isEmailFree = await validateEmail(req.body.email);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+
+  if (!isEmailFree) {
+    let response = {
+      message: `El email ${req.body.email} ya existe.`,
+      success: false
+    };
+    res.statusMessage = `El email ${req.body.email} ya existe.`;
+    return res.status(400).json(response);
+  }
+
+  let newUser = new userModel();
+  newUser.username = req.body.username;
+  newUser.email = req.body.email;
+  newUser.password = req.body.password;
+  newUser.nombre = req.body.nombre;
+  newUser.apellido = req.body.apellido;
+  newUser.fechaDeNacimiento = req.body.fechaDeNacimiento;
+  newUser.genero = req.body.genero;
+  newUser.role = req.body.role;
+  newUser.imagen = req.body.imagen;
+
+  switch (req.body.role) {
+    case ROLES.ALUMNO:
+      newUser.universidad = req.body.universidad;
+      break;
+
+    case ROLES.MAESTRO:
+      newUser.universidad = req.body.universidad;
+      break;
+
+    case ROLES.INVESTIGADOR:
+      newUser.compañia = req.body.compañia;
+      break;
+
+    case ROLES.SOCIOCOMERCIAL:
+      newUser.compañia = req.body.compañia;
+      break;
+
+    case ROLES.SOCIOTECNOLOGICO:
+      newUser.compañia = req.body.compañia;
+      break;
+
+    case ROLES.ADMIN:
+      return next();
+
+    case ROLES.SUPERADMIN:
+      return next();
+
+    default:
+      res.statusMessage = `No existe el tipo de usuario ${req.body.role}`;
+      return res.status(400).end();
+  }
+
+  try {
+    await newUser.save();
+    // await newUser.validate();
+    return res.status(200).json(newUser);
+  } catch (e) {
+    return res.status(500).json(e);
+  }
+};
+
+const protectedRegister = (req, res) => {
+  res.statusMessage = "Protected route to register admins and super admins";
+  res.status(200).json({
+    message: "To be implemented"
+  });
 };
 
 const validateUsername = async function (username) {
@@ -133,9 +173,74 @@ const login = async (req, res) => {
     });
 };
 
+const rpCreate = async (req, res) => {
+
+  try {
+    var user = await userModel.findOne({ email: req.body.email });
+  } catch (e) {
+    return res.status(500).json(e);
+  }
+
+  if (!user) {
+    res.statusMessage = `El mail ${req.body.email} no ha sido registrado`;
+    return res.status(404).end();
+  }
+
+  try {
+    let passwordReset = new passwordResetModel({ user });
+    await passwordReset.save();
+  } catch(e) {
+    return res.status(500).json(e);
+  }
+
+  res.status(202).end();
+
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  const LINK = 'https://data-hub-app.herokuapp.com/';
+
+  const msg = {
+    to: user.email, // Change to your recipient
+    from: process.env.EMAIL, // Change to your verified sender
+    subject: 'Cambio de contraseña',
+    html: `
+      <strong>Hola ${user.nombre} ${user.apellido}!</strong>
+      <p>Ingresa a la siguiente liga para cambiar tu contraseña: <a href=${LINK}>Cambiar contraseña</a><p>
+    `,
+  }
+
+  // sgMail.send(msg)
+  //   .then( () => console.log('Email sent') )
+  //   .catch( (error) => console.error(error) );
+
+}
+
+const rpUpdate = async (req, res) => {
+  try {
+    var passReset = await passwordResetModel.findOne({
+      token: req.params.token
+    }).populate('user', ["password"]);
+  } catch(e) {
+    return res.status(500).json(e);
+  }
+
+  if( !passReset ) {
+    res.statusMessage = `El URL expiro`;
+    return res.status(404).end();
+  }
+  
+  const { user } = passReset;
+
+  user.set( {password: req.body.password} ).save()
+    .then( () => passReset.remove() )
+    .then( () => res.status(200).end() )
+    .catch( e => res.status(500).json(e) );
+}
 
 module.exports = {
-  userRegister: userRegister,
+  register: register,
+  protectedRegister: protectedRegister,
   getAllUsers: getAllUsers,
-  login: login
+  login: login,
+  rpCreate: rpCreate,
+  rpUpdate: rpUpdate
 };
