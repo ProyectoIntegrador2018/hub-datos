@@ -21,9 +21,20 @@ function MisProyectos() {
     fetchEvents();
   }, []);
 
+  const visualDelete = (id) => {
+    let projArray = projects.flat();
+    projArray = projArray.filter((obj) => obj.id !== id);
+    projArray = splitProjects(projArray);
+    setProjects(projArray);
+  }
+
   const _deleteHandler = (id) => {
     axios
-      .delete(`${URI.base}${URI.routes.delete}${id}`)
+      .delete(`${URI.base}${URI.routes.deleteProject}${id}`, {
+        headers: {
+          sessiontoken: `${localStorage.getItem('token')}`
+        }
+      })
       .then((response) => {
         return null;
       })
@@ -40,9 +51,11 @@ function MisProyectos() {
       toast.error(response);
     } else {
       toast.success("Proyecto Eliminado!");
+      visualDelete(id);
     }
   };
 
+  console.log(projects);
   return !projects ? (
     <Loader />
   ) : (
