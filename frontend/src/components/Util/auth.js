@@ -47,7 +47,7 @@ function isAdmin() {
 		} else {
 			let decoded = jwtDecode(token);
 			let role = decoded.role;
-			if (role === 'admin') return true;
+			if (role === 'administrador') return true;
 			else return false;
 		}
 	} else {
@@ -152,7 +152,7 @@ function isSocioTecnologico() {
 function LogOut() {
 	localStorage.removeItem('token');
 	localStorage.removeItem('role');
-	sessionStorage.removeItem('token');
+	localStorage.removeItem('id');
 	window.location.href = '/';
 }
 function getUserData() {

@@ -1,10 +1,6 @@
 import React from "react";
 import Nav from "react-bootstrap/Nav";
 import NavBar from "react-bootstrap/Navbar";
-import Button from "react-bootstrap/Button";
-import StudentNavButtons from "./StudentNavButtons"
-import { getUserId, deleteToken, deleteUserId } from "../LoginData";
-import { useHistory } from "react-router-dom";
 import {isLoggedIn,LogOut, isStudent, isTeacher, isAdmin, isSuperAdmin, isSocioComercial, isSocioTecnologico, isInvestigator} from './Util/auth';
 import "./css/Navigation.css";
 import "bootstrap/dist/css/bootstrap.min.css";

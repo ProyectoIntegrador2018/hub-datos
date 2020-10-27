@@ -36,7 +36,7 @@ const IniciarSesion = ({ loginHandler }) => {
 	const _loginHandler = (_) => {
 		if (checkInputs(email, password)) {
 			return axios
-				.post(/*`${URI.base}${URI.routes.signIn}`*/'http://localhost:8000/iniciar-sesion/', {
+				.post(`${URI.base}${URI.routes.signIn}` /*'http://localhost:8000/iniciar-sesion/'*/, {
 					email,
 					password,
 				})
@@ -66,8 +66,8 @@ const IniciarSesion = ({ loginHandler }) => {
 		if (respError) {
 			toast.error(respError);
 		} else {
-			toast.success('Inicio de sesión éxitoso!');
-			// history.push("/");
+			//	toast.success('Inicio de sesión éxitoso!');
+			history.push('/');
 		}
 	};
 
@@ -122,7 +122,7 @@ const IniciarSesion = ({ loginHandler }) => {
 									onKeyDown={_handleKeyDown}
 								/>
 							</div>
-							<Link to="/recovery-email"> ¿Olvidaste tu contraseña?</Link>
+							<Link to="/Recuperar-contraseña"> ¿Olvidaste tu contraseña?</Link>
 							<div className="btnLoginRegistro">
 								<RoundedButton type="blackBtn" id="loginBtn" onClick={_login}>
 									Iniciar Sesión

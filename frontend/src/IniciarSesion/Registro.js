@@ -1,14 +1,11 @@
 import React, { useReducer, useState } from 'react';
-import classnames from 'classnames';
 import RoundedButton from '../components/RoundedButton';
 import { Subbutton } from '../components/Subbutton';
-import Logo from '../assets/Picture2.png'
+import Logo from '../assets/Picture2.png';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import URI from '../URI';
-import useForm from "../useForm";
-import validate from "./validateLogin";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './IniciarSesion.css';
 
@@ -45,40 +42,50 @@ function checkInputs(state) {
 		state.fechaDeNacimiento !== '' &&
 		state.genero !== '' &&
 		state.role !== '' &&
-		// state.universidad !== "" &&
-		// state.compañia !== "" &&
-		state.password !== '' // &&
-		// state.imagen !== ""
-	) {
+		state.universidad !== "" ||
+		state.compañia !== "" &&
+		state.password !== '' &&
+		state.imagen !== "") {
+		if(state.password.length< 6){
+			return toast.error("La contraseña debe tener mínimo 6 carácteres");
+		}
 		return true;
 	}
 	return false;
 }
 
 const Registro = (props) => {
-	
-/*const {handleChange, handleSubmit, values, errors} = useForm(
-	validate
-);*/
- 	const [state, dispatch] = useReducer(reducer, initialState);
+	const [state, dispatch] = useReducer(reducer, initialState);
 	const [valueUniversidad, setValueUniversidad] = useState('hide');
 	const [valueCompania, setValueCompania] = useState('hide');
 	const onChange = (e) => {
-	
 		dispatch({ field: e.target.name, value: e.target.value });
-		if (e.target.value == 'alumno' || e.target.value == 'profesor') {
+		if (e.target.value == 'alumno' || e.target.value == 'maestro') {
 			setValueCompania('hide');
 			setValueUniversidad(e.target.value);
-		} else if (e.target.value == 'socio_comercial'||e.target.value == 'socio_tecnologico'||e.target.value == 'investigador' ) {
+		} else if (
+			e.target.value == 'socio_comercial' ||
+			e.target.value == 'socio_tecnologico' ||
+			e.target.value == 'investigador'
+		) {
 			setValueUniversidad('hide');
 			setValueCompania(e.target.value);
-			
-		}/* else if (e.target.value == 'profesor+') {
+		} /* else if (e.target.value == 'profesor+') {
 			setValueCompania('show');
 			setValueUniversidad('show');
 		}*/
 	};
-
+	const _signup = async (e) => {
+		e.preventDefault();
+		let respError = await _signupHandler();
+		if (respError) {
+			console.log(respError);
+			dispatch({ field: 'error', value: respError });
+		} else {
+			toast.success('Registro éxitoso!');
+			//props.history.push('/', {sucess: "Registro éxitoso"});
+		}
+	};
 	const _signupHandler = (_) => {
 		if (checkInputs(state)) {
 			let {
@@ -95,7 +102,7 @@ const Registro = (props) => {
 				imagen,
 			} = state;
 			return axios
-				.post(/*`${URI.base}${URI.routes.signUpUser}`*/'http://localhost:8000/users/alumno', {
+				.post(`${URI.base}${URI.routes.signUpUser}`, {
 					username,
 					email,
 					nombre,
@@ -109,27 +116,22 @@ const Registro = (props) => {
 					imagen,
 				})
 				.then((response) => {
-					
 					return null;
 				})
 				.catch((error) => {
 					if (error.response) {
-						console.log(error.response.data.message)
+						if(error.response.data.message === `El usuario ${username} ya existe.`){
+							return toast.error(error.response.data.message);
+						}else if(error.response.data.message=== `El email ${email} ya existe.` ) {
+							return toast.error(error.response.data.message);
+						}else if(error.response.data.message=== "User validation failed: email: Email invalido"){
+							return toast.error("Email inválido");
+						}
 						return error.response.data.message;
 					} else return error.message;
 				});
-		} else return "One of your credentials is missing"
-	};
-
-	const _signup = async (e) => {
-		e.preventDefault();
-		let respError = await _signupHandler();
-		if (respError) {
-			console.log(respError);
-			dispatch({ field: 'error', value: respError });
 		} else {
-			toast.success('Registro éxitoso!');	
-		//	props.history.push('/', {sucess: "Registro éxitoso"});
+			return toast.error('Favor de llenar todos los campos');
 		}
 	};
 
@@ -140,8 +142,8 @@ const Registro = (props) => {
 	};
 	return (
 		<div class="d-md-flex h-md-100 align-items-center">
-				<ToastContainer draggable={false} autoClose={4000} />
-		
+			<ToastContainer draggable={false} autoClose={4000} />
+
 			<div class="col-md-6 p-0 bg-indigo h-md-100">
 				<div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
 					<div class="logoarea pt-5 pb-5">
@@ -157,7 +159,6 @@ const Registro = (props) => {
 			<div class="col-md-6 p-0 bg-white h-md-100 loginarea">
 				<div class="align-items-center h-md-100 p-5 justify-content-center">
 					<div>
-						<p className="error">{state.error}</p>
 						<form class="" /*onSubmit={handleSubmit}*/>
 							<div class="form-row">
 								<div class="form-group col-md-6">
@@ -170,7 +171,7 @@ const Registro = (props) => {
 										onKeyDown={_handleKeyDown}
 										name="nombre"
 									/>
-								</div>
+									 		</div>
 								<div class="form-group col-md-6">
 									<label for="inputPassword4">Apellido</label>
 									<input
@@ -181,7 +182,7 @@ const Registro = (props) => {
 										onKeyDown={_handleKeyDown}
 										name="apellido"
 									/>
-								</div>
+									</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
@@ -195,7 +196,7 @@ const Registro = (props) => {
 										name="fechaDeNacimiento"
 										required
 									/>
-								</div>
+									</div>
 								<div class="form-group col-md-6">
 									<label for="inputPassword4">Género</label>
 									<select
@@ -211,7 +212,7 @@ const Registro = (props) => {
 										<option>Masculino</option>
 										<option>Otro</option>
 									</select>{' '}
-								</div>
+									</div>
 							</div>
 							<label for="inputPassword4">Selecciona tu perfil</label>
 
@@ -225,8 +226,8 @@ const Registro = (props) => {
 							>
 								<option value="hide"></option>
 								<option value="alumno">Alumno</option>
-								<option value="profesor">Profesor</option>
-							{/*	<option value="profesor+">Profesor +</option>*/}
+								<option value="maestro">Maestro</option>
+								{/*	<option value="profesor+">Profesor +</option>*/}
 								<option value="investigador">Investigador</option>
 								<option value="socio_comercial">Socio Comercial</option>
 								<option value="socio_tecnologico">Socio Tecnológico</option>
@@ -280,7 +281,7 @@ const Registro = (props) => {
 										Adjunta tus credenciales...
 									</label>
 								</div>
-							</div>
+								</div>
 							<div class="form-group">
 								<label for="inputAddress">Nombre de usuario</label>
 								<input
@@ -292,35 +293,22 @@ const Registro = (props) => {
 									onKeyDown={_handleKeyDown}
 									className="form-control inputRegistro"
 								/>
-								<div className="invalid-feedback">Correo inválido</div>
-							</div>
+								</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label for="inputAddress">Correo Electrónico</label>
 									<input
 										type="text"
 										class="form-control inputRegistro"
-										id="emailSignup"
 										name="email"
 										//value={values.email}
-										onChange="onChange(); handleChange()"
+										onChange={onChange}
 										onKeyDown={_handleKeyDown}
 										className=" form-control inputRegistro"
-										/* {classnames(
-                        
-                       { "is-valid": emailSignup.error === false },
-                        { "is-invalid": emailSignup.error }
-                      )}
-                      /*onChange={(evt) =>
-                        this.handleChange(validateFields.validateEmail, evt)
-                      }
-                      onBlur={(evt) =>
-                        this.handleBlur(validateFields.validateEmail, evt)
-                      }*/
 									/>
- {/* {errors.email && <p className="error">{errors.email}</p>}*/}
-								</div>
-									<div class="form-group col-md-6">
+									{/* {errors.email && <p className="error">{errors.email}</p>}*/}
+									</div>
+								<div class="form-group col-md-6">
 									<label for="inputAddress">Contraseña</label>
 									<input
 										type="password"
@@ -342,8 +330,8 @@ const Registro = (props) => {
                         this.handleBlur(validateFields.validatePassword, evt)
                       }*/
 									/>
-								{/*	{errors.password && <p className="error">{errors.password}</p>}*/}
-								</div>
+									{/*	{errors.password && <p className="error">{errors.password}</p>}*/}
+									</div>
 							</div>
 							<div className="btnLoginRegistro">
 								<RoundedButton type="blackBtn" onClick={_signup}>
