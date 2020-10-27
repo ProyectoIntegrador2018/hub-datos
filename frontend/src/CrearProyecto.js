@@ -5,6 +5,7 @@ import CollectionForm from "./components/CollectionForm";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { _handlePreview } from "./Utilities";
+import URI from "./URI";
 
 function CrearProyecto() {
   const [title, setTitle] = useState("");
@@ -36,28 +37,37 @@ function CrearProyecto() {
   };
 
   const _postHandler = () => {
+    const today = new Date();
+    const fechaFin = new Date(endDate);
+    const finalizo = fechaFin < today;
+
     const data = {
       nombre: title,
-      abstract: abstract,
-      descripcion: description,
       encargado: encargado,
-      estatus: status,
-      createdAt: new Date(startDate),
-      fechaFin: new Date(endDate),
-      partners: partners,
+      socios: partners,
+      descripcionCorta: abstract,
+      descripcionLarga: description,
+      fechaInicio: new Date(startDate),
+      finalizo: finalizo,
+      fechaFin: fechaFin,
+      imagen: "https://picsum.photos/2000/800",
+      createdBy: localStorage.getItem('id')
     };
 
+    console.log(`${URI.base}${URI.routes.createProject}`)
     return axios
-      .post("ruta necesaria", data)
+      .post(`${URI.base}${URI.routes.createProject}`, data, {
+        headers: {
+          sessiontoken: `${localStorage.getItem('token')}`
+        }
+      })
       .then((response) => {
         return null;
       })
       .catch((error) => {
         if (error.response) {
           return error.response.data.message;
-        } else {
-          return error.message;
-        }
+        } else return error.message;
       });
   };
 

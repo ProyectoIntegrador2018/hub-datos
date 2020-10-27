@@ -14,7 +14,7 @@ const CardRow = ({ projects, rowNumber, type, header, variant, deleteHandler }) 
       {projects.map((project, i) => (
         <CardComponent
           title={project.nombre}
-          description={project.descripcion}
+          description={project.descripcionCorta}
           route={`${route}/${project.id}`}
           key={`project_${rowNumber}_${i}`}
           type={type}

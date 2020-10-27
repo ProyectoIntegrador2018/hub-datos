@@ -28,6 +28,7 @@ function EditarProyecto() {
     // fetch data from project and set in state to use for the form
     const fetchData = async () => {
       const { data } = await axios(`${URI.base}${URI.routes.projectByID}${id}`);
+      console.log(data)
       setTitle(data.nombre);
       setAbstract(data.descripcionCorta);
       setDescription(data.descripcionLarga);
@@ -36,12 +37,11 @@ function EditarProyecto() {
       // get dates
       let start = data.fechaInicio.slice(0, 10);
       setStartDate(start);
-      // let end = data.finishedAt.slice(0,10);
-      setEndDate("2020-02-03"); // using dummy data until model updates
-
-      setStatus("Activo");
+      //let end = data.fechaFin.slice(0,10);
+      //setEndDate(end); // using dummy data until model updates
+      const stat = data.finalizado ? "Finalizado" : "Activo";
+      setStatus(stat);
       setEncargado(data.encargado);
-      data.socios[1] = "Intel"
       setPartners(data.socios);
       setLoading(false);
     };
@@ -66,8 +66,9 @@ function EditarProyecto() {
   };
 
   const _editHandler = () => {
-    const fechaInicio = new Date(startDate);
+    const today = new Date();
     const fechaFinalizo = new Date(endDate);
+    const finalizado = fechaFinalizo < today;
 
     const data = {
       nombre: title,
@@ -75,10 +76,11 @@ function EditarProyecto() {
       socios: partners,
       descripcionCorta: abstract,
       descripcionLarga: description,
-      fechaInicio: fechaInicio,
+      fechaInicio: new Date(startDate),
+      finalizo: finalizado,
       fechaFinalizo: fechaFinalizo,
-      imagen: image,
-      createdBy: localStorage.getItem('token')
+      imagen: "https://picsum.photos/2000/800",
+      createdBy: localStorage.getItem('id')
     };
 
     return axios

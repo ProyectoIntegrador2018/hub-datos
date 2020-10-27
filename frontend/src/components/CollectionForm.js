@@ -45,7 +45,7 @@ function CollectionForm({
   const counterClass = (count, middle, limit) => {
     if (count < middle) {
       return "text-muted";
-    } else if (count > middle && count < limit) {
+    } else if (count >= middle && count <= limit) {
       return "warning";
     }
     return "text-danger";
@@ -92,7 +92,6 @@ function CollectionForm({
     ];
     const flag = edDateObj > stDateObj;
     if (answers.every((answer) => /\S/.test(answer)) && flag) {
-      console.log("hola");
       return action();
     }
   };
@@ -138,7 +137,7 @@ function CollectionForm({
                   size="lg"
                   as="textarea"
                   className="custom-input"
-                  maxLength={280}
+                  maxLength={200}
                   onChange={(e) => {
                     setAbstract(e.target.value);
                   }}
@@ -147,7 +146,7 @@ function CollectionForm({
                 <Form.Text
                   className={
                     abstractError === ""
-                      ? counterClass(abstract.length, 140, 280)
+                      ? counterClass(abstract.length, 140, 200)
                       : "text-danger"
                   }
                 >
