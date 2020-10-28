@@ -8,6 +8,7 @@ const URI = {
         createProject: "projects",
         editProject: "projects/",
         deleteProject: "projects/",
+        myProjects: "projects/my-projects",
         signIn: "iniciar-sesion/",
         resetSendEmail: 'users/password-resets',
 		resetPassword: 'users/password-resets/'

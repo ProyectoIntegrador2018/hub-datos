@@ -11,9 +11,12 @@ function MisProyectos() {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const { data } = await axios(`${URI.base}${URI.routes.allProjects}`);
-      const { projects } = data;
-      const projectChunks = splitProjects(projects);
+      const { data } = await axios(`${URI.base}${URI.routes.myProjects}`, {
+        headers: {
+          sessiontoken: `${localStorage.getItem('token')}`
+        }
+      });
+      const projectChunks = splitProjects(data);
 
       setProjects(projectChunks);
     };
@@ -55,7 +58,6 @@ function MisProyectos() {
     }
   };
 
-  console.log(projects);
   return !projects ? (
     <Loader />
   ) : (
