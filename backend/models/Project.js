@@ -39,6 +39,7 @@ const projectSchema = new mongoose.Schema(
     },
     finalizo: {
       type: Boolean,
+      default: null,
       required: true,
     },
     fechaFinalizo: {

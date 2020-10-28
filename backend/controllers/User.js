@@ -157,7 +157,7 @@ const login = async (req, res) => {
       let tokenData = {
         _id: user._id,
         nombre: user.nombre,
-        role: user.role,
+        role: user.role
       }
       jwt.sign(tokenData, SECRET_TOKEN, { expiresIn: "15m" }, (err, token) => {
         if (err) {
