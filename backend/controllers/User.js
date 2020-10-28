@@ -196,8 +196,8 @@ const rpCreate = async (req, res) => {
   res.status(202).end();
 
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  // const LINK = `https://data-hub-app.herokuapp.com/Resetear-contraseña?token=${passwordReset.token}`;
-  const LINK = `http://localhost:3000/Resetear-contraseña?token=${passwordReset.token}`;
+  const LINK = `https://data-hub-app.herokuapp.com/Resetear-contraseña?token=${passwordReset.token}`;
+  // const LINK = `http://localhost:3000/Resetear-contraseña?token=${passwordReset.token}`;
 
   const msg = {
     to: user.email, // Change to your recipient
