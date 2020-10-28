@@ -187,7 +187,7 @@ const rpCreate = async (req, res) => {
   }
 
   try {
-    let passwordReset = new passwordResetModel({ user });
+    var passwordReset = new passwordResetModel({ user });
     await passwordReset.save();
   } catch(e) {
     return res.status(500).json(e);
@@ -196,7 +196,8 @@ const rpCreate = async (req, res) => {
   res.status(202).end();
 
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  const LINK = 'https://data-hub-app.herokuapp.com/';
+  const LINK = `https://data-hub-app.herokuapp.com/Resetear-contraseña?token=${passwordReset.token}`;
+  // const LINK = `http://localhost:3000/Resetear-contraseña?token=${passwordReset.token}`;
 
   const msg = {
     to: user.email, // Change to your recipient
@@ -208,9 +209,9 @@ const rpCreate = async (req, res) => {
     `,
   }
 
-  // sgMail.send(msg)
-  //   .then( () => console.log('Email sent') )
-  //   .catch( (error) => console.error(error) );
+  sgMail.send(msg)
+    .then( () => console.log('Email sent') )
+    .catch( (error) => console.error(error) );
 
 }
 
