@@ -1,19 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import './App.css';
 import RoundedButton from './components/RoundedButton';
 import Footer from './components/Footer';
 import URI from './URI';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './IniciarSesion/IniciarSesion.css';
 import Header from './components/Header';
 
 function RecuperarContraseña(props) {
 	const [email, setEmail] = useState('');
+	const _forgotPassword = async (e) => {
+		e.preventDefault();
+		let respError = await _forgotPasswordHandler();
+		if (respError) {
+
+		} else {
+			setEmail("");
+			toast.success('Se ha enviado un link a tu correo para resetear tu contraseña!');
+		}
+	};
 
 	const _forgotPasswordHandler = async (e) => {
-		e.preventDefault();
+		
 		if (email !== '') {
 			return axios
-				.post(/*${URI.base}${URI.routes.resetSendEmail}`*/ 'http://localhost:8000/users/password-resets', {
+				.post(`${URI.base}${URI.routes.resetSendEmail}`, {
 					email,
 				})
 				.then((response) => {
@@ -21,12 +34,17 @@ function RecuperarContraseña(props) {
 				})
 				.catch((error) => {
 					if (error.response) {
-						console.log(error.response);
-						return error.response.data.message;
+						setEmail("");
+						toast.error("Email no registrado");
+						return toast.error(error.response.data.message);
 					} else return error.message;
 				});
+		}else{
+			return toast.error("Favor de ingresar un correo")
 		}
+
 	};
+
 
 	const _handleKeyDown = (e) => {
 		if (e.key === 'Enter') {
@@ -35,7 +53,7 @@ function RecuperarContraseña(props) {
 	};
 	return (
 		<div>
-			<Header />
+			<ToastContainer draggable={false} autoClose={6000} />
 			<div class="container padding-bottom-3x mb-2">
 				<div class="row justify-content-center">
 					<div class="col-lg-8 col-md-10">
@@ -45,7 +63,7 @@ function RecuperarContraseña(props) {
 								<div class="form-group">
 									<label for="email-for-pass">Ingresa tu correo electrónico</label>
 									<input
-										class="form-control"
+										class="form-control inputRegistro"
 										type="text"
 										onChange={(e) => {
 											setEmail(e.target.value);
@@ -56,8 +74,8 @@ function RecuperarContraseña(props) {
 									/>
 								</div>
 							</div>
-							<div class="card-footer text-center">
-								<RoundedButton type="blackBtn" onClick={_forgotPasswordHandler}>
+							<div class=" text-center">
+								<RoundedButton type="blackBtn" onClick={_forgotPassword}>
 									Obten nueva contraseña
 								</RoundedButton>
 							</div>
@@ -65,7 +83,7 @@ function RecuperarContraseña(props) {
 					</div>
 				</div>
 			</div>
-			<Footer />
+	
 		</div>
 	);
 }

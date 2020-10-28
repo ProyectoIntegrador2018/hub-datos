@@ -1,7 +1,7 @@
 const URI = {
     base: "https://data-hub-api.herokuapp.com/",
     routes: {
-        signUpUser: "registrar/alumno",
+        signUpUser: "users/",
         getAllUsers: "users",
         allProjects: "projects",
         projectByID: "projects/",
@@ -10,7 +10,7 @@ const URI = {
         deleteProject: "projects/",
         signIn: "iniciar-sesion/",
         resetSendEmail: 'users/password-resets',
-		resetPassword: 'users/password-resets/:token'
+		resetPassword: 'users/password-resets/'
     }
 }
 

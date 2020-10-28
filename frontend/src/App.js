@@ -1,4 +1,27 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import Navigation from "./components/Navigation";
+import { withRouter } from "react-router-dom";
+import Routes  from "./Routes"
+import Header from './components/Header';
+import LinkHeader from './components/LinkHeader';
+import Footer from "./components/Footer";
+
+const App = ({ location }) => {
+  return (
+    <div>
+		{location.pathname !== '/IniciarSesion' && location.pathname !== '/Registro' &&<Header/>}
+		{location.pathname !== '/IniciarSesion' && location.pathname !== '/Registro' && location.pathname !== '/Recuperar-contraseña' && <LinkHeader/>}
+		{location.pathname !== '/IniciarSesion' && location.pathname !== '/Registro' && location.pathname !== '/Recuperar-contraseña' && location.pathname !== '/Reset-contraseña/:id'  && <Navigation/>}
+
+      <Routes />
+	  {location.pathname !== '/IniciarSesion' && location.pathname !== '/Registro' &&<Footer/>}
+    </div>
+  );
+}
+
+export default withRouter(App);
+
+/*import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Consultas from './Consultas';
@@ -14,7 +37,7 @@ import Inscrito from './Inscrito';
 import LinkHeader from './components/LinkHeader';
 import MisEventos from './MisEventos';
 import MiPerfil from './MiPerfil';
-import RecuperarContraseñaReset from './RecuperarContraseñaReset';
+import ResetearContraseña from './ResetearContraseña';
 import MisProyectos from './MisProyectos';
 import Navigation from './components/Navigation';
 import NewsDetails from './NewsDetails';
@@ -53,27 +76,21 @@ class App extends Component {
 				<div>
 					{this.props.location.pathname === '/IniciarSesion' ||
 					this.props.location.pathname === '/Registro' ||
-					this.props.location.pathname === '/Recuperar-contraseña' ||
-					this.props.location.pathname === '/Recuperar-contraseña-reset' ||
-					this.props.location.pathname === '/' ? (
+					this.props.location.pathname === '/Recuperar-contraseña' ? (
 						''
 					) : (
 						<Header />
 					)}
 					{this.props.location.pathname === '/IniciarSesion' ||
 					this.props.location.pathname === '/Registro' ||
-					this.props.location.pathname === '/Recuperar-contraseña' ||
-					this.props.location.pathname === '/Recuperar-contraseña-reset' ||
-					this.props.location.pathname === '/' ? (
+					this.props.location.pathname === '/Recuperar-contraseña' ? (
 						''
 					) : (
 						<LinkHeader />
 					)}
 					{this.props.location.pathname === '/IniciarSesion' ||
 					this.props.location.pathname === '/Registro' ||
-					this.props.location.pathname === '/Recuperar-contraseña' ||
-					this.props.location.pathname === '/Recuperar-contraseña-reset' ||
-					this.props.location.pathname === '/' ? (
+					this.props.location.pathname === '/Recuperar-contraseña' ? (
 						''
 					) : (
 						<Navigation />
@@ -98,7 +115,7 @@ class App extends Component {
 						<Route path="/Inscrito" component={Inscrito} />
 						<Route path="/Inicio" component={Inicio} />
 						<Route path="/Recuperar-contraseña" component={RecuperarContraseña} />
-						<Route path="/Recuperar-contraseña-reset" component={RecuperarContraseñaReset} />
+						<Route path="/Resetear-contraseña" component={ResetearContraseña} />
 						<PrivateRoute path="/CrearProyecto" component={CrearProyecto} authed={isLoggedIn()} />
 						<PrivateRoute path="/Miperfil" component={MiPerfil} authed={isLoggedIn()} />
 						<Route path="/*" component={Inicio} />
@@ -106,9 +123,7 @@ class App extends Component {
 					</Switch>
 					{this.props.location.pathname === '/IniciarSesion' ||
 					this.props.location.pathname === '/Registro' ||
-					this.props.location.pathname === '/Recuperar-contraseña' ||
-					this.props.location.pathname === '/Recuperar-contraseña-reset' ||
-					this.props.location.pathname === '/' ? (
+					this.props.location.pathname === '/Recuperar-contraseña'  ? (
 						''
 					) : (
 						<Footer />
@@ -119,3 +134,4 @@ class App extends Component {
 	}
 }
 export default withRouter(App);
+*/

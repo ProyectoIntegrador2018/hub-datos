@@ -1,10 +1,6 @@
 import Axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import JumbotronList from './components/ListOfNews';
-import Footer from './components/Footer';
-import Header from './components/Header';
-import LinkHeader from './components/LinkHeader';
-import Navigation from './components/Navigation';
 
 function News() {
 	const [news, setNews] = useState(null);
@@ -53,11 +49,9 @@ function News() {
 
 	return (
 		<div className="pb-3">
-			<Header />
-			<LinkHeader />
-			<Navigation />
+		
 			{news ? news.map((newsDeck, i) => <JumbotronList news={newsDeck} />) : ''}
-			<Footer />
+		
 		</div>
 	);
 }

@@ -20,6 +20,7 @@ function checkInputs(email, password) {
 }
 
 const IniciarSesion = ({ loginHandler }) => {
+	
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	let history = useHistory();
@@ -41,6 +42,7 @@ const IniciarSesion = ({ loginHandler }) => {
 					password,
 				})
 				.then((response) => {
+
 					localStorage.setItem('token', response.data.token);
 					var decoded = jwt_decode(response.data.token);
 					localStorage.setItem('role', decoded.role);

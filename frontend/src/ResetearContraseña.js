@@ -5,7 +5,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import URI from './URI';
 import ResetPassForm from './components/ResetPassForm';
 
@@ -16,24 +16,21 @@ function checkInputs(password, confirmation) {
 	return false;
 }
 
-const AccountRecovery_Password = () => {
+function ResetearContraseña(props){
 	const [password, setPassword] = useState('');
 	const [confirmation, setConfirmation] = useState('');
 	//const [error, setError] = useState("");
 	const [passMatch, setPassMatch] = useState('');
 	let history = useHistory();
-
-	let location = useLocation();
-	const queryString = require('query-string');
-	let parsed = queryString.parse(location.search);
-	let { token } = parsed;
-
+	
 	const _handleClick = (e) => {
 		e.preventDefault();
-
+		var cadena = props.location.search;
+		var token = cadena.substr(7)
 		if (checkInputs(password, confirmation)) {
+			console.log(password)
 			return axios
-				.post(`${URI.base}${URI.routes.resetPassword}`, { token, password })
+				.put(`${URI.base}${URI.routes.resetPassword}${token}`,{password})
 				.then((response) => {
 					history.push('/IniciarSesion');
 				})
@@ -44,7 +41,7 @@ const AccountRecovery_Password = () => {
 					} else return toast.error(error.message);
 				});
 		} else {
-			setPassMatch('Las contraseñas no coinciden');
+			toast.error('Las contraseñas no coinciden');
 		}
 	};
 
@@ -63,19 +60,16 @@ const AccountRecovery_Password = () => {
 		/>
 	);
 
-	//const errorMessage = <Error error={error} />;
-
 	return (
 		<div>
-			<Header />
+			<ToastContainer draggable={false} autoClose={6000} />
 			<Card.Body>
-				{/*{!certificate ? errorMessage : recoveryForm}*/}
 				{recoveryForm}
 			</Card.Body>
-			<p className="error">{/*{passMatch}*/}</p>
-			<Footer />
+			<p className="error">{passMatch}</p>
+		
 		</div>
 	);
 };
 
-export default AccountRecovery_Password;
+export default ResetearContraseña;

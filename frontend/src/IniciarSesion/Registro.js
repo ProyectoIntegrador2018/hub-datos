@@ -35,19 +35,18 @@ function reducer(state, { field, value }) {
 
 function checkInputs(state) {
 	if (
-		state.username !== '' &&
-		state.email !== '' &&
-		state.nombre !== '' &&
-		state.apellido !== '' &&
-		state.fechaDeNacimiento !== '' &&
-		state.genero !== '' &&
-		state.role !== '' &&
-		state.universidad !== "" ||
-		state.compañia !== "" &&
-		state.password !== '' &&
-		state.imagen !== "") {
-		if(state.password.length< 6){
-			return toast.error("La contraseña debe tener mínimo 6 carácteres");
+		(state.username !== '' &&
+			state.email !== '' &&
+			state.nombre !== '' &&
+			state.apellido !== '' &&
+			state.fechaDeNacimiento !== '' &&
+			state.genero !== '' &&
+			state.role !== '' &&
+			state.universidad !== '') ||
+		(state.compañia !== '' && state.password !== '' && state.imagen !== '')
+	) {
+		if (state.password.length < 6) {
+			return toast.error('La contraseña debe tener mínimo 6 carácteres');
 		}
 		return true;
 	}
@@ -82,7 +81,7 @@ const Registro = (props) => {
 			console.log(respError);
 			dispatch({ field: 'error', value: respError });
 		} else {
-			toast.success('Registro éxitoso!');
+			//toast.success('Registro éxitoso!');
 			//props.history.push('/', {sucess: "Registro éxitoso"});
 		}
 	};
@@ -116,16 +115,17 @@ const Registro = (props) => {
 					imagen,
 				})
 				.then((response) => {
+					toast.success('Registro éxitoso!');
 					return null;
 				})
 				.catch((error) => {
 					if (error.response) {
-						if(error.response.data.message === `El usuario ${username} ya existe.`){
+						if (error.response.data.message === `El usuario ${username} ya existe.`) {
 							return toast.error(error.response.data.message);
-						}else if(error.response.data.message=== `El email ${email} ya existe.` ) {
+						} else if (error.response.data.message === `El email ${email} ya existe.`) {
 							return toast.error(error.response.data.message);
-						}else if(error.response.data.message=== "User validation failed: email: Email invalido"){
-							return toast.error("Email inválido");
+						} else if (error.response.data.message === 'User validation failed: email: Email invalido') {
+							return toast.error('Email inválido');
 						}
 						return error.response.data.message;
 					} else return error.message;
@@ -143,7 +143,6 @@ const Registro = (props) => {
 	return (
 		<div class="d-md-flex h-md-100 align-items-center">
 			<ToastContainer draggable={false} autoClose={4000} />
-
 			<div class="col-md-6 p-0 bg-indigo h-md-100">
 				<div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
 					<div class="logoarea pt-5 pb-5">
@@ -171,7 +170,7 @@ const Registro = (props) => {
 										onKeyDown={_handleKeyDown}
 										name="nombre"
 									/>
-									 		</div>
+								</div>
 								<div class="form-group col-md-6">
 									<label for="inputPassword4">Apellido</label>
 									<input
@@ -182,7 +181,7 @@ const Registro = (props) => {
 										onKeyDown={_handleKeyDown}
 										name="apellido"
 									/>
-									</div>
+								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
@@ -196,7 +195,7 @@ const Registro = (props) => {
 										name="fechaDeNacimiento"
 										required
 									/>
-									</div>
+								</div>
 								<div class="form-group col-md-6">
 									<label for="inputPassword4">Género</label>
 									<select
@@ -212,7 +211,7 @@ const Registro = (props) => {
 										<option>Masculino</option>
 										<option>Otro</option>
 									</select>{' '}
-									</div>
+								</div>
 							</div>
 							<label for="inputPassword4">Selecciona tu perfil</label>
 
@@ -281,7 +280,7 @@ const Registro = (props) => {
 										Adjunta tus credenciales...
 									</label>
 								</div>
-								</div>
+							</div>
 							<div class="form-group">
 								<label for="inputAddress">Nombre de usuario</label>
 								<input
@@ -293,7 +292,7 @@ const Registro = (props) => {
 									onKeyDown={_handleKeyDown}
 									className="form-control inputRegistro"
 								/>
-								</div>
+							</div>
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<label for="inputAddress">Correo Electrónico</label>
@@ -307,7 +306,7 @@ const Registro = (props) => {
 										className=" form-control inputRegistro"
 									/>
 									{/* {errors.email && <p className="error">{errors.email}</p>}*/}
-									</div>
+								</div>
 								<div class="form-group col-md-6">
 									<label for="inputAddress">Contraseña</label>
 									<input
@@ -331,7 +330,7 @@ const Registro = (props) => {
                       }*/
 									/>
 									{/*	{errors.password && <p className="error">{errors.password}</p>}*/}
-									</div>
+								</div>
 							</div>
 							<div className="btnLoginRegistro">
 								<RoundedButton type="blackBtn" onClick={_signup}>
