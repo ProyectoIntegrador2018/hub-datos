@@ -26,9 +26,7 @@ Vivamus eget sem blandit, varius diam a, consectetur enim. Duis scelerisque quis
 
     fetchEvents();
   }, []);
-
-  console.log(description);
-
+  
   return (
     <Details
       author="Autor del evento"

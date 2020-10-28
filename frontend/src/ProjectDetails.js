@@ -1,47 +1,40 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
 import Details from "./components/Details";
+import Loader from "./components/Loader";
+import React, { useState, useEffect } from "react";
 import URI from "./URI";
-import Spinner from 'react-bootstrap/Spinner'
+import { getId } from "./Utilities";
 
 function ProjectDetails() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState(null);
   const [img, setImg] = useState("");
   const [loading, setLoading] = useState(true);
-
-  const getId = () => {
-    let route = window.location.href;
-    route = route.split("/");
-    const id = route[route.length - 1];
-
-    return id;
-  };
+  const [encargado, setEncargado] = useState("");
 
   useEffect(() => {
     const fetchProject = async () => {
       const id = getId();
       const { data } = await axios(`${URI.base}${URI.routes.projectByID}${id}`);
-      let { descripcion, imagen, nombre } = data;
+      let { descripcionLarga, imagen, nombre, encargado } = data;
+      console.log(data);
 
-      descripcion = [descripcion, ""]; // will not be needed when receiving full description
+      let descripcion = [descripcionLarga, ""]; // will not be needed when receiving full description
       setDescription(descripcion);
       setName(nombre);
       setImg(imagen);
       setLoading(false);
-
-      //let paragraphs = descriptionParagraphs.split("\n");
-      //setDescription(paragraphs.filter((section) => section !== ""));
+      setEncargado(encargado);
     };
 
     fetchProject();
   }, []);
 
   return loading ? (
-    <Spinner animation="grow" variant="dark" />
+    <Loader />
   ) : (
     <Details
-      author="Encargado del proyecto"
+      author={encargado}
       description={description}
       imgUrl={img}
       title={name}

@@ -1,0 +1,18 @@
+.redBtn {
+    background-color: rgb(216, 0, 83) !important;
+    cursor: pointer;
+    border-radius: 100%;
+    font-size: 1.3rem;
+    color: white !important;
+    border: none;
+    text-decoration: none;
+    padding: .7rem 1rem;
+    margin-top: 50px;
+    transition: 0.5s;
+    margin: 2px;
+    outline: white;
+  }
+  
+  .redBtn:hover {
+    background-color: rgb(182, 0, 70) !important;
+  }
