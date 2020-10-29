@@ -35,32 +35,55 @@ Realizar un sitio que preste servicios web para los miembros del hub de ciencia 
 
 #### FrontEnd
 
-| Technology       | Version |
-| ---------------- | ------- |
-| NodeJs LTS       | 12.18.3 |
-| ReactJs          | 16.13.1 |
-| React bootstrap  | 1.3.0   |
-| React Dom        | 16.13.1 |
-| React Router Dom | 5.2.0   |
-| Reactscripts     | 3.4.3   |
-| yarn             | 1.22.5  |
-| boostrap         | 2.0.0   |
-| bootstrap        | 4.5.2   |
-| jquery           | 3.5.1   |
+| Technology                  | Version |
+| --------------------------- | ------- |
+| NodeJs LTS                  | 12.18.3 |
+| @hookform/error-message     | 0.0.4   |
+| @testing-library/jest-dom   | 4.2.4   |
+| @testing-library/react      | 9.5.0   |
+| @testing-library/user-event | 7.2.1   |
+| axios                       | 0.20.0  |
+| boostrap                    | 2.0.0   |
+| bootstrap                   | 4.5.2   |
+| classnames                  | 2.2.6   |
+| email-validator             | 2.0.4   |
+| formik                      | 2.2.1   |
+| jquery                      | 3.5.1   |
+| jwt-decode                  | 3.0.0   |
+| lodash                      | 4.17.20 |
+| react                       | 16.13.1 |
+| react-bootstrap             | 1.3.0   |
+| react-bootstrap-date-picker | 5.1.0   |
+| react-datepicker            | 3.3.0   |
+| react-dom                   | 16.13.1 |
+| react-hook-form             | 6.9.2   |
+| react-icons                 | 3.11.0  |
+| react-router-dom            | 5.2.0   |
+| react-scripts               | 3.4.3   |
+| react-toastify              | 6.0.9   |
+| validator                   | 13.1.17 |
+| yarn                        | 1.22.5  |
+| yup                         | 0.29.3  |
 
 #### BackEnd
 
-| Technology   | Version |
-| ------------ | ------- |
-| NodeJs LTS   | 12.18.3 |
-| Express      | 4.17.1  |
-| Express-jwt  | 6.0.0   |
-| bcryptjs     | 2.4.3   |
-| jsonwebtoken | 8.5.1   |
-| mongoose     | 5.10.7  |
-| morgan       | 1.10.0  |
-| uuid         | 8.3.0   |
-| cors         | 2.8.5   |
+| Technology     | Version |
+| -------------- | ------- |
+| NodeJs LTS     | 12.18.3 |
+| Express        | 4.17.1  |
+| @sendgrid/mail | 7.3.0   |
+| bcrypt         | 5.0.0   |
+| bcryptjs       | 2.4.3   |
+| cors           | 2.8.5   |
+| dotenv         | 8.2.0   |
+| express        | 4.17.1  |
+| jsonwebtoken   | 8.5.1   |
+| mongoose       | 5.10.7  |
+| morgan         | 1.10.0  |
+| nodemon        | 2.0.6   |
+| rand-token     | 1.0.1   |
+| uuid           | 8.3.0   |
+| validator      | 13.1.17 |
 
 #### DataBase
 
