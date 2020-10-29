@@ -12,6 +12,7 @@ function ProjectBanner({ title, imgUrl, author, date }) {
         backgroundImage: `url(${imgUrl})`,
         height: 400,
       }}
+      data-testid="imagen-del-proyecto"
     >
       <div
         className="px-5 py-4 text-white"

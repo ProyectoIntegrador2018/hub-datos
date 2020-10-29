@@ -1,9 +1,9 @@
-import Button from "./WhiteButton";
 import "./css/NewsJumbotron.css";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
 import React from "react";
+import RoundedButton from "./RoundedButton";
+import Row from "react-bootstrap/Row";
 
 const JumbotronComponent = ({ title, description, route, imgUrl }) => {
   const divStyle = {
@@ -18,7 +18,7 @@ const JumbotronComponent = ({ title, description, route, imgUrl }) => {
           <div className="newsInfo">
             <h1>{title}</h1>
             <p>{description}</p>
-            <Button href={route}>LEER MÁS</Button>
+            <RoundedButton type="whiteBtn">LEER MÁS</RoundedButton>
           </div>
         </Col>
         <Col className="colsImage" xs={8} style={divStyle}></Col>
