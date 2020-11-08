@@ -42,13 +42,15 @@ function CollectionForm({
   const [startDateError, setStartDateError] = useState("");
   const [endDateError, setEndDateError] = useState("");
 
-  const counterClass = (count, middle, limit) => {
-    if (count < middle) {
-      return "text-muted";
-    } else if (count >= middle && count <= limit) {
+  const counterClass = (count, min, middle, limit) => {
+    if(count >= min && count < middle) {
+      return "text-success"
+    } else if (count >= middle && count < limit) {
       return "warning";
+    } else if (count === limit){
+      return "text-danger";
     }
-    return "text-danger";
+    return "text-muted";
   };
 
   const checkInputs = () => {
@@ -58,9 +60,15 @@ function CollectionForm({
     !/\S/.test(abstract)
       ? setAbstractError("Favor de escribir descripción corta")
       : setAbstractError("");
+    abstract.length >= 50 && !/\S/.test(abstract)
+      ? setAbstractError("Se requieren minimo 50 caracteres")
+      : setAbstractError("");
     !/\S/.test(description)
       ? setDescriptionError("Favor de escribir la descripción detallada")
       : setDescriptionError("");
+    description.length >= 100 && !/\S/.test(description)
+      ? setAbstractError("Se requieren minimo 100 caracteres")
+      : setAbstractError("");
     !/\S/.test(encargado)
       ? setEncargadoError("Favor de escribir el nombre del encargado")
       : setEncargadoError("");
@@ -91,7 +99,7 @@ function CollectionForm({
       endDate,
     ];
     const flag = edDateObj > stDateObj;
-    if (answers.every((answer) => /\S/.test(answer)) && flag) {
+    if (answers.every((answer) => /\S/.test(answer)) && flag && abstract.length >= 50 && description.length >= 100) {
       return action();
     }
   };
@@ -131,7 +139,7 @@ function CollectionForm({
                 />
                 <Form.Text className="text-danger">{titleError}</Form.Text>
                 <Form.Label className="font-weight-bold mt-4">
-                  Descripción Corta
+                  Descripción Corta (min. 50 caracteres)
                 </Form.Label>
                 <Form.Control
                   size="lg"
@@ -146,23 +154,22 @@ function CollectionForm({
                 <Form.Text
                   className={
                     abstractError === ""
-                      ? counterClass(abstract.length, 140, 200)
+                      ? counterClass(abstract.length, 60, 130, 200)
                       : "text-danger"
                   }
                 >
                   {abstractError === ""
-                    ? `Characters: ${abstract.length}/280`
+                    ? `Characters: ${abstract.length}/200`
                     : abstractError}
                 </Form.Text>
                 <Form.Label className="font-weight-bold mt-4">
-                  Descripción Detallada
+                  Descripción Detallada (min. 100 characeres)
                 </Form.Label>
                 <Form.Control
                   size="lg"
                   as="textarea"
                   rows={5}
                   className="custom-input"
-                  maxLength={560}
                   onChange={(e) => {
                     setDescription(e.target.value);
                   }}
@@ -171,12 +178,12 @@ function CollectionForm({
                 <Form.Text
                   className={
                     descriptionError === ""
-                      ? counterClass(description.length, 460, 560)
+                      ? counterClass(description.length, 100, 460, 10000)
                       : "text-danger"
                   }
                 >
                   {descriptionError === ""
-                    ? `Characters: ${description.length}/560`
+                    ? `Characters: ${description.length}/10000`
                     : descriptionError}
                 </Form.Text>
               </Form.Group>

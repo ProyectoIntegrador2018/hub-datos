@@ -10,7 +10,7 @@ function MisProyectos() {
   const [projects, setProjects] = useState(null);
 
   useEffect(() => {
-    const fetchEvents = async () => {
+    const fetchProjects = async () => {
       const { data } = await axios(`${URI.base}${URI.routes.myProjects}`, {
         headers: {
           sessiontoken: `${localStorage.getItem('token')}`
@@ -21,7 +21,7 @@ function MisProyectos() {
       setProjects(projectChunks);
     };
 
-    fetchEvents();
+    fetchProjects();
   }, []);
 
   const visualDelete = (id) => {

@@ -12,6 +12,7 @@
   margin: 10px;
   font-weight: bold;
   outline: white;
+  text-transform: capitalize;
 }
 
 .blackBtn:hover {
