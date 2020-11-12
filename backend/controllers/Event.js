@@ -1,18 +1,18 @@
 const eventModel = require("../models/Event");
 
 const getAllEvents = async function (req, res) {
-  const events = await eventModel.find({});
-  let paginas = 1;
-  if (events.length > 12) {
-    paginas = Math.ceil(events.length / 12);
-  }
   try {
+    const events = await eventModel.find({});
+    let paginas = 1;
+    if (events.length > 12) {
+      paginas = Math.ceil(events.length / 12);
+    }
     return res.status(200).send({
       events,
       paginas,
     });
-  } catch (err) {
-    return res.status(500).send(err);
+  } catch (e) {
+    return res.status(500).send(e);
   }
 };
 
@@ -22,9 +22,10 @@ const newEvent = async function (req, res) {
   event.fecha = req.body.fecha;
   event.cupo = req.body.cupo;
   event.ubicacion = req.body.ubicacion;
+  event.createdBy = req.user._id;
 
   try {
-    await project.save();
+    await event.save();
     return res.status(201).send(event);
   } catch (err) {
     return res.status(500).send(err);
@@ -33,10 +34,10 @@ const newEvent = async function (req, res) {
 
 const geteEventByID = async function (eventId, res) {
   const idParam = eventId;
-  const event = await EventModel.findOne({
-    id: idParam,
-  });
   try {
+    const event = await eventModel.findOne({
+      id: idParam,
+    });
     if (event) {
       return res.status(200).send(event);
     } else {
@@ -88,10 +89,10 @@ const editEventByID = async function (req, res) {
 
 const deleteEventByID = async function (eventId, res) {
   const idParam = eventId;
-  const query = await eventModel.findOne({
-    id: idParam,
-  });
   try {
+    const query = await eventModel.findOne({
+      id: idParam,
+    });
     await eventModel.deleteOne(query);
     return res.status(200).send("SUCCES");
   } catch (err) {

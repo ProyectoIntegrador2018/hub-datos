@@ -2,12 +2,12 @@ const projectModel = require("../models/Project");
 const userModel = require("./../models/User");
 
 const getAllProjects = async function (req, res) {
-  const projects = await projectModel.find({});
-  let paginas = 1;
-  if (projects.length > 12) {
-    paginas = Math.ceil(projects.length / 12);
-  }
   try {
+    const projects = await projectModel.find({});
+    let paginas = 1;
+    if (projects.length > 12) {
+      paginas = Math.ceil(projects.length / 12);
+    }
     return res.status(200).send({
       projects,
       paginas,
@@ -41,10 +41,10 @@ const newProject = async function (req, res) {
 
 const getProjectByID = async function (projectId, res) {
   const idParam = projectId;
-  const project = await projectModel.findOne({
-    id: idParam,
-  });
   try {
+    const project = await projectModel.findOne({
+      id: idParam,
+    });
     if (project) {
       return res.status(200).send(project);
     } else {
@@ -96,10 +96,10 @@ const editProjectByID = async function (req, res) {
 
 const deleteProjectByID = async function (projectId, res) {
   const idParam = projectId;
-  const query = await projectModel.findOne({
-    id: idParam,
-  });
   try {
+    const query = await projectModel.findOne({
+      id: idParam,
+    });
     await projectModel.deleteOne(query);
     return res.status(200).send("SUCCES");
   } catch (err) {

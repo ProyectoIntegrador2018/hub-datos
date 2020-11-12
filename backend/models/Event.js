@@ -17,7 +17,7 @@ const eventSchema = new mongoose.Schema({
     required: true,
   },
   cupo: {
-    type: String,
+    type: Number,
     required: true,
   },
   ubicacion: {
