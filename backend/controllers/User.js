@@ -3,6 +3,7 @@ const passwordResetModel = require('./../models/Password-reset.model');
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 const sgMail = require('@sendgrid/mail');
+const uploadS3 = require('./../services/aws');
 
 const { SECRET_TOKEN } = require("./../config");
 
@@ -57,7 +58,13 @@ const register = async (req, res, next) => {
   newUser.fechaDeNacimiento = req.body.fechaDeNacimiento;
   newUser.genero = req.body.genero;
   newUser.role = req.body.role;
-  newUser.imagen = req.body.imagen;
+  try {
+    var s3Response = await uploadS3(req);
+  } catch(e) {
+    res.statusMessage = "Error subiendo la foto a S3 (AWS)";
+    return res.status(500).json(e);
+  }
+  newUser.imagen = s3Response.Location;
 
   switch (req.body.role) {
     case ROLES.ALUMNO:
@@ -94,7 +101,7 @@ const register = async (req, res, next) => {
   try {
     await newUser.save();
     // await newUser.validate();
-    return res.status(200).json(newUser);
+    return res.status(201).json(newUser);
   } catch (e) {
     return res.status(500).json(e);
   }
@@ -189,7 +196,7 @@ const rpCreate = async (req, res) => {
   try {
     var passwordReset = new passwordResetModel({ user });
     await passwordReset.save();
-  } catch(e) {
+  } catch (e) {
     return res.status(500).json(e);
   }
 
@@ -210,8 +217,8 @@ const rpCreate = async (req, res) => {
   }
 
   sgMail.send(msg)
-    .then( () => console.log('Email sent') )
-    .catch( (error) => console.error(error) );
+    .then(() => console.log('Email sent'))
+    .catch((error) => console.error(error));
 
 }
 
@@ -220,21 +227,21 @@ const rpUpdate = async (req, res) => {
     var passReset = await passwordResetModel.findOne({
       token: req.params.token
     }).populate('user', ["password"]);
-  } catch(e) {
+  } catch (e) {
     return res.status(500).json(e);
   }
 
-  if( !passReset ) {
+  if (!passReset) {
     res.statusMessage = `El URL expiro`;
     return res.status(404).end();
   }
-  
+
   const { user } = passReset;
 
-  user.set( {password: req.body.password} ).save()
-    .then( () => passReset.remove() )
-    .then( () => res.status(200).end() )
-    .catch( e => res.status(500).json(e) );
+  user.set({ password: req.body.password }).save()
+    .then(() => passReset.remove())
+    .then(() => res.status(200).end())
+    .catch(e => res.status(500).json(e));
 }
 
 module.exports = {
