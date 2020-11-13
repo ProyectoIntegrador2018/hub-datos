@@ -10,7 +10,7 @@ const storage = multer.memoryStorage();
 const upload = multer({
     storage,
     fileFilter: (req, file, cb) => {
-        if (file.mimetype.match(/image\/(jpg|png)$/g)) {
+        if (file.mimetype.match(/image\/(jpeg|png)$/g)) {
             return cb(null, true);
         }
         return cb(new multer.MulterError('LIMIT_UNEXPECTED_FILE', {...file, formatosValidos: "Solo se permiten archivos de tipo jpg y png"}), false);
