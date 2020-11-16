@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import RoundedButton from "./RoundedButton";
 import Row from "react-bootstrap/Row";
 import { Subbutton } from "./Subbutton";
+import ReactMarkdown from "react-markdown";
 
 function CollectionForm({
   title,
@@ -32,7 +33,7 @@ function CollectionForm({
   setPartners,
   variant,
   action,
-  type
+  type,
 }) {
   const [titleError, setTitleError] = useState("");
   const [abstractError, setAbstractError] = useState("");
@@ -41,13 +42,14 @@ function CollectionForm({
   const [imgError, setImgError] = useState("");
   const [startDateError, setStartDateError] = useState("");
   const [endDateError, setEndDateError] = useState("");
+  const [mode, setMode] = useState("Editar");
 
   const counterClass = (count, min, middle, limit) => {
-    if(count >= min && count < middle) {
-      return "text-success"
+    if (count >= min && count < middle) {
+      return "text-success";
     } else if (count >= middle && count < limit) {
       return "warning";
-    } else if (count === limit){
+    } else if (count === limit) {
       return "text-danger";
     }
     return "text-muted";
@@ -99,7 +101,12 @@ function CollectionForm({
       endDate,
     ];
     const flag = edDateObj > stDateObj;
-    if (answers.every((answer) => /\S/.test(answer)) && flag && abstract.length >= 50 && description.length >= 100) {
+    if (
+      answers.every((answer) => /\S/.test(answer)) &&
+      flag &&
+      abstract.length >= 50 &&
+      description.length >= 100
+    ) {
       return action();
     }
   };
@@ -114,6 +121,15 @@ function CollectionForm({
     e.preventDefault();
     setPartners(e.target.value, index, option);
   };
+
+  const _handleMode = (e) => {
+    if (mode === "Editar") {
+      return setMode("Prever");
+    }
+    return setMode("Editar");
+  };
+
+  console.log(typeof(description))
 
   return (
     <Container fluid className="mt-3 mb-3">
@@ -163,18 +179,35 @@ function CollectionForm({
                     : abstractError}
                 </Form.Text>
                 <Form.Label className="font-weight-bold mt-4">
-                  Descripción Detallada (min. 100 characeres)
+                  Descripción Detallada (min. 100 characeres){" "}
+                  <a href="https://commonmark.org/help/" target="blank">
+                    Guía markdown
+                  </a>
+                  <br />
+                  <Form.Check
+                  className="mt-2"
+                    type="switch"
+                    id="custom-switch"
+                    label={mode}
+                    onChange={(e) => {
+                      _handleMode(e);
+                    }}
+                  />
                 </Form.Label>
-                <Form.Control
-                  size="lg"
-                  as="textarea"
-                  rows={5}
-                  className="custom-input"
-                  onChange={(e) => {
-                    setDescription(e.target.value);
-                  }}
-                  value={description}
-                />
+                {mode === "Editar" ? (
+                  <Form.Control
+                    size="lg"
+                    as="textarea"
+                    rows={5}
+                    className="custom-input"
+                    onChange={(e) => {
+                      setDescription(e.target.value);
+                    }}
+                    value={description}
+                  />
+                ) : (
+                  <ReactMarkdown className="text-break">{description}</ReactMarkdown>
+                )}
                 <Form.Text
                   className={
                     descriptionError === ""
