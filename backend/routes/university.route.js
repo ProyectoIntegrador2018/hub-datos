@@ -4,13 +4,9 @@ const project = require("../controllers/University");
 const router = new Router();
 
 /*
- * PROJECTS ROUTES
- * GET      /projects             - Returns all the projects
- * POST     /projects             - Creates a new project in the data base.
- * GET      /projects/:id         - Searches a project by ID
- * PUT      /projects/:id         - Edit a project by ID
- * DELETE   /projects/:id         - Delete a project by ID
- * GET      /projects/my-projects - All projects created by a user
+ * UNIVERSITY ROUTES
+ * GET      /universities             - Returns all universities
+ * POST     /universities             - Creates a new university in the data base.
  */
 router.get("/", async (req, res) => {
   await project.getAllUniversity(req, res);

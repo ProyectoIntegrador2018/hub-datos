@@ -91,13 +91,11 @@ const userSchema = new mongoose.Schema({
   },
   imagen: {
     type: String,
-    default: null,
-    required: false,
+    required: true,
   },
 });
 
 userSchema.pre('save', function(next) {
-  console.log(this.password);
   const rounds = 12;
   bcrypt.hash(this.password, rounds)
     .then((hash) => {

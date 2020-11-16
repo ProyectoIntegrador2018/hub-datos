@@ -1,13 +1,13 @@
 const projectModel = require("../models/Project");
-const userModel = require("./../models/User");
+const s3 = require('./../services/aws');
 
 const getAllProjects = async function (req, res) {
-  const projects = await projectModel.find({});
-  let paginas = 1;
-  if (projects.length > 12) {
-    paginas = Math.ceil(projects.length / 12);
-  }
   try {
+    const projects = await projectModel.find({});
+    let paginas = 1;
+    if (projects.length > 12) {
+      paginas = Math.ceil(projects.length / 12);
+    }
     return res.status(200).send({
       projects,
       paginas,
@@ -22,15 +22,27 @@ const newProject = async function (req, res) {
   project.createdBy = req.user._id;
   project.nombre = req.body.nombre;
   project.encargado = req.body.encargado;
-  project.socios = req.body.socios;
+  project.socios = JSON.parse(req.body.socios);
   project.descripcionCorta = req.body.descripcionCorta;
   project.descripcionLarga = req.body.descripcionLarga;
   project.fechaInicio = req.body.fechaInicio;
   project.finalizo = req.body.finalizo;
-  if (req.body.fechaFinalizo !== null) {
+  if (JSON.parse(req.body.finalizo)) {
+    if(!req.body.fechaFinalizo) {
+      res.statusMessage = "La fecha de finalización del proyecto es requerida";
+      return res.status(400).end();
+    }
     project.fechaFinalizo = req.body.fechaFinalizo;
   }
-  project.imagen = req.body.imagen;
+
+  try {
+    var s3Response = await s3.uploadS3(req, "projects");
+  } catch(e) {
+    res.statusMessage = "Error subiendo la foto a S3 (AWS)";
+    return res.status(500).json(e);
+  }
+  project.imagen = s3Response.Location;
+
   try {
     await project.save();
     return res.status(201).send(project);
@@ -41,10 +53,10 @@ const newProject = async function (req, res) {
 
 const getProjectByID = async function (projectId, res) {
   const idParam = projectId;
-  const project = await projectModel.findOne({
-    id: idParam,
-  });
   try {
+    const project = await projectModel.findOne({
+      id: idParam,
+    });
     if (project) {
       return res.status(200).send(project);
     } else {
@@ -60,12 +72,10 @@ const getProjectByID = async function (projectId, res) {
 const editProjectByID = async function (req, res) {
   try {
     var query = await projectModel
-      .findOne({
-        id: req.params.id,
-      })
+      .findOne({ id: req.params.id })
       .lean();
   } catch (err) {
-    return res.status(500).send(err);
+    return res.status(500).json(err);
   }
 
   if (!query) {
@@ -80,7 +90,26 @@ const editProjectByID = async function (req, res) {
     }
   }
 
-  const project = req.body;
+  let project = req.body;
+  let fileName = query.imagen.split('/');
+  fileName = fileName[ fileName.length - 1 ];
+
+  if(req.file) {
+    try {
+      let s3Response = await s3.uploadS3(req, "projects");
+      project.imagen = s3Response.Location;
+    } catch (e) {
+      res.statusMessage = 'Error subiendo la foto a S3 (AWS)';
+      return res.status(500).json(e);
+    }
+
+    try {
+      await s3.deleteS3("projects", fileName);
+    } catch (e) {
+      res.statusMessage = 'Error borrando la foto vieja en S3 (AWS)';
+      return res.status(500).json(e);
+    }
+  }
 
   try {
     await projectModel.updateOne(query, project);
@@ -96,10 +125,10 @@ const editProjectByID = async function (req, res) {
 
 const deleteProjectByID = async function (projectId, res) {
   const idParam = projectId;
-  const query = await projectModel.findOne({
-    id: idParam,
-  });
   try {
+    const query = await projectModel.findOne({
+      id: idParam,
+    });
     await projectModel.deleteOne(query);
     return res.status(200).send("SUCCES");
   } catch (err) {

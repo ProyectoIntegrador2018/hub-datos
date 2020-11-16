@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const userController = require("../controllers/User");
 const { auth, verifyRole } = require("../middleware/auth");
+const upload = require('./../services/imageUpload');
 
 const router = new Router();
 
@@ -15,7 +16,13 @@ router.get("/", async (req, res) => {
     await userController.getAllUsers(req, res);
 });
 
-router.post("/", userController.register);
+router.post("/", upload, (req, res) => {
+    if(!req.file) {
+        res.statusMessage = "Las credenciales son requeridas"
+        return res.status(400).end();
+    }
+    userController.register(req, res);
+});
 router.post("/", auth, verifyRole(["super_admin"]), userController.protectedRegister);
 
 /**

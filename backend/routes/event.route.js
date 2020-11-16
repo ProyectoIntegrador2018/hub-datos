@@ -1,12 +1,13 @@
 const { Router } = require("express");
-const project = require("../controllers/Event");
+const eventController = require("../controllers/Event");
 const { auth, verifyRole } = require("../middleware/auth");
+const upload = require('./../services/imageUpload');
 
 const router = new Router();
 
 /*
  * PROJECTS ROUTES
- * GET      /events               - Returns all the projects
+ * GET      /events             - Returns all the projects
  * POST     /events             - Creates a new project in the data base.
  * GET      /events/:id         - Searches a project by ID
  * PUT      /events/:id         - Edit a project by ID
@@ -14,25 +15,37 @@ const router = new Router();
  * GET      /events/my-projects - All projects created by a user
  */
 router.get("/", async (req, res) => {
-  await project.getAllEvents(req, res);
+  await eventController.getAllEvents(req, res);
 });
 
-router.get("/my-projects", auth, project.userProjects);
+router.get("/my-events", auth, eventController.userEvents);
 
-router.post("/", auth, verifyRole(["investigador", "socio_comercial", "socio_tecnologico", "administrador", "maestro"]), async (req, res) => {
-  await project.newEvent(req, res);
-});
+router.post("/",
+  auth,
+  verifyRole(["investigador", "socio_comercial", "socio_tecnologico", "administrador", "maestro"]),
+  upload,
+  async (req, res) => {
+    if (!req.file) {
+      res.statusMessage = "La imagen del proyecto es requerida."
+      return res.status(400).end();
+    }
+    await eventController.newEvent(req, res);
+  });
 
 router.get("/:id", async (req, res) => {
-  await project.geteEventByID(req.params.id, res);
+  await eventController.geteEventByID(req.params.id, res);
 });
 
-router.put("/:id", auth, verifyRole(["investigador", "socio_comercial", "socio_tecnologico", "administrador"]), async (req, res) => {
-  await project.editEventByID(req, res);
-});
+router.put("/:id",
+  auth,
+  verifyRole(["investigador", "socio_comercial", "socio_tecnologico", "administrador"]),
+  upload,
+  async (req, res) => {
+    await eventController.editEventByID(req, res);
+  });
 
 router.delete("/:id", auth, verifyRole(["administrador"]), async (req, res) => {
-  await project.deleteEventByID(req.params.id, res);
+  await eventController.deleteEventByID(req.params.id, res);
 });
 
 module.exports = router;
