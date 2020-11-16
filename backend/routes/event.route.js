@@ -30,15 +30,19 @@ router.post("/",
       return res.status(400).end();
     }
     await eventController.newEvent(req, res);
-});
+  });
 
 router.get("/:id", async (req, res) => {
   await eventController.geteEventByID(req.params.id, res);
 });
 
-router.put("/:id", auth, verifyRole(["investigador", "socio_comercial", "socio_tecnologico", "administrador"]), async (req, res) => {
-  await eventController.editEventByID(req, res);
-});
+router.put("/:id",
+  auth,
+  verifyRole(["investigador", "socio_comercial", "socio_tecnologico", "administrador"]),
+  upload,
+  async (req, res) => {
+    await eventController.editEventByID(req, res);
+  });
 
 router.delete("/:id", auth, verifyRole(["administrador"]), async (req, res) => {
   await eventController.deleteEventByID(req.params.id, res);
