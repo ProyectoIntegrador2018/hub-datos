@@ -33,8 +33,8 @@ const newProject = async function (req, res) {
       res.statusMessage = "La fecha de finalización del proyecto es requerida";
       return res.status(400).end();
     }
+    project.fechaFinalizo = req.body.fechaFinalizo;
   }
-  project.fechaFinalizo = req.body.fechaFinalizo;
 
   try {
     var s3Response = await s3.uploadS3(req, "projects");
