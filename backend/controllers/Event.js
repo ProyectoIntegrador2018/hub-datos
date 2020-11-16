@@ -1,5 +1,5 @@
 const eventModel = require("../models/Event");
-const s3 = require('./../services/aws');
+const s3 = require("./../services/aws");
 
 const getAllEvents = async function (req, res) {
   try {
@@ -23,6 +23,8 @@ const newEvent = async function (req, res) {
   event.fecha = req.body.fecha;
   event.cupo = req.body.cupo;
   event.ubicacion = req.body.ubicacion;
+  event.descripcionCorta = req.body.descripcionCorta;
+  event.descripcionLarga = req.body.descripcionLarga;
   event.createdBy = req.user._id;
 
   try {
@@ -62,9 +64,7 @@ const geteEventByID = async function (eventId, res) {
 
 const editEventByID = async function (req, res) {
   try {
-    var query = await eventModel
-      .findOne({ id: req.params.id })
-      .lean();
+    var query = await eventModel.findOne({ id: req.params.id }).lean();
   } catch (err) {
     return res.status(500).send(err);
   }
@@ -82,22 +82,22 @@ const editEventByID = async function (req, res) {
   }
 
   let event = req.body;
-  let fileName = query.imagen.split('/');
-  fileName = fileName[ fileName.length - 1 ];
+  let fileName = query.imagen.split("/");
+  fileName = fileName[fileName.length - 1];
 
-  if(req.file) {
+  if (req.file) {
     try {
       let s3Response = await s3.uploadS3(req, "events");
       event.imagen = s3Response.Location;
     } catch (e) {
-      res.statusMessage = 'Error subiendo la foto a S3 (AWS)';
+      res.statusMessage = "Error subiendo la foto a S3 (AWS)";
       return res.status(500).json(e);
     }
 
     try {
       await s3.deleteS3("events", fileName);
     } catch (e) {
-      res.statusMessage = 'Error borrando la foto vieja en S3 (AWS)';
+      res.statusMessage = "Error borrando la foto vieja en S3 (AWS)";
       return res.status(500).json(e);
     }
   }
@@ -110,7 +110,7 @@ const editEventByID = async function (req, res) {
     };
     return res.status(200).json(response);
   } catch (err) {
-    res.statusMessage = 'Error actualizando el documento en la base de datos';
+    res.statusMessage = "Error actualizando el documento en la base de datos";
     return res.status(500).send(err);
   }
 };

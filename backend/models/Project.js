@@ -25,13 +25,13 @@ const projectSchema = new mongoose.Schema(
     descripcionCorta: {
       type: String,
       required: true,
-      minlength: 140,
+      minlength: 50,
       maxlength: 200,
     },
     descripcionLarga: {
       type: String,
       required: true,
-      minlength: 140,
+      minlength: 100,
     },
     fechaInicio: {
       type: Date,
