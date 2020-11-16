@@ -36,8 +36,12 @@ router.get("/:id", async (req, res) => {
   await project.getProjectByID(req.params.id, res);
 });
 
-router.put("/:id", auth, verifyRole(["investigador", "socio_comercial", "socio_tecnologico", "administrador", "maestro"]), async (req, res) => {
-  await project.editProjectByID(req, res);
+router.put("/:id",
+  auth,
+  verifyRole(["investigador", "socio_comercial", "socio_tecnologico", "administrador", "maestro"]),
+  upload,
+  async (req, res) => {
+    await project.editProjectByID(req, res);
 });
 
 router.delete("/:id", auth, verifyRole(["administrador"]), async (req, res) => {

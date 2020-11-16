@@ -1,6 +1,5 @@
 const projectModel = require("../models/Project");
-const userModel = require("./../models/User");
-const uploadS3 = require('./../services/aws');
+const s3 = require('./../services/aws');
 
 const getAllProjects = async function (req, res) {
   try {
@@ -37,7 +36,7 @@ const newProject = async function (req, res) {
   }
 
   try {
-    var s3Response = await uploadS3(req, "projects");
+    var s3Response = await s3.uploadS3(req, "projects");
   } catch(e) {
     res.statusMessage = "Error subiendo la foto a S3 (AWS)";
     return res.status(500).json(e);
@@ -73,12 +72,10 @@ const getProjectByID = async function (projectId, res) {
 const editProjectByID = async function (req, res) {
   try {
     var query = await projectModel
-      .findOne({
-        id: req.params.id,
-      })
+      .findOne({ id: req.params.id })
       .lean();
   } catch (err) {
-    return res.status(500).send(err);
+    return res.status(500).json(err);
   }
 
   if (!query) {
@@ -93,7 +90,26 @@ const editProjectByID = async function (req, res) {
     }
   }
 
-  const project = req.body;
+  let project = req.body;
+  let fileName = query.imagen.split('/');
+  fileName = fileName[ fileName.length - 1 ];
+
+  if(req.file) {
+    try {
+      let s3Response = await s3.uploadS3(req, "projects");
+      project.imagen = s3Response.Location;
+    } catch (e) {
+      res.statusMessage = 'Error subiendo la foto a S3 (AWS)';
+      return res.status(500).json(e);
+    }
+
+    try {
+      await s3.deleteS3("projects", fileName);
+    } catch (e) {
+      res.statusMessage = 'Error borrando la foto vieja en S3 (AWS)';
+      return res.status(500).json(e);
+    }
+  }
 
   try {
     await projectModel.updateOne(query, project);

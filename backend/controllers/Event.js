@@ -1,5 +1,5 @@
 const eventModel = require("../models/Event");
-const uploadS3 = require('./../services/aws');
+const s3 = require('./../services/aws');
 
 const getAllEvents = async function (req, res) {
   try {
@@ -26,7 +26,7 @@ const newEvent = async function (req, res) {
   event.createdBy = req.user._id;
 
   try {
-    var s3Response = await uploadS3(req, "events");
+    var s3Response = await s3.uploadS3(req, "events");
   } catch (e) {
     res.statusMessage = "Error subiendo la foto a S3 (AWS)";
     return res.status(500).json(e);

@@ -38,4 +38,40 @@ const uploadS3 = async (req, loc) => {
     return data;
 }
 
-module.exports = uploadS3;
+
+/**
+ * @param {string} loc The directory name in the S3 bucket
+ * @param {string} fileName The name of the file to be deleted
+ */
+const deleteS3 = async (loc, fileName) => {
+
+    AWS.config.update({
+        accessKeyId: process.env.AWS_ID,
+        secretAccessKey: process.env.AWS_SECRET,
+        region: 'us-west-1'
+    });
+
+    const s3 = new AWS.S3();
+
+
+    var params = {
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: `${loc}/${fileName}`
+    };
+
+    let data = await new Promise( (resolve, reject) => {
+        s3.deleteObject(params, (err, data) => {
+            if (err) {
+                return reject(error);
+            }
+            return resolve();
+        });
+    })
+
+    return data;
+}
+
+module.exports = { 
+    uploadS3,
+    deleteS3
+};
