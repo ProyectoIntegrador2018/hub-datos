@@ -22,6 +22,7 @@ import Proyectos from './Proyectos';
 import Registro from './IniciarSesion/Registro.js';
 import Error from './Error';
 import RecuperarContraseña from './RecuperarContraseña';
+import DiezKChallenge from './10kChallenge';
 import {
 	isLoggedIn,
 } from './components/Util/auth';
@@ -51,6 +52,7 @@ const Routes = () => (
 						<Route path="/Inicio" component={Inicio} />
 						<Route path="/Recuperar-contraseña" component={RecuperarContraseña} />
 						<Route path="/Resetear-contraseña" component={ResetearContraseña} />
+						<Route path="/10k-Challenge" component={DiezKChallenge} />
 						<PrivateRoute path="/CrearProyecto" component={CrearProyecto} authed={isLoggedIn()} />
 						<PrivateRoute path="/Miperfil" component={MiPerfil} authed={isLoggedIn()} />
 						<Route path="/*" component={Inicio} />

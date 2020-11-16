@@ -115,7 +115,7 @@ const Registro = (props) => {
 					imagen,
 				})
 				.then((response) => {
-					toast.success('Registro éxitoso!');
+					props.history.push("/IniciarSesion")
 					return null;
 				})
 				.catch((error) => {
