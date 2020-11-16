@@ -1,5 +1,6 @@
 const projectModel = require("../models/Project");
 const userModel = require("./../models/User");
+const uploadS3 = require('./../services/aws');
 
 const getAllProjects = async function (req, res) {
   try {
@@ -22,15 +23,27 @@ const newProject = async function (req, res) {
   project.createdBy = req.user._id;
   project.nombre = req.body.nombre;
   project.encargado = req.body.encargado;
-  project.socios = req.body.socios;
+  project.socios = JSON.parse(req.body.socios);
   project.descripcionCorta = req.body.descripcionCorta;
   project.descripcionLarga = req.body.descripcionLarga;
   project.fechaInicio = req.body.fechaInicio;
   project.finalizo = req.body.finalizo;
-  if (req.body.fechaFinalizo !== null) {
+  if (JSON.parse(req.body.finalizo)) {
+    if(!req.body.fechaFinalizo) {
+      res.statusMessage = "La fecha de finalización del proyecto es requerida";
+      return res.status(400).end();
+    }
     project.fechaFinalizo = req.body.fechaFinalizo;
   }
-  project.imagen = req.body.imagen;
+
+  try {
+    var s3Response = await uploadS3(req, "projects");
+  } catch(e) {
+    res.statusMessage = "Error subiendo la foto a S3 (AWS)";
+    return res.status(500).json(e);
+  }
+  project.imagen = s3Response.Location;
+
   try {
     await project.save();
     return res.status(201).send(project);

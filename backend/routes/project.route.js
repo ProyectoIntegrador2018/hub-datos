@@ -1,6 +1,7 @@
 const { Router } = require("express");
 const project = require("../controllers/Project");
 const { auth, verifyRole } = require("../middleware/auth");
+const upload = require('./../services/imageUpload');
 
 const router = new Router();
 
@@ -19,7 +20,15 @@ router.get("/", async (req, res) => {
 
 router.get("/my-projects", auth, project.userProjects);
 
-router.post("/", auth, verifyRole(["investigador", "socio_comercial", "socio_tecnologico", "administrador", "maestro"]), async (req, res) => {
+router.post("/",
+  auth,
+  verifyRole(["investigador", "socio_comercial", "socio_tecnologico", "administrador", "maestro"]),
+  upload,
+  async (req, res) => {
+  if (!req.file) {
+    res.statusMessage = "La imagen del proyecto es requerida."
+    return res.status(400).end();
+  }
   await project.newProject(req, res);
 });
 

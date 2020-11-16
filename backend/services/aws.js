@@ -1,7 +1,7 @@
 const AWS = require('aws-sdk');
 const { v4 } = require('uuid');
 
-const uploadS3 = async (req) => {
+const uploadS3 = async (req, loc) => {
 
     AWS.config.update({
         accessKeyId: process.env.AWS_ID,
@@ -18,7 +18,7 @@ const uploadS3 = async (req) => {
         ACL: 'public-read',
         ContentType: req.file.mimetype,
         Bucket: process.env.AWS_BUCKET_NAME,
-        Key: `${v4()}.${fileType}`,
+        Key: `${loc}/${v4()}.${fileType}`,
         Body: req.file.buffer
     }
 

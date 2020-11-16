@@ -59,7 +59,7 @@ const register = async (req, res, next) => {
   newUser.genero = req.body.genero;
   newUser.role = req.body.role;
   try {
-    var s3Response = await uploadS3(req);
+    var s3Response = await uploadS3(req, "users");
   } catch(e) {
     res.statusMessage = "Error subiendo la foto a S3 (AWS)";
     return res.status(500).json(e);
