@@ -16,6 +16,17 @@ const eventSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  descripcionCorta: {
+    type: String,
+    required: true,
+    minlength: 50,
+    maxlength: 200,
+  },
+  descripcionLarga: {
+    type: String,
+    required: true,
+    minlength: 100,
+  },
   cupo: {
     type: Number,
     required: true,
@@ -26,7 +37,7 @@ const eventSchema = new mongoose.Schema({
   },
   imagen: {
     type: String,
-    required: true
+    required: true,
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
