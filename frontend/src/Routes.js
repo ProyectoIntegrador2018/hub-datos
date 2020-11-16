@@ -31,12 +31,7 @@ import SobreNosotros from './SobreNostros';
 import { withRouter } from 'react-router-dom';
 const Routes = () => (
   <main>
-     <Switch>
-        
-        <Route path="/MisEventos/:id" component={MisEventos} />
-						<Route path="/MisEventos" component={MisEventos} />
-						<Route path="/MisProyectos/:id" component={EditarProyecto} />
-						<Route path="/MisProyectos" component={MisProyectos} />
+     <Switch>						
 						<Route path="/Proyectos/:id" component={ProjectDetails} />
 						<Route path="/Proyectos" component={Proyectos} />
 						<Route path="/Eventos/Detalles" component={EventDetails} />
@@ -53,7 +48,11 @@ const Routes = () => (
 						<Route path="/Recuperar-contraseña" component={RecuperarContraseña} />
 						<Route path="/Resetear-contraseña" component={ResetearContraseña} />
 						<Route path="/10k-Challenge" component={DiezKChallenge} />
+						<PrivateRoute path="/MisEventos/:id" component={MisEventos} />
+						<PrivateRoute path="/MisEventos" component={MisEventos} />
+						<PrivateRoute path="/MisProyectos/:id" component={EditarProyecto} />
 						<PrivateRoute path="/CrearProyecto" component={CrearProyecto} authed={isLoggedIn()} />
+						<PrivateRoute path="/MisProyectos" component={MisProyectos} />
 						<PrivateRoute path="/Miperfil" component={MiPerfil} authed={isLoggedIn()} />
 						<Route path="/*" component={Inicio} />
 						<Route component={NotFound} />

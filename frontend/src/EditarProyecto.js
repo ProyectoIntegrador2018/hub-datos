@@ -27,7 +27,7 @@ function EditarProyecto() {
   useEffect(() => {
     // fetch data from project and set in state to use for the form
     const fetchData = async () => {
-      const { data } = await axios(`${URI.base}${URI.routes.projectByID}${id}`);
+      const { data } = await axios(`http://localhost:8000/${URI.routes.projectByID}${id}`);
       console.log(data)
       setTitle(data.nombre);
       setAbstract(data.descripcionCorta);

@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { _handlePreview } from "./Utilities";
 import URI from "./URI";
 
-function CrearProyecto() {
+function CrearProyecto(props) {
   const [title, setTitle] = useState("");
   const [abstract, setAbstract] = useState("");
   const [description, setDescription] = useState("");
@@ -56,7 +56,7 @@ function CrearProyecto() {
 
     console.log(`${URI.base}${URI.routes.createProject}`)
     return axios
-      .post(`${URI.base}${URI.routes.createProject}`, data, {
+      .post(`http://localhost:8000/${URI.routes.createProject}`, data, {
         headers: {
           sessiontoken: `${localStorage.getItem('token')}`
         }
@@ -76,7 +76,9 @@ function CrearProyecto() {
     if (response) {
       toast.error(response);
     } else {
-      toast.success("Proyecto creado !");
+      props.history.push("/MisProyectos")
+      //toast.success("Proyecto creado !");
+
     }
   };
 

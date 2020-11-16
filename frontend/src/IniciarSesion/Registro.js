@@ -101,7 +101,7 @@ const Registro = (props) => {
 				imagen,
 			} = state;
 			return axios
-				.post(`${URI.base}${URI.routes.signUpUser}`, {
+				.post(`http://localhost:8000/${URI.routes.signUpUser}`, {
 					username,
 					email,
 					nombre,
