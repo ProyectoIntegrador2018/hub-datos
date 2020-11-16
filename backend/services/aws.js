@@ -1,6 +1,10 @@
 const AWS = require('aws-sdk');
 const { v4 } = require('uuid');
 
+/**
+ * @param {Request} req Request object
+ * @param {string} loc The directory name in the S3 bucket
+ */
 const uploadS3 = async (req, loc) => {
 
     AWS.config.update({
