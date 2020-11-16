@@ -6,13 +6,13 @@ const upload = require('./../services/imageUpload');
 const router = new Router();
 
 /*
- * PROJECTS ROUTES
- * GET      /events             - Returns all the projects
- * POST     /events             - Creates a new project in the data base.
- * GET      /events/:id         - Searches a project by ID
- * PUT      /events/:id         - Edit a project by ID
- * DELETE   /events/:id         - Delete a project by ID
- * GET      /events/my-projects - All projects created by a user
+ * EVENTS ROUTES
+ * GET      /events             - Returns all the events
+ * POST     /events             - Creates a new event in the data base.
+ * GET      /events/:id         - Searches a event by ID
+ * PUT      /events/:id         - Edit a event by ID
+ * DELETE   /events/:id         - Delete a event by ID
+ * GET      /events/my-events   - All events created by a user
  */
 router.get("/", async (req, res) => {
   await eventController.getAllEvents(req, res);
