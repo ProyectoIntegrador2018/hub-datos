@@ -8,23 +8,13 @@ import { splitProjects } from "./Utilities";
 function Proyectos() {
   const [events, setEvents] = useState(null);
 
-  const splitEvents = (eventList) => {
-    // split projects into chunks of 5 to map in the card rows
-    const eventChunks = [];
-    while (eventList.length) {
-      eventChunks.push(eventList.splice(0, 3));
-    }
-
-    return eventChunks;
-  };
-
   useEffect(() => {
     const fetchEvents = async () => {
       const { data } = await axios(`${URI.base}${URI.routes.allEvents}`);
       const { events, paginas } = data;
       console.log(data);
 
-      const eventChunks = splitEvents(events);
+      const eventChunks = splitProjects(events);
 
       setEvents(eventChunks);
     };

@@ -41,22 +41,21 @@ function CrearProyecto(props) {
     const fechaFin = new Date(endDate);
     const finalizo = fechaFin < today;
 
-    const data = {
-      nombre: title,
-      encargado: encargado,
-      socios: partners,
-      descripcionCorta: abstract,
-      descripcionLarga: description,
-      fechaInicio: new Date(startDate),
-      finalizo: finalizo,
-      fechaFin: fechaFin,
-      imagen: "https://picsum.photos/2000/800",
-      createdBy: localStorage.getItem('id')
-    };
+    const data = new FormData();
+    data.append('nombre', title);
+    data.append('encargado', encargado);
+    data.append('socios', partners);
+    data.append('descripcionCorta', abstract);
+    data.append('descripcionLarga', description);
+    data.append('fechaInicio', new Date(startDate));
+    data.append('finalizo', finalizo);
+    data.append('fechaFin', fechaFin);
+    data.append('imagen', image);
+    data.append('createdBy', localStorage.getItem('id'));
+    console.log(data)
 
-    console.log(`${URI.base}${URI.routes.createProject}`)
     return axios
-      .post(`http://localhost:8000/${URI.routes.createProject}`, data, {
+      .post(`${URI.base}${URI.routes.createProject}`, data, {
         headers: {
           sessiontoken: `${localStorage.getItem('token')}`
         }
@@ -76,12 +75,12 @@ function CrearProyecto(props) {
     if (response) {
       toast.error(response);
     } else {
-      props.history.push("/MisProyectos")
       //toast.success("Proyecto creado !");
+      props.history.push("/MisProyectos")
 
     }
   };
-
+  
   return (
     <>
       <ToastContainer draggable={false} autoClose={4000} />

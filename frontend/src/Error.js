@@ -1,8 +1,5 @@
 import React from 'react';
 import './App.css';
-import Img from './assets/avatar2.png';
-import Img2 from './assets/avatar6.png';
-import RoundedButton from './components/RoundedButton';
 import { Subbutton } from './components/Subbutton';
 
 function MiPerfil() {

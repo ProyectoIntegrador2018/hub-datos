@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import RoundedButton from './components/RoundedButton';
-import Footer from './components/Footer';
 import URI from './URI';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './IniciarSesion/IniciarSesion.css';
-import Header from './components/Header';
 
 function RecuperarContraseña(props) {
 	const [email, setEmail] = useState('');

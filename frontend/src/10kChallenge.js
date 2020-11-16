@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React  from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -31,9 +31,9 @@ function DiezKChallenge() {
 					<div className="px-5 py-4 text-white title10k" style={{ backgroundColor: 'rgba(0, 0, 0, 0.90)' }}>
 						<h1>10K Challenge</h1>
 						<div className="socios">
-							<img src={aws} width="86" class="img-fluid img-thumbnail " />
-							<img src={sap} width="86" class="img-fluid img-thumbnail " />
-							<img src={google} width="86" class="img-fluid   img-thumbnail " />
+							<img src={aws} width="86" class="img-fluid img-thumbnail"  alt="aws logo"/>
+							<img src={sap} width="86" class="img-fluid img-thumbnail" alt="sap logo"/>
+							<img src={google} width="86" class="img-fluid   img-thumbnail" alt="google logo"/>
 						</div>{' '}
 						<div className="link">
 							<a className="linkRegistro" href="https://forms.gle/Fh7G2WcXST1x7Wvn7">

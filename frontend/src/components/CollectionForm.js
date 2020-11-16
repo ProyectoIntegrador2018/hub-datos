@@ -129,8 +129,6 @@ function CollectionForm({
     return setMode("Editar");
   };
 
-  console.log(typeof(description))
-
   return (
     <Container fluid className="mt-3 mb-3">
       <h1 className="mb-3">
@@ -269,9 +267,7 @@ function CollectionForm({
               <Form.Row className="pt-2">
                 <Form.Group as={Col}>
                   <Form.Label className="font-weight-bold">
-                    {variant === "Proyecto"
-                      ? `Inicio del ${variant}`
-                      : `Fecha del ${variant}`}
+                      {`Inicio del ${variant}`}
                   </Form.Label>
                   <Form.Control
                     type="date"
@@ -285,9 +281,6 @@ function CollectionForm({
                     {startDateError === "" ? "" : startDateError}
                   </Form.Text>
                 </Form.Group>
-                {variant === "Evento" ? (
-                  ""
-                ) : (
                   <Form.Group as={Col}>
                     <Form.Label className="font-weight-bold">
                       Fin del Proyecto
@@ -304,7 +297,6 @@ function CollectionForm({
                       {endDateError === "" ? "" : endDateError}
                     </Form.Text>
                   </Form.Group>
-                )}
               </Form.Row>
             </Form>
           </div>

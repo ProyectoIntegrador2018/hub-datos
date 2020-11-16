@@ -2,7 +2,7 @@
 import React from "react";
 import "./App.css";
 import jwtDecode from 'jwt-decode';
-import { isLoggedIn, LogOut } from './components/Util/auth';
+import { isLoggedIn } from './components/Util/auth';
 
 function MiPerfil() {
 	let nameheader;

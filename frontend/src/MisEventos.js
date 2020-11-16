@@ -26,7 +26,7 @@ function MisEventos() {
   }, []);
 
   const visualDelete = (id) => {
-    let eventArray = eventArray.flat();
+    let eventArray = events.flat();
     eventArray = eventArray.filter((obj) => obj.id !== id);
     eventArray = splitProjects(eventArray);
     setEvents(eventArray);
