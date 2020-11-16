@@ -15,7 +15,7 @@ function ProjectDetails() {
   useEffect(() => {
     const fetchProject = async () => {
       const id = getId();
-      const { data } = await axios(`${URI.base}${URI.routes.projectByID}${id}`);
+      const { data } = await axios(`http://localhost:8000/${URI.routes.projectByID}${id}`);
       let { descripcionLarga, imagen, nombre, encargado } = data;
 
       setDescription(descripcionLarga);

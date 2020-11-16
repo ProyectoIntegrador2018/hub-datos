@@ -12,10 +12,12 @@ function MisProyectos() {
   useEffect(() => {
     const fetchProjects = async () => {
       const { data } = await axios(`${URI.base}${URI.routes.myProjects}`, {
+
         headers: {
           sessiontoken: `${localStorage.getItem('token')}`
         }
       });
+      console.log(data);
       const projectChunks = splitProjects(data);
 
       setProjects(projectChunks);
@@ -33,7 +35,7 @@ function MisProyectos() {
 
   const _deleteHandler = (id) => {
     axios
-      .delete(`${URI.base}${URI.routes.deleteProject}${id}`, {
+      .delete(`http://localhost:8000/${URI.routes.deleteProject}${id}`, {
         headers: {
           sessiontoken: `${localStorage.getItem('token')}`
         }
