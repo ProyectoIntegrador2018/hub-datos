@@ -12,7 +12,7 @@ function Proyectos() {
     const fetchProjects = async () => {
      /* const { data } = await axios(`${URI.base}${URI.routes.allProjects}`);
       const { projects, } = data;*/
-      const { data } = await axios(`http://localhost:8000/${URI.routes.allProjects}`);
+      const { data } = await axios(`${URI.base}${URI.routes.allProjects}`);
       const {projects, paginas} = data;
 
       const projectChunks = splitProjects(projects);

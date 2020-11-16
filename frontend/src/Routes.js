@@ -34,7 +34,7 @@ const Routes = () => (
      <Switch>						
 						<Route path="/Proyectos/:id" component={ProjectDetails} />
 						<Route path="/Proyectos" component={Proyectos} />
-						<Route path="/Eventos/Detalles" component={EventDetails} />
+						<Route path="/Eventos/:id" component={EventDetails} />
 						<Route path="/Noticias/Detalles" component={NewsDetails} />
 						<Route path="/Eventos" component={Eventos} />
 						<Route path="/NuestraGente" component={NuestraGente} />
