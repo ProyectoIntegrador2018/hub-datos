@@ -37,6 +37,9 @@ const Navigation = ({ status }) => {
         <Nav.Link className="NavItem" href="/MisProyectos">
           MIS PROYECTOS
         </Nav.Link>
+        <Nav.Link className="NavItem" href="/MisEventos">
+          MIS EVENTOS
+        </Nav.Link>
       </>
     );
   }

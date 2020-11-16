@@ -20,8 +20,7 @@ Proin id lorem et quam aliquet interdum. Vivamus vitae ultricies risus, sit amet
 Vivamus eget sem blandit, varius diam a, consectetur enim. Duis scelerisque quis massa vitae ullamcorper. Proin et tempus tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam venenatis rhoncus sodales. Integer tempor erat vitae massa placerat efficitur. Quisque mollis dignissim velit tempor ullamcorper.
 `;
 
-      let paragraphs = descriptionParagraphs.split("\n");
-      setDescription(paragraphs.filter((section) => section !== ""));
+      setDescription(descriptionParagraphs);
     };
 
     fetchEvents();

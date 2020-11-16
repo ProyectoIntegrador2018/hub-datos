@@ -2,15 +2,12 @@ import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import CollectionForm from "./components/CollectionForm";
-import Loader from "./components/Loader";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import { _handlePreview } from "./Utilities";
 import URI from "./URI";
-import { _handlePreview, getId } from "./Utilities";
-import { useHistory } from "react-router-dom";
 
-function EditarProyecto() {
-  const [loading, setLoading] = useState(true);
+function CrearProyecto() {
   const [title, setTitle] = useState("");
   const [abstract, setAbstract] = useState("");
   const [description, setDescription] = useState("");
@@ -19,34 +16,13 @@ function EditarProyecto() {
   const [imgUrl, setImgUrl] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [status, setStatus] = useState("");
-  const [partners, setPartners] = useState([]);
-  let history = useHistory();
-  const id = getId();
+  const [status, setStatus] = useState("Activo");
+  const [partners, setPartners] = useState([""]);
 
-  useEffect(() => {
-    // fetch data from project and set in state to use for the form
-    const fetchData = async () => {
-      const { data } = await axios(`${URI.base}${URI.routes.projectByID}${id}`);
-      setTitle(data.nombre);
-      setAbstract(data.descripcionCorta);
-      setDescription(data.descripcionLarga);
-      setImgUrl(data.imagen);
-
-      // get dates
-      let start = data.fechaInicio.slice(0, 10);
-      setStartDate(start);
-      //let end = data.fechaFin.slice(0,10);
-      //setEndDate(end); // using dummy data until model updates
-      const stat = data.finalizado ? "Finalizado" : "Activo";
-      setStatus(stat);
-      setEncargado(data.encargado);
-      setPartners(data.socios);
-      setLoading(false);
-    };
-
-    fetchData();
-  }, [id]);
+  const _handleChange = (e) => {
+    e.preventDefault();
+    _handlePreview(e, setImage, setImgUrl);
+  };
 
   const _handlePartners = (newPartner, index, option) => {
     let newPartners = [...partners];
@@ -60,14 +36,10 @@ function EditarProyecto() {
     setPartners(newPartners);
   };
 
-  const _handleChange = (e) => {
-    _handlePreview(e, setImage, setImgUrl);
-  };
-
-  const _editHandler = () => {
+  const _postHandler = () => {
     const today = new Date();
-    const fechaFinalizo = new Date(endDate);
-    const finalizado = fechaFinalizo < today;
+    const fechaFin = new Date(endDate);
+    const finalizo = fechaFin < today;
 
     const data = {
       nombre: title,
@@ -76,16 +48,17 @@ function EditarProyecto() {
       descripcionCorta: abstract,
       descripcionLarga: description,
       fechaInicio: new Date(startDate),
-      finalizo: finalizado,
-      fechaFinalizo: fechaFinalizo,
+      finalizo: finalizo,
+      fechaFin: fechaFin,
       imagen: "https://picsum.photos/2000/800",
       createdBy: localStorage.getItem('id')
     };
 
+    console.log(`${URI.base}${URI.routes.createProject}`)
     return axios
-      .put(`${URI.base}${URI.routes.editProject}${id}`, data, {
+      .post(`${URI.base}${URI.routes.createProject}`, data, {
         headers: {
-          sessiontoken: `${localStorage.getItem('token')}`,
+          sessiontoken: `${localStorage.getItem('token')}`
         }
       })
       .then((response) => {
@@ -98,18 +71,16 @@ function EditarProyecto() {
       });
   };
 
-  const _editProject = async () => {
-    let response = await _editHandler();
+  const _postEvent = async () => {
+    let response = await _postHandler();
     if (response) {
       toast.error(response);
     } else {
-      history.push(`/Proyectos/${id}`);
+      toast.success("Evento creado !");
     }
   };
 
-  return loading ? (
-    <Loader />
-  ) : (
+  return (
     <>
       <ToastContainer draggable={false} autoClose={4000} />
       <CollectionForm
@@ -131,12 +102,12 @@ function EditarProyecto() {
         setStatus={setStatus}
         partners={partners}
         setPartners={_handlePartners}
-        variant="Proyecto"
-        action={_editProject}
-        type="Editar"
+        variant="Evento"
+        action={_postEvent}
+        type="Crear"
       />
     </>
   );
 }
 
-export default EditarProyecto;
+export default CrearProyecto;

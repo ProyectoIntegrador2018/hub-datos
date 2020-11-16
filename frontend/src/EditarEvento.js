@@ -28,6 +28,7 @@ function EditarProyecto() {
     // fetch data from project and set in state to use for the form
     const fetchData = async () => {
       const { data } = await axios(`${URI.base}${URI.routes.projectByID}${id}`);
+      console.log(data)
       setTitle(data.nombre);
       setAbstract(data.descripcionCorta);
       setDescription(data.descripcionLarga);
@@ -98,12 +99,12 @@ function EditarProyecto() {
       });
   };
 
-  const _editProject = async () => {
+  const _editEvent = async () => {
     let response = await _editHandler();
     if (response) {
       toast.error(response);
     } else {
-      history.push(`/Proyectos/${id}`);
+      history.push(`/Eventos/${id}`);
     }
   };
 
@@ -131,8 +132,8 @@ function EditarProyecto() {
         setStatus={setStatus}
         partners={partners}
         setPartners={_handlePartners}
-        variant="Proyecto"
-        action={_editProject}
+        variant="Evento"
+        action={_editEvent}
         type="Editar"
       />
     </>
