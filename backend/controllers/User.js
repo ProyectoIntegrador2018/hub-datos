@@ -3,7 +3,7 @@ const passwordResetModel = require('./../models/Password-reset.model');
 const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 const sgMail = require('@sendgrid/mail');
-const uploadS3 = require('./../services/aws');
+const s3 = require('./../services/aws');
 
 const { SECRET_TOKEN } = require("./../config");
 
@@ -59,7 +59,7 @@ const register = async (req, res, next) => {
   newUser.genero = req.body.genero;
   newUser.role = req.body.role;
   try {
-    var s3Response = await uploadS3(req, "users");
+    var s3Response = await s3.uploadS3(req, "users");
   } catch(e) {
     res.statusMessage = "Error subiendo la foto a S3 (AWS)";
     return res.status(500).json(e);
