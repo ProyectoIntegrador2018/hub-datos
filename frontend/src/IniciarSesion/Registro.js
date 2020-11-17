@@ -59,13 +59,13 @@ const Registro = (props) => {
 	const [valueCompania, setValueCompania] = useState('hide');
 	const onChange = (e) => {
 		dispatch({ field: e.target.name, value: e.target.value });
-		if (e.target.value == 'alumno' || e.target.value == 'maestro') {
+		if (e.target.value === 'alumno' || e.target.value === 'maestro') {
 			setValueCompania('hide');
 			setValueUniversidad(e.target.value);
 		} else if (
-			e.target.value == 'socio_comercial' ||
-			e.target.value == 'socio_tecnologico' ||
-			e.target.value == 'investigador'
+			e.target.value === 'socio_comercial' ||
+			e.target.value === 'socio_tecnologico' ||
+			e.target.value === 'investigador'
 		) {
 			setValueUniversidad('hide');
 			setValueCompania(e.target.value);
@@ -115,7 +115,7 @@ const Registro = (props) => {
 					imagen,
 				})
 				.then((response) => {
-					toast.success('Registro éxitoso!');
+					props.history.push("/IniciarSesion")
 					return null;
 				})
 				.catch((error) => {

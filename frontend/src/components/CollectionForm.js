@@ -10,6 +10,7 @@ import React, { useState } from "react";
 import RoundedButton from "./RoundedButton";
 import Row from "react-bootstrap/Row";
 import { Subbutton } from "./Subbutton";
+import ReactMarkdown from "react-markdown";
 
 function CollectionForm({
   title,
@@ -30,9 +31,11 @@ function CollectionForm({
   setStatus,
   partners,
   setPartners,
+  cupo,
+  setCupo,
   variant,
   action,
-  type
+  type,
 }) {
   const [titleError, setTitleError] = useState("");
   const [abstractError, setAbstractError] = useState("");
@@ -41,14 +44,17 @@ function CollectionForm({
   const [imgError, setImgError] = useState("");
   const [startDateError, setStartDateError] = useState("");
   const [endDateError, setEndDateError] = useState("");
+  const [mode, setMode] = useState("Editar");
 
-  const counterClass = (count, middle, limit) => {
-    if (count < middle) {
-      return "text-muted";
-    } else if (count >= middle && count <= limit) {
+  const counterClass = (count, min, middle, limit) => {
+    if (count >= min && count < middle) {
+      return "text-success";
+    } else if (count >= middle && count < limit) {
       return "warning";
+    } else if (count === limit) {
+      return "text-danger";
     }
-    return "text-danger";
+    return "text-muted";
   };
 
   const checkInputs = () => {
@@ -58,8 +64,14 @@ function CollectionForm({
     !/\S/.test(abstract)
       ? setAbstractError("Favor de escribir descripción corta")
       : setAbstractError("");
+    abstract.trim().length < 50
+      ? setAbstractError("Favor de escribir minimo 50 chars")
+      : setAbstractError("");
     !/\S/.test(description)
       ? setDescriptionError("Favor de escribir la descripción detallada")
+      : setDescriptionError("");
+    description.trim().length < 100
+      ? setDescriptionError("Favor de escribir minimo 100 chars")
       : setDescriptionError("");
     !/\S/.test(encargado)
       ? setEncargadoError("Favor de escribir el nombre del encargado")
@@ -70,28 +82,35 @@ function CollectionForm({
     !/\S/.test(startDate)
       ? setStartDateError("Favor de elegir una fecha de inicio")
       : setStartDateError("");
-    !/\S/.test(endDate)
-      ? setEndDateError("Favor de elegir una fecha de fin")
-      : setEndDateError("");
 
-    // necesario para comparar fechas
-    const stDateObj = new Date(startDate);
-    const edDateObj = new Date(endDate);
-    edDateObj < stDateObj
-      ? setEndDateError("La fecha de fin tiene que ser después del inicio")
-      : setEndDateError("");
+    let answers = [title, abstract, description, encargado, imgUrl, startDate];
 
-    const answers = [
-      title,
-      abstract,
-      description,
-      encargado,
-      imgUrl,
-      startDate,
-      endDate,
-    ];
-    const flag = edDateObj > stDateObj;
-    if (answers.every((answer) => /\S/.test(answer)) && flag) {
+    let flag = true;
+    if (variant === "Proyecto") {
+      !/\S/.test(endDate)
+        ? setEndDateError("Favor de elegir una fecha de fin")
+        : setEndDateError("");
+      // necesario para comparar fechas
+      const stDateObj = new Date(startDate);
+      const edDateObj = new Date(endDate);
+
+      if (edDateObj < stDateObj && edDateObj !== "Invalid Date") {
+        setEndDateError("La fecha de fin tiene que ser después del inicio")
+      } else if (edDateObj === "Invalid Date") {
+        setEndDateError("Favor de elegir una fecha de fin")
+      }
+      flag = edDateObj > stDateObj;
+
+      answers.push(endDate);
+    }
+
+    if (
+      answers.every((answer) => /\S/.test(answer)) &&
+      flag &&
+      abstract.length >= 50 &&
+      description.length >= 100
+    ) {
+      console.log("posting");
       return action();
     }
   };
@@ -105,6 +124,13 @@ function CollectionForm({
   const _handlePartners = (e, index, option) => {
     e.preventDefault();
     setPartners(e.target.value, index, option);
+  };
+
+  const _handleMode = (e) => {
+    if (mode === "Editar") {
+      return setMode("Prever");
+    }
+    return setMode("Editar");
   };
 
   return (
@@ -131,7 +157,7 @@ function CollectionForm({
                 />
                 <Form.Text className="text-danger">{titleError}</Form.Text>
                 <Form.Label className="font-weight-bold mt-4">
-                  Descripción Corta
+                  Descripción Corta (min. 50 caracteres)
                 </Form.Label>
                 <Form.Control
                   size="lg"
@@ -146,37 +172,55 @@ function CollectionForm({
                 <Form.Text
                   className={
                     abstractError === ""
-                      ? counterClass(abstract.length, 140, 200)
+                      ? counterClass(abstract.length, 50, 130, 200)
                       : "text-danger"
                   }
                 >
                   {abstractError === ""
-                    ? `Characters: ${abstract.length}/280`
+                    ? `Characters: ${abstract.length}/200`
                     : abstractError}
                 </Form.Text>
                 <Form.Label className="font-weight-bold mt-4">
-                  Descripción Detallada
+                  Descripción Detallada (min. 100 characeres){" "}
+                  <a href="https://commonmark.org/help/" target="blank">
+                    Guía markdown
+                  </a>
+                  <br />
+                  <Form.Check
+                    className="mt-2"
+                    type="switch"
+                    id="custom-switch"
+                    label={mode}
+                    onChange={(e) => {
+                      _handleMode(e);
+                    }}
+                  />
                 </Form.Label>
-                <Form.Control
-                  size="lg"
-                  as="textarea"
-                  rows={5}
-                  className="custom-input"
-                  maxLength={560}
-                  onChange={(e) => {
-                    setDescription(e.target.value);
-                  }}
-                  value={description}
-                />
+                {mode === "Editar" ? (
+                  <Form.Control
+                    size="lg"
+                    as="textarea"
+                    rows={5}
+                    className="custom-input"
+                    onChange={(e) => {
+                      setDescription(e.target.value);
+                    }}
+                    value={description}
+                  />
+                ) : (
+                  <ReactMarkdown className="text-break">
+                    {description}
+                  </ReactMarkdown>
+                )}
                 <Form.Text
                   className={
                     descriptionError === ""
-                      ? counterClass(description.length, 460, 560)
+                      ? counterClass(description.length, 100, 460, 10000)
                       : "text-danger"
                   }
                 >
                   {descriptionError === ""
-                    ? `Characters: ${description.length}/560`
+                    ? `Characters: ${description.length}/10000`
                     : descriptionError}
                 </Form.Text>
               </Form.Group>
@@ -245,26 +289,40 @@ function CollectionForm({
                     {startDateError === "" ? "" : startDateError}
                   </Form.Text>
                 </Form.Group>
-                {variant === "Evento" ? (
-                  ""
-                ) : (
-                  <Form.Group as={Col}>
-                    <Form.Label className="font-weight-bold">
-                      Fin del Proyecto
-                    </Form.Label>
-                    <Form.Control
-                      type="date"
-                      className="custom-input"
-                      onChange={(e) => {
-                        setEndDate(e.target.value);
-                      }}
-                      value={endDate}
-                    />
-                    <Form.Text className="text-danger">
-                      {endDateError === "" ? "" : endDateError}
-                    </Form.Text>
-                  </Form.Group>
-                )}
+                <Form.Group as={Col}>
+                  {variant === "Proyecto" ? (
+                    <>
+                      <Form.Label className="font-weight-bold">
+                        Fin del Proyecto
+                      </Form.Label>
+                      <Form.Control
+                        type="date"
+                        className="custom-input"
+                        onChange={(e) => {
+                          setEndDate(e.target.value);
+                        }}
+                        value={endDate}
+                      />
+                      <Form.Text className="text-danger">
+                        {endDateError === "" ? "" : endDateError}
+                      </Form.Text>
+                    </>
+                  ) : (
+                    <>
+                      <Form.Label className="font-weight-bold">
+                        Cupo del Evento
+                      </Form.Label>
+                      <Form.Control
+                        type="number"
+                        className="custom-input"
+                        onChange={(e) => {
+                          setCupo(e.target.value);
+                        }}
+                        value={cupo}
+                      />
+                    </>
+                  )}
+                </Form.Group>
               </Form.Row>
             </Form>
           </div>

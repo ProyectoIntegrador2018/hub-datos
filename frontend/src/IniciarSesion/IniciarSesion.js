@@ -26,13 +26,13 @@ const IniciarSesion = ({ loginHandler }) => {
 	let history = useHistory();
 	let location = useLocation();
 	useEffect(() => {
-		if (location && location.state && location.state.error != '') {
+		if (location && location.state && location.state.error !== '') {
 			toast.error(location.state.error);
 		}
 		if (localStorage.getItem('token')) {
 			history.push('/', { success: 'Ya estas loggeado.' });
 		}
-	}, []);
+	});
 
 	const _loginHandler = (_) => {
 		if (checkInputs(email, password)) {
@@ -56,7 +56,6 @@ const IniciarSesion = ({ loginHandler }) => {
 						return 'Usuario o contraseña incorrectos';
 					} else {
 						return error.message;
-						console.log(error.message);
 					}
 				});
 		} else return 'Favor de llenar todos los campos';

@@ -7,8 +7,10 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { _handlePreview } from "./Utilities";
 import URI from "./URI";
+import { set } from "lodash";
 
 function CrearProyecto(props) {
+  const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [abstract, setAbstract] = useState("");
   const [description, setDescription] = useState("");
@@ -19,7 +21,7 @@ function CrearProyecto(props) {
   const [endDate, setEndDate] = useState("");
   const [status, setStatus] = useState("Activo");
   const [partners, setPartners] = useState([""]);
-  const [loading, setLoading] = useState(false);
+  const [cupo, setCupo] = useState(0);
 
   const _handleChange = (e) => {
     e.preventDefault();
@@ -45,45 +47,48 @@ function CrearProyecto(props) {
 
     const data = new FormData();
     data.append('nombre', title);
-    data.append('encargado', encargado);
-    data.append('socios', JSON.stringify(partners));
+    data.append('fecha', new Date(startDate));
+    //data.append('encargado', encargado);
+    //data.append('socios', partners);
     data.append('descripcionCorta', abstract);
     data.append('descripcionLarga', description);
-    data.append('fechaInicio', new Date(startDate));
-    data.append('finalizo', finalizo);
-    data.append('fechaFin', fechaFin);
+    //data.append('finalizo', finalizo);
+    //data.append('fechaFin', fechaFin);
+    data.append('cupo', 10000);
+    data.append('ubicacion', 'Tec Campus MTY');
     data.append('imagen', image);
     data.append('createdBy', localStorage.getItem('id'));
 
     return axios
-      .post(`${URI.base}${URI.routes.createProject}`, data, {
+      .post(`${URI.base}${URI.routes.createEvent}`, data, {
         headers: {
           sessiontoken: `${localStorage.getItem('token')}`
         }
       })
       .then((response) => {
+        console.log(response);
         return null;
       })
       .catch((error) => {
+        console.log(error);
         if (error.response) {
           return error.response.data.message;
         } else return error.message;
       });
   };
 
-  const _postProject = async () => {
-    setLoading(true)
+  const _postEvent = async () => {
+    setLoading(true);
     let response = await _postHandler();
     setLoading(false);
     if (response) {
       toast.error(response);
     } else {
-      //toast.success("Proyecto creado !");
-      props.history.push("/MisProyectos")
-
+      props.history.push("/MisEventos")
+      //toast.success("Evento creado !");
     }
   };
-  
+
   return loading ? (
     <Loader />
   ) : (
@@ -108,8 +113,10 @@ function CrearProyecto(props) {
         setStatus={setStatus}
         partners={partners}
         setPartners={_handlePartners}
-        variant="Proyecto"
-        action={_postProject}
+        cupo={cupo}
+        setCupo={setCupo}
+        variant="Evento"
+        action={_postEvent}
         type="Crear"
       />
     </>

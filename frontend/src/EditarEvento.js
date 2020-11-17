@@ -17,30 +17,32 @@ function EditarProyecto() {
   const [encargado, setEncargado] = useState("");
   const [image, setImage] = useState(null);
   const [imgUrl, setImgUrl] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [date, setDate] = useState("");
   const [status, setStatus] = useState("");
   const [partners, setPartners] = useState([]);
+  const [cupo, setCupo] = useState(0);
   let history = useHistory();
   const id = getId();
 
   useEffect(() => {
     // fetch data from project and set in state to use for the form
     const fetchData = async () => {
-      const { data } = await axios(`${URI.base}${URI.routes.projectByID}${id}`);
+      const { data } = await axios(`${URI.base}${URI.routes.editEvent}${id}`);
       setTitle(data.nombre);
       setAbstract(data.descripcionCorta);
       setDescription(data.descripcionLarga);
       setImgUrl(data.imagen);
+      setCupo(data.cupo);
+
       // get dates
-      let start = data.fechaInicio.slice(0, 10);
-      setStartDate(start);
-      //let end = data.fechaFin.slice(0,10);
-      //setEndDate(end); // using dummy data until model updates
-      const stat = data.finalizado ? "Finalizado" : "Activo";
-      setStatus(stat);
-      setEncargado(data.encargado);
-      setPartners(JSON.parse(data.socios));
+      let date = data.fecha.slice(0, 10);
+      setDate(date);
+      // //let end = data.fechaFin.slice(0,10);
+      // //setEndDate(end); // using dummy data until model updates
+      // const stat = data.finalizado ? "Finalizado" : "Activo";
+      // setStatus(stat);
+      // setEncargado(data.encargado);
+      // setPartners(data.socios);
       setLoading(false);
     };
 
@@ -64,29 +66,27 @@ function EditarProyecto() {
   };
 
   const _editHandler = () => {
-    const today = new Date();
-    const fechaFinalizo = new Date(endDate);
-    const finalizado = fechaFinalizo < today;
-
     const data = new FormData();
-    data.append("nombre", title);
-    data.append("encargado", encargado);
-    data.append("socios", JSON.stringify(partners));
-    data.append("descripcionCorta", abstract);
-    data.append("descripcionLarga", description);
-    data.append("fechaInicio", new Date(startDate));
-    data.append("finalizo", finalizado);
-    data.append("fechaFin", fechaFinalizo);
+    data.append('nombre', title);
+    data.append('fecha', new Date(date));
+    //data.append('encargado', encargado);
+    //data.append('socios', partners);
+    data.append('descripcionCorta', abstract);
+    data.append('descripcionLarga', description);
+    //data.append('finalizo', finalizo);
+    //data.append('fechaFin', fechaFin);
+    data.append('cupo', 10000);
+    data.append('ubicacion', 'Tec Campus MTY');
     if(image !== null) {
-      data.append("imagen", image);
+      data.append('imagen', image);
     }
-    data.append("createdBy", localStorage.getItem("id"));
+    data.append('createdBy', localStorage.getItem('id'));
 
     return axios
-      .put(`${URI.base}${URI.routes.editProject}${id}`, data, {
+      .put(`${URI.base}${URI.routes.editEvent}${id}`, data, {
         headers: {
-          sessiontoken: `${localStorage.getItem("token")}`,
-        },
+          sessiontoken: `${localStorage.getItem('token')}`,
+        }
       })
       .then((response) => {
         return null;
@@ -98,16 +98,18 @@ function EditarProyecto() {
       });
   };
 
-  const _editProject = async () => {
+  const _editEvent = async () => {
     setLoading(true);
     let response = await _editHandler();
     setLoading(false);
     if (response) {
       toast.error(response);
     } else {
-      history.push(`/Proyectos/${id}`);
+      history.push(`/Eventos/${id}`);
     }
   };
+
+  console.log(image)
 
   return loading ? (
     <Loader />
@@ -125,16 +127,18 @@ function EditarProyecto() {
         setEncargado={setEncargado}
         imgUrl={imgUrl}
         _handleChange={_handleChange}
-        startDate={startDate}
-        setStartDate={setStartDate}
-        endDate={endDate}
-        setEndDate={setEndDate}
+        startDate={date}
+        setStartDate={setDate}
+        endDate={""}
+        setEndDate={null}
         status={status}
         setStatus={setStatus}
         partners={partners}
         setPartners={_handlePartners}
-        variant="Proyecto"
-        action={_editProject}
+        cupo={cupo}
+        setCupo={setCupo}
+        variant="Evento"
+        action={_editEvent}
         type="Editar"
       />
     </>

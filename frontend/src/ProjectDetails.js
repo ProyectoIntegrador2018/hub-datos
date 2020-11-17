@@ -16,11 +16,10 @@ function ProjectDetails() {
     const fetchProject = async () => {
       const id = getId();
       const { data } = await axios(`${URI.base}${URI.routes.projectByID}${id}`);
-      let { descripcionLarga, imagen, nombre, encargado } = data;
+      const { descripcionLarga, imagen, nombre, encargado } = data;
       console.log(data);
-
-      let descripcion = [descripcionLarga, ""]; // will not be needed when receiving full description
-      setDescription(descripcion);
+      
+      setDescription(descripcionLarga);
       setName(nombre);
       setImg(imagen);
       setLoading(false);

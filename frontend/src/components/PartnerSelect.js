@@ -20,6 +20,8 @@ const PartnerSelect = ({ value, setPartners, index, _deletePartner }) => {
     "Heineken",
     "Chevron",
     "Arca Continental",
+    "Google",
+    "SAP"
   ];
   return (
     <Col>
