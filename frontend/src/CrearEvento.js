@@ -9,7 +9,7 @@ import { _handlePreview } from "./Utilities";
 import URI from "./URI";
 import { set } from "lodash";
 
-function CrearProyecto() {
+function CrearProyecto(props) {
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [abstract, setAbstract] = useState("");
@@ -84,7 +84,8 @@ function CrearProyecto() {
     if (response) {
       toast.error(response);
     } else {
-      toast.success("Evento creado !");
+      props.history.push("/MisEventos")
+      //toast.success("Evento creado !");
     }
   };
 
