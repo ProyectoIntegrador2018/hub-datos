@@ -6,6 +6,7 @@ import CrearProyecto from "./CrearProyecto";
 import EditarProyecto from "./EditarProyecto";
 import Eventos from "./Eventos";
 import CrearEvento from "./CrearEvento";
+import EditarEvento from "./EditarEvento";
 import EventDetails from "./EventDetails";
 import IniciarSesion from "./IniciarSesion/IniciarSesion";
 import Inicio from "./Inicio";
@@ -46,7 +47,7 @@ const Routes = () => (
       <Route path="/Recuperar-contraseña" component={RecuperarContraseña} />
       <Route path="/Resetear-contraseña" component={ResetearContraseña} />
       <Route path="/10k-Challenge" component={DiezKChallenge} />
-      <PrivateRoute path="/MisEventos/:id" component={MisEventos} />
+      <PrivateRoute path="/MisEventos/:id" component={EditarEvento} />
       <PrivateRoute path="/MisEventos" component={MisEventos} />
       <PrivateRoute path="/MisProyectos/:id" component={EditarProyecto} />
       <PrivateRoute

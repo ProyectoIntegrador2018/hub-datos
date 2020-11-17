@@ -18,6 +18,7 @@ function CrearProyecto() {
   const [endDate, setEndDate] = useState("");
   const [status, setStatus] = useState("Activo");
   const [partners, setPartners] = useState([""]);
+  const [cupo, setCupo] = useState(0);
 
   const _handleChange = (e) => {
     e.preventDefault();
@@ -54,7 +55,6 @@ function CrearProyecto() {
     data.append('ubicacion', 'Tec Campus MTY');
     data.append('imagen', image);
     data.append('createdBy', localStorage.getItem('id'));
-    console.log(data);
 
     return axios
       .post(`${URI.base}${URI.routes.createEvent}`, data, {
@@ -105,6 +105,8 @@ function CrearProyecto() {
         setStatus={setStatus}
         partners={partners}
         setPartners={_handlePartners}
+        cupo={cupo}
+        setCupo={setCupo}
         variant="Evento"
         action={_postEvent}
         type="Crear"

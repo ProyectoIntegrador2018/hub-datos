@@ -12,7 +12,7 @@ function MisEventos() {
   useEffect(() => {
     const fetchEvents = async () => {
       // cambiar por ruta de eventos cuando endpoint sea creado
-      const { data } = await axios(`${URI.base}${URI.routes.myProjects}`, {
+      const { data } = await axios(`${URI.base}${URI.routes.myEvents}`, {
         headers: {
           sessiontoken: `${localStorage.getItem('token')}`
         }
@@ -34,7 +34,7 @@ function MisEventos() {
 
   const _deleteHandler = (id) => {
     axios
-      .delete(`${URI.base}${URI.routes.deleteProject}${id}`, {
+      .delete(`${URI.base}${URI.routes.deleteEvents}${id}`, {
         headers: {
           sessiontoken: `${localStorage.getItem('token')}`
         }
