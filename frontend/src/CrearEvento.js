@@ -2,12 +2,15 @@ import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import CollectionForm from "./components/CollectionForm";
+import Loader from "./components/Loader";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { _handlePreview } from "./Utilities";
 import URI from "./URI";
+import { set } from "lodash";
 
 function CrearProyecto() {
+  const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
   const [abstract, setAbstract] = useState("");
   const [description, setDescription] = useState("");
@@ -75,7 +78,9 @@ function CrearProyecto() {
   };
 
   const _postEvent = async () => {
+    setLoading(true);
     let response = await _postHandler();
+    setLoading(false);
     if (response) {
       toast.error(response);
     } else {
@@ -83,7 +88,9 @@ function CrearProyecto() {
     }
   };
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <>
       <ToastContainer draggable={false} autoClose={4000} />
       <CollectionForm

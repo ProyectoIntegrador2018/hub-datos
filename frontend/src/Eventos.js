@@ -12,8 +12,7 @@ function Proyectos() {
     const fetchEvents = async () => {
       const { data } = await axios(`${URI.base}${URI.routes.allEvents}`);
       const { events, paginas } = data;
-      console.log(data);
-
+      
       const eventChunks = splitProjects(events);
 
       setEvents(eventChunks);

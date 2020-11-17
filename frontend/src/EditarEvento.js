@@ -98,7 +98,9 @@ function EditarProyecto() {
   };
 
   const _editEvent = async () => {
+    setLoading(true);
     let response = await _editHandler();
+    setLoading(false);
     if (response) {
       toast.error(response);
     } else {

@@ -72,7 +72,7 @@ function EditarProyecto() {
     const data = new FormData();
     data.append("nombre", title);
     data.append("encargado", encargado);
-    data.append("socios", partners);
+    data.append("socios", JSON.stringify(partners));
     data.append("descripcionCorta", abstract);
     data.append("descripcionLarga", description);
     data.append("fechaInicio", new Date(startDate));
@@ -98,7 +98,9 @@ function EditarProyecto() {
   };
 
   const _editProject = async () => {
+    setLoading(true);
     let response = await _editHandler();
+    setLoading(false);
     if (response) {
       toast.error(response);
     } else {
