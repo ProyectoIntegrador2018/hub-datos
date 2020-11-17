@@ -28,7 +28,6 @@ function EditarProyecto() {
     // fetch data from project and set in state to use for the form
     const fetchData = async () => {
       const { data } = await axios(`${URI.base}${URI.routes.editEvent}${id}`);
-      console.log(data);
       setTitle(data.nombre);
       setAbstract(data.descripcionCorta);
       setDescription(data.descripcionLarga);
@@ -78,7 +77,9 @@ function EditarProyecto() {
     //data.append('fechaFin', fechaFin);
     data.append('cupo', 10000);
     data.append('ubicacion', 'Tec Campus MTY');
-    data.append('imagen', image);
+    if(image !== null) {
+      data.append('imagen', image);
+    }
     data.append('createdBy', localStorage.getItem('id'));
 
     return axios
@@ -107,6 +108,8 @@ function EditarProyecto() {
       history.push(`/Eventos/${id}`);
     }
   };
+
+  console.log(image)
 
   return loading ? (
     <Loader />

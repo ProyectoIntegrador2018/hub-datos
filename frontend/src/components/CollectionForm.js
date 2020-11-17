@@ -64,15 +64,15 @@ function CollectionForm({
     !/\S/.test(abstract)
       ? setAbstractError("Favor de escribir descripción corta")
       : setAbstractError("");
-    abstract.length >= 50 && !/\S/.test(abstract)
-      ? setAbstractError("Se requieren minimo 50 caracteres")
+    abstract.trim().length < 50
+      ? setAbstractError("Favor de escribir minimo 50 chars")
       : setAbstractError("");
     !/\S/.test(description)
       ? setDescriptionError("Favor de escribir la descripción detallada")
       : setDescriptionError("");
-    description.length >= 100 && !/\S/.test(description)
-      ? setAbstractError("Se requieren minimo 100 caracteres")
-      : setAbstractError("");
+    description.trim().length < 100
+      ? setDescriptionError("Favor de escribir minimo 100 chars")
+      : setDescriptionError("");
     !/\S/.test(encargado)
       ? setEncargadoError("Favor de escribir el nombre del encargado")
       : setEncargadoError("");
@@ -83,14 +83,7 @@ function CollectionForm({
       ? setStartDateError("Favor de elegir una fecha de inicio")
       : setStartDateError("");
 
-    let answers = [
-      title,
-      abstract,
-      description,
-      encargado,
-      imgUrl,
-      startDate,
-    ];
+    let answers = [title, abstract, description, encargado, imgUrl, startDate];
 
     let flag = true;
     if (variant === "Proyecto") {
@@ -100,9 +93,12 @@ function CollectionForm({
       // necesario para comparar fechas
       const stDateObj = new Date(startDate);
       const edDateObj = new Date(endDate);
-      edDateObj < stDateObj
-        ? setEndDateError("La fecha de fin tiene que ser después del inicio")
-        : setEndDateError("");
+
+      if (edDateObj < stDateObj && edDateObj !== "Invalid Date") {
+        setEndDateError("La fecha de fin tiene que ser después del inicio")
+      } else if (edDateObj === "Invalid Date") {
+        setEndDateError("Favor de elegir una fecha de fin")
+      }
       flag = edDateObj > stDateObj;
 
       answers.push(endDate);
@@ -176,7 +172,7 @@ function CollectionForm({
                 <Form.Text
                   className={
                     abstractError === ""
-                      ? counterClass(abstract.length, 60, 130, 200)
+                      ? counterClass(abstract.length, 50, 130, 200)
                       : "text-danger"
                   }
                 >
