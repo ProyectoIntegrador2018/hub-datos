@@ -2,7 +2,7 @@ import './css/LinkHeader.css';
 import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 import NavBar from 'react-bootstrap/Navbar';
-import React, { useState } from 'react';
+import React from 'react';
 import { isLoggedIn, LogOut } from './Util/auth';
 
 function LinkHeader() {

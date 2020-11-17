@@ -12,12 +12,10 @@ function MisProyectos() {
   useEffect(() => {
     const fetchProjects = async () => {
       const { data } = await axios(`${URI.base}${URI.routes.myProjects}`, {
-
         headers: {
           sessiontoken: `${localStorage.getItem('token')}`
         }
       });
-      console.log(data);
       const projectChunks = splitProjects(data);
 
       setProjects(projectChunks);

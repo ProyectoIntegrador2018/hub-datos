@@ -1,9 +1,6 @@
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
-import Error from './Error';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 import URI from './URI';

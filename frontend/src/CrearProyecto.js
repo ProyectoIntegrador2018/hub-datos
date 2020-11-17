@@ -2,6 +2,7 @@ import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import CollectionForm from "./components/CollectionForm";
+import Loader from "./components/Loader";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { _handlePreview } from "./Utilities";
@@ -18,6 +19,7 @@ function CrearProyecto(props) {
   const [endDate, setEndDate] = useState("");
   const [status, setStatus] = useState("Activo");
   const [partners, setPartners] = useState([""]);
+  const [loading, setLoading] = useState(false);
 
   const _handleChange = (e) => {
     e.preventDefault();
@@ -41,20 +43,18 @@ function CrearProyecto(props) {
     const fechaFin = new Date(endDate);
     const finalizo = fechaFin < today;
 
-    const data = {
-      nombre: title,
-      encargado: encargado,
-      socios: partners,
-      descripcionCorta: abstract,
-      descripcionLarga: description,
-      fechaInicio: new Date(startDate),
-      finalizo: finalizo,
-      fechaFin: fechaFin,
-      imagen: "https://picsum.photos/2000/800",
-      createdBy: localStorage.getItem('id')
-    };
+    const data = new FormData();
+    data.append('nombre', title);
+    data.append('encargado', encargado);
+    data.append('socios', JSON.stringify(partners));
+    data.append('descripcionCorta', abstract);
+    data.append('descripcionLarga', description);
+    data.append('fechaInicio', new Date(startDate));
+    data.append('finalizo', finalizo);
+    data.append('fechaFin', fechaFin);
+    data.append('imagen', image);
+    data.append('createdBy', localStorage.getItem('id'));
 
-    console.log(`${URI.base}${URI.routes.createProject}`)
     return axios
       .post(`${URI.base}${URI.routes.createProject}`, data, {
         headers: {
@@ -72,17 +72,21 @@ function CrearProyecto(props) {
   };
 
   const _postProject = async () => {
+    setLoading(true)
     let response = await _postHandler();
+    setLoading(false);
     if (response) {
       toast.error(response);
     } else {
-      props.history.push("/MisProyectos")
       //toast.success("Proyecto creado !");
+      props.history.push("/MisProyectos")
 
     }
   };
-
-  return (
+  
+  return loading ? (
+    <Loader />
+  ) : (
     <>
       <ToastContainer draggable={false} autoClose={4000} />
       <CollectionForm

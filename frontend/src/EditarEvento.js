@@ -17,32 +17,33 @@ function EditarProyecto() {
   const [encargado, setEncargado] = useState("");
   const [image, setImage] = useState(null);
   const [imgUrl, setImgUrl] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  const [date, setDate] = useState("");
   const [status, setStatus] = useState("");
   const [partners, setPartners] = useState([]);
+  const [cupo, setCupo] = useState(0);
   let history = useHistory();
   const id = getId();
 
   useEffect(() => {
     // fetch data from project and set in state to use for the form
     const fetchData = async () => {
-      const { data } = await axios(`${URI.base}${URI.routes.projectByID}${id}`);
-      console.log(data)
+      const { data } = await axios(`${URI.base}${URI.routes.editEvent}${id}`);
+      console.log(data);
       setTitle(data.nombre);
       setAbstract(data.descripcionCorta);
       setDescription(data.descripcionLarga);
       setImgUrl(data.imagen);
+      setCupo(data.cupo);
 
       // get dates
-      let start = data.fechaInicio.slice(0, 10);
-      setStartDate(start);
-      //let end = data.fechaFin.slice(0,10);
-      //setEndDate(end); // using dummy data until model updates
-      const stat = data.finalizado ? "Finalizado" : "Activo";
-      setStatus(stat);
-      setEncargado(data.encargado);
-      setPartners(data.socios);
+      let date = data.fecha.slice(0, 10);
+      setDate(date);
+      // //let end = data.fechaFin.slice(0,10);
+      // //setEndDate(end); // using dummy data until model updates
+      // const stat = data.finalizado ? "Finalizado" : "Activo";
+      // setStatus(stat);
+      // setEncargado(data.encargado);
+      // setPartners(data.socios);
       setLoading(false);
     };
 
@@ -66,25 +67,22 @@ function EditarProyecto() {
   };
 
   const _editHandler = () => {
-    const today = new Date();
-    const fechaFinalizo = new Date(endDate);
-    const finalizado = fechaFinalizo < today;
-
-    const data = {
-      nombre: title,
-      encargado: encargado,
-      socios: partners,
-      descripcionCorta: abstract,
-      descripcionLarga: description,
-      fechaInicio: new Date(startDate),
-      finalizo: finalizado,
-      fechaFinalizo: fechaFinalizo,
-      imagen: "https://picsum.photos/2000/800",
-      createdBy: localStorage.getItem('id')
-    };
+    const data = new FormData();
+    data.append('nombre', title);
+    data.append('fecha', new Date(date));
+    //data.append('encargado', encargado);
+    //data.append('socios', partners);
+    data.append('descripcionCorta', abstract);
+    data.append('descripcionLarga', description);
+    //data.append('finalizo', finalizo);
+    //data.append('fechaFin', fechaFin);
+    data.append('cupo', 10000);
+    data.append('ubicacion', 'Tec Campus MTY');
+    data.append('imagen', image);
+    data.append('createdBy', localStorage.getItem('id'));
 
     return axios
-      .put(`${URI.base}${URI.routes.editProject}${id}`, data, {
+      .put(`${URI.base}${URI.routes.editEvent}${id}`, data, {
         headers: {
           sessiontoken: `${localStorage.getItem('token')}`,
         }
@@ -100,7 +98,9 @@ function EditarProyecto() {
   };
 
   const _editEvent = async () => {
+    setLoading(true);
     let response = await _editHandler();
+    setLoading(false);
     if (response) {
       toast.error(response);
     } else {
@@ -124,14 +124,16 @@ function EditarProyecto() {
         setEncargado={setEncargado}
         imgUrl={imgUrl}
         _handleChange={_handleChange}
-        startDate={startDate}
-        setStartDate={setStartDate}
-        endDate={endDate}
-        setEndDate={setEndDate}
+        startDate={date}
+        setStartDate={setDate}
+        endDate={""}
+        setEndDate={null}
         status={status}
         setStatus={setStatus}
         partners={partners}
         setPartners={_handlePartners}
+        cupo={cupo}
+        setCupo={setCupo}
         variant="Evento"
         action={_editEvent}
         type="Editar"

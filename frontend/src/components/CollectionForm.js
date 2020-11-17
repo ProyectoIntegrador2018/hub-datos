@@ -31,6 +31,8 @@ function CollectionForm({
   setStatus,
   partners,
   setPartners,
+  cupo,
+  setCupo,
   variant,
   action,
   type,
@@ -80,33 +82,39 @@ function CollectionForm({
     !/\S/.test(startDate)
       ? setStartDateError("Favor de elegir una fecha de inicio")
       : setStartDateError("");
-    !/\S/.test(endDate)
-      ? setEndDateError("Favor de elegir una fecha de fin")
-      : setEndDateError("");
 
-    // necesario para comparar fechas
-    const stDateObj = new Date(startDate);
-    const edDateObj = new Date(endDate);
-    edDateObj < stDateObj
-      ? setEndDateError("La fecha de fin tiene que ser después del inicio")
-      : setEndDateError("");
-
-    const answers = [
+    let answers = [
       title,
       abstract,
       description,
       encargado,
       imgUrl,
       startDate,
-      endDate,
     ];
-    const flag = edDateObj > stDateObj;
+
+    let flag = true;
+    if (variant === "Proyecto") {
+      !/\S/.test(endDate)
+        ? setEndDateError("Favor de elegir una fecha de fin")
+        : setEndDateError("");
+      // necesario para comparar fechas
+      const stDateObj = new Date(startDate);
+      const edDateObj = new Date(endDate);
+      edDateObj < stDateObj
+        ? setEndDateError("La fecha de fin tiene que ser después del inicio")
+        : setEndDateError("");
+      flag = edDateObj > stDateObj;
+
+      answers.push(endDate);
+    }
+
     if (
       answers.every((answer) => /\S/.test(answer)) &&
       flag &&
       abstract.length >= 50 &&
       description.length >= 100
     ) {
+      console.log("posting");
       return action();
     }
   };
@@ -128,8 +136,6 @@ function CollectionForm({
     }
     return setMode("Editar");
   };
-
-  console.log(typeof(description))
 
   return (
     <Container fluid className="mt-3 mb-3">
@@ -185,7 +191,7 @@ function CollectionForm({
                   </a>
                   <br />
                   <Form.Check
-                  className="mt-2"
+                    className="mt-2"
                     type="switch"
                     id="custom-switch"
                     label={mode}
@@ -206,7 +212,9 @@ function CollectionForm({
                     value={description}
                   />
                 ) : (
-                  <ReactMarkdown className="text-break">{description}</ReactMarkdown>
+                  <ReactMarkdown className="text-break">
+                    {description}
+                  </ReactMarkdown>
                 )}
                 <Form.Text
                   className={
@@ -285,26 +293,40 @@ function CollectionForm({
                     {startDateError === "" ? "" : startDateError}
                   </Form.Text>
                 </Form.Group>
-                {variant === "Evento" ? (
-                  ""
-                ) : (
-                  <Form.Group as={Col}>
-                    <Form.Label className="font-weight-bold">
-                      Fin del Proyecto
-                    </Form.Label>
-                    <Form.Control
-                      type="date"
-                      className="custom-input"
-                      onChange={(e) => {
-                        setEndDate(e.target.value);
-                      }}
-                      value={endDate}
-                    />
-                    <Form.Text className="text-danger">
-                      {endDateError === "" ? "" : endDateError}
-                    </Form.Text>
-                  </Form.Group>
-                )}
+                <Form.Group as={Col}>
+                  {variant === "Proyecto" ? (
+                    <>
+                      <Form.Label className="font-weight-bold">
+                        Fin del Proyecto
+                      </Form.Label>
+                      <Form.Control
+                        type="date"
+                        className="custom-input"
+                        onChange={(e) => {
+                          setEndDate(e.target.value);
+                        }}
+                        value={endDate}
+                      />
+                      <Form.Text className="text-danger">
+                        {endDateError === "" ? "" : endDateError}
+                      </Form.Text>
+                    </>
+                  ) : (
+                    <>
+                      <Form.Label className="font-weight-bold">
+                        Cupo del Evento
+                      </Form.Label>
+                      <Form.Control
+                        type="number"
+                        className="custom-input"
+                        onChange={(e) => {
+                          setCupo(e.target.value);
+                        }}
+                        value={cupo}
+                      />
+                    </>
+                  )}
+                </Form.Group>
               </Form.Row>
             </Form>
           </div>

@@ -3,8 +3,6 @@ import Card from "react-bootstrap/Card";
 import React from "react";
 import {
   isLoggedIn,
-  LogOut,
-  isStudent,
   isTeacher,
   isAdmin,
   isSuperAdmin,

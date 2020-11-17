@@ -69,24 +69,23 @@ function EditarProyecto() {
     const fechaFinalizo = new Date(endDate);
     const finalizado = fechaFinalizo < today;
 
-    const data = {
-      nombre: title,
-      encargado: encargado,
-      socios: partners,
-      descripcionCorta: abstract,
-      descripcionLarga: description,
-      fechaInicio: new Date(startDate),
-      finalizo: finalizado,
-      fechaFinalizo: fechaFinalizo,
-      imagen: "https://picsum.photos/2000/800",
-      createdBy: localStorage.getItem('id')
-    };
+    const data = new FormData();
+    data.append("nombre", title);
+    data.append("encargado", encargado);
+    data.append("socios", JSON.stringify(partners));
+    data.append("descripcionCorta", abstract);
+    data.append("descripcionLarga", description);
+    data.append("fechaInicio", new Date(startDate));
+    data.append("finalizo", finalizado);
+    data.append("fechaFin", fechaFinalizo);
+    data.append("imagen", image);
+    data.append("createdBy", localStorage.getItem("id"));
 
     return axios
       .put(`${URI.base}${URI.routes.editProject}${id}`, data, {
         headers: {
-          sessiontoken: `${localStorage.getItem('token')}`,
-        }
+          sessiontoken: `${localStorage.getItem("token")}`,
+        },
       })
       .then((response) => {
         return null;
@@ -99,7 +98,9 @@ function EditarProyecto() {
   };
 
   const _editProject = async () => {
+    setLoading(true);
     let response = await _editHandler();
+    setLoading(false);
     if (response) {
       toast.error(response);
     } else {
