@@ -56,7 +56,7 @@ function CrearProyecto(props) {
 
     console.log(`${URI.base}${URI.routes.createProject}`)
     return axios
-      .post(`http://localhost:8000/${URI.routes.createProject}`, data, {
+      .post(`${URI.base}${URI.routes.createProject}`, data, {
         headers: {
           sessiontoken: `${localStorage.getItem('token')}`
         }

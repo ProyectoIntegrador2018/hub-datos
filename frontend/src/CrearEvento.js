@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { _handlePreview } from "./Utilities";
 import URI from "./URI";
 
-function CrearProyecto() {
+function CrearProyecto(props) {
   const [title, setTitle] = useState("");
   const [abstract, setAbstract] = useState("");
   const [description, setDescription] = useState("");
@@ -76,7 +76,8 @@ function CrearProyecto() {
     if (response) {
       toast.error(response);
     } else {
-      toast.success("Evento creado !");
+      props.history.push("/MisEventos")
+      //toast.success("Evento creado !");
     }
   };
 

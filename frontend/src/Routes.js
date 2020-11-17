@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Consultas from './Consultas';
 import CrearProyecto from './CrearProyecto';
+import CrearEvento from './CrearEvento';
 import EditarProyecto from './EditarProyecto';
 import Eventos from './Eventos';
 import EventDetails from './EventDetails';
@@ -52,6 +53,7 @@ const Routes = () => (
 						<PrivateRoute path="/MisEventos" component={MisEventos} />
 						<PrivateRoute path="/MisProyectos/:id" component={EditarProyecto} />
 						<PrivateRoute path="/CrearProyecto" component={CrearProyecto} authed={isLoggedIn()} />
+						<PrivateRoute path="/CrearEVENTO" component={CrearEvento} authed={isLoggedIn()} />
 						<PrivateRoute path="/MisProyectos" component={MisProyectos} />
 						<PrivateRoute path="/Miperfil" component={MiPerfil} authed={isLoggedIn()} />
 						<Route path="/*" component={Inicio} />

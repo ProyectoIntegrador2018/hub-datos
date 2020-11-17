@@ -35,7 +35,7 @@ function MisProyectos() {
 
   const _deleteHandler = (id) => {
     axios
-      .delete(`http://localhost:8000/${URI.routes.deleteProject}${id}`, {
+      .delete(`${URI.base}${URI.routes.deleteProject}${id}`, {
         headers: {
           sessiontoken: `${localStorage.getItem('token')}`
         }
