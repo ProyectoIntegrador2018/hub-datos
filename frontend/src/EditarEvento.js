@@ -42,7 +42,7 @@ function EditarProyecto() {
       const stat = data.finalizado ? "Finalizado" : "Activo";
       setStatus(stat);
       setEncargado(data.encargado);
-      setPartners(data.socios);
+      //setPartners(data.socios);
       setLoading(false);
     };
 
