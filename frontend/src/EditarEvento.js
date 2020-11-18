@@ -39,10 +39,10 @@ function EditarProyecto() {
       setDate(date);
       // //let end = data.fechaFin.slice(0,10);
       // //setEndDate(end); // using dummy data until model updates
-      // const stat = data.finalizado ? "Finalizado" : "Activo";
-      // setStatus(stat);
-      // setEncargado(data.encargado);
-      // setPartners(data.socios);
+      const stat = data.finalizado ? "Finalizado" : "Activo";
+      setStatus(stat);
+      setEncargado(data.encargado);
+      setPartners(data.socios);
       setLoading(false);
     };
 
@@ -107,8 +107,6 @@ function EditarProyecto() {
       history.push(`/Eventos/${id}`);
     }
   };
-
-  console.log(image)
 
   return loading ? (
     <Loader />

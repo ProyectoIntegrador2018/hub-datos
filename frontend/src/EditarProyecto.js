@@ -42,6 +42,7 @@ function EditarProyecto() {
       setEncargado(data.encargado);
       setPartners(data.socios);
       setLoading(false);
+      console.log(data);
     };
 
     fetchData();
