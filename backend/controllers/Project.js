@@ -37,7 +37,7 @@ const newProject = async function (req, res) {
     res.statusMessage = 'Error al parsear finalizo';
     return res.status(400).json(e);
   }
-  project.fechaFinalizo = req.body.fechaFinalizo;
+  project.fechaFin = req.body.fechaFin;
 
   try {
     var s3Response = await s3.uploadS3(req, "projects");
