@@ -39,10 +39,10 @@ function EditarProyecto() {
       setDate(date);
       // //let end = data.fechaFin.slice(0,10);
       // //setEndDate(end); // using dummy data until model updates
-      // const stat = data.finalizado ? "Finalizado" : "Activo";
-      // setStatus(stat);
-      // setEncargado(data.encargado);
-      // setPartners(data.socios);
+      const stat = data.finalizado ? "Finalizado" : "Activo";
+      setStatus(stat);
+      setEncargado(data.encargado);
+      //setPartners(data.socios);
       setLoading(false);
     };
 
@@ -69,13 +69,12 @@ function EditarProyecto() {
     const data = new FormData();
     data.append('nombre', title);
     data.append('fecha', new Date(date));
-    //data.append('encargado', encargado);
-    //data.append('socios', partners);
+    data.append('encargado', encargado);
+    data.append('socios', partners);
     data.append('descripcionCorta', abstract);
     data.append('descripcionLarga', description);
-    //data.append('finalizo', finalizo);
-    //data.append('fechaFin', fechaFin);
-    data.append('cupo', 10000);
+    data.append('finalizo', status === "Activo" ? false : true);
+    data.append('cupo', cupo);
     data.append('ubicacion', 'Tec Campus MTY');
     if(image !== null) {
       data.append('imagen', image);
@@ -108,8 +107,6 @@ function EditarProyecto() {
       history.push(`/Eventos/${id}`);
     }
   };
-
-  console.log(image)
 
   return loading ? (
     <Loader />
