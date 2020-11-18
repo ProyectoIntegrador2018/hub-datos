@@ -21,6 +21,19 @@ const newEvent = async function (req, res) {
   const event = new eventModel();
   event.nombre = req.body.nombre;
   event.fecha = req.body.fecha;
+  event.encargado = req.body.encargado;
+  try {
+    event.socios = JSON.parse(req.body.socios);
+  } catch (error) {
+    res.statusMessage = "Error parseando el arreglo de socios";
+    return res.status(400).json(e);
+  }
+  try {
+    event.finalizo = JSON.parse(req.body.finalizo);
+  } catch (error) {
+    res.statusMessage = "Error parseando finalizo";
+    return res.status(400).json(e);
+  }
   event.cupo = req.body.cupo;
   event.ubicacion = req.body.ubicacion;
   event.descripcionCorta = req.body.descripcionCorta;
@@ -82,6 +95,14 @@ const editEventByID = async function (req, res) {
   }
 
   let event = req.body;
+  if (event.socios) {
+    try {
+      event.socios = JSON.parse(req.body.socios);
+    } catch (e) {
+      res.statusMessage = 'Error al parsear el arreglo de socios';
+      return res.status(400).json(e);
+    }
+  }
   let fileName = query.imagen.split("/");
   fileName = fileName[fileName.length - 1];
   try {
