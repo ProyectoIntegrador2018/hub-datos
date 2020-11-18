@@ -9,6 +9,7 @@ import {
   isSocioComercial,
   isSocioTecnologico,
   isInvestigator,
+  isStudent,
 } from "./Util/auth";
 import RoundedButton from "./RoundedButton";
 import { useHistory } from "react-router-dom";
@@ -33,12 +34,8 @@ const CardComponent = ({
   let button;
   if (
     isLoggedIn() &&
-    (isTeacher() ||
-      isAdmin() ||
-      isSuperAdmin() ||
-      isInvestigator() ||
-      isSocioComercial() ||
-      isSocioTecnologico())
+    ( isAdmin() ||
+      isSuperAdmin())
   ) {
     button = (
       <RoundedButton type="redBtn" onClick={(e) => {deleteHandler(id)}}>
