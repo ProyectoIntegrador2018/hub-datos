@@ -16,6 +16,14 @@ const eventSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
+  encargado: {
+    type: String,
+    required: true
+  },
+  socios: {
+    type: [String],
+    required: true
+  },
   descripcionCorta: {
     type: String,
     required: true,
@@ -26,6 +34,10 @@ const eventSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 100,
+  },
+  finalizo: {
+    type: Boolean,
+    required: true
   },
   cupo: {
     type: Number,

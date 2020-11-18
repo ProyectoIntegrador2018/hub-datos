@@ -41,7 +41,7 @@ const projectSchema = new mongoose.Schema(
       type: Boolean,
       required: true,
     },
-    fechaFinalizo: {
+    fechaFin: {
       type: Date,
       required: true
     },

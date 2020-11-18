@@ -37,7 +37,7 @@ const newProject = async function (req, res) {
     res.statusMessage = 'Error al parsear finalizo';
     return res.status(400).json(e);
   }
-  project.fechaFinalizo = req.body.fechaFinalizo;
+  project.fechaFin = req.body.fechaFin;
 
   try {
     var s3Response = await s3.uploadS3(req, "projects");
@@ -93,6 +93,14 @@ const editProjectByID = async function (req, res) {
   }
 
   let project = req.body;
+  if(project.socios) {
+    try {
+      project.socios = JSON.parse(req.body.socios);
+    } catch(e) {
+      res.statusMessage = 'Error al parsear el arreglo de socios';
+      return res.status(400).json(e);
+    }
+  }
   let fileName = query.imagen.split("/");
   fileName = fileName[fileName.length - 1];
   try {
