@@ -39,14 +39,11 @@ const projectSchema = new mongoose.Schema(
     },
     finalizo: {
       type: Boolean,
-      default: null,
       required: true,
     },
     fechaFinalizo: {
       type: Date,
-      required: function () {
-        return this.finalizo === true;
-      },
+      required: true
     },
     imagen: {
       type: String,
