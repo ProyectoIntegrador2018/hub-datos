@@ -35,12 +35,12 @@ function EditarProyecto() {
       // get dates
       let start = data.fechaInicio.slice(0, 10);
       setStartDate(start);
-      //let end = data.fechaFin.slice(0,10);
-      //setEndDate(end); // using dummy data until model updates
+      let end = data.fechaFin.slice(0,10);
+      setEndDate(end); // using dummy data until model updates
       const stat = data.finalizado ? "Finalizado" : "Activo";
       setStatus(stat);
       setEncargado(data.encargado);
-      setPartners(JSON.parse(data.socios));
+      setPartners(data.socios);
       setLoading(false);
     };
 

@@ -69,13 +69,12 @@ function EditarProyecto() {
     const data = new FormData();
     data.append('nombre', title);
     data.append('fecha', new Date(date));
-    //data.append('encargado', encargado);
-    //data.append('socios', partners);
+    data.append('encargado', encargado);
+    data.append('socios', partners);
     data.append('descripcionCorta', abstract);
     data.append('descripcionLarga', description);
-    //data.append('finalizo', finalizo);
-    //data.append('fechaFin', fechaFin);
-    data.append('cupo', 10000);
+    data.append('finalizo', status === "Activo" ? false : true);
+    data.append('cupo', cupo);
     data.append('ubicacion', 'Tec Campus MTY');
     if(image !== null) {
       data.append('imagen', image);

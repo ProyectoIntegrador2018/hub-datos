@@ -18,7 +18,6 @@ function CrearProyecto(props) {
   const [image, setImage] = useState(null);
   const [imgUrl, setImgUrl] = useState("");
   const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
   const [status, setStatus] = useState("Activo");
   const [partners, setPartners] = useState([""]);
   const [cupo, setCupo] = useState(0);
@@ -41,20 +40,15 @@ function CrearProyecto(props) {
   };
 
   const _postHandler = () => {
-    const today = new Date();
-    const fechaFin = new Date(endDate);
-    const finalizo = fechaFin < today;
-
     const data = new FormData();
     data.append('nombre', title);
     data.append('fecha', new Date(startDate));
-    //data.append('encargado', encargado);
-    //data.append('socios', partners);
+    data.append('encargado', encargado);
+    data.append('socios', JSON.stringify(partners));
     data.append('descripcionCorta', abstract);
     data.append('descripcionLarga', description);
-    //data.append('finalizo', finalizo);
-    //data.append('fechaFin', fechaFin);
-    data.append('cupo', 10000);
+    data.append('finalizo', status === "Activo" ? false : true);
+    data.append('cupo', cupo);
     data.append('ubicacion', 'Tec Campus MTY');
     data.append('imagen', image);
     data.append('createdBy', localStorage.getItem('id'));
@@ -107,8 +101,6 @@ function CrearProyecto(props) {
         _handleChange={_handleChange}
         startDate={startDate}
         setStartDate={setStartDate}
-        endDate={endDate}
-        setEndDate={setEndDate}
         status={status}
         setStatus={setStatus}
         partners={partners}

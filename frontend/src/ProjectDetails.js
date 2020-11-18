@@ -17,7 +17,6 @@ function ProjectDetails() {
       const id = getId();
       const { data } = await axios(`${URI.base}${URI.routes.projectByID}${id}`);
       const { descripcionLarga, imagen, nombre, encargado } = data;
-      console.log(data);
       
       setDescription(descripcionLarga);
       setName(nombre);
