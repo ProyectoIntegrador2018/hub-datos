@@ -22,7 +22,7 @@ router.get("/my-events", auth, eventController.userEvents);
 
 router.post("/",
   auth,
-  verifyRole(["investigador", "socio_comercial", "socio_tecnologico", "administrador", "maestro"]),
+  verifyRole(["alumno", "investigador", "socio_comercial", "socio_tecnologico", "administrador", "maestro"]),
   upload,
   async (req, res) => {
     if (!req.file) {
@@ -38,13 +38,13 @@ router.get("/:id", async (req, res) => {
 
 router.put("/:id",
   auth,
-  verifyRole(["investigador", "socio_comercial", "socio_tecnologico", "administrador"]),
+  verifyRole(["alumno", "investigador", "socio_comercial", "socio_tecnologico", "administrador", "maestro"]),
   upload,
   async (req, res) => {
     await eventController.editEventByID(req, res);
   });
 
-router.delete("/:id", auth, verifyRole(["administrador"]), async (req, res) => {
+router.delete("/:id", auth, verifyRole(["alumno", "investigador", "socio_comercial", "socio_tecnologico", "administrador", "maestro"]), async (req, res) => {
   await eventController.deleteEventByID(req.params.id, res);
 });
 

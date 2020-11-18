@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const companyController = require('./../controllers/Company');
+const { auth, verifyRole } = require("../middleware/auth");
 
 const router = new Router();
 
@@ -9,6 +10,6 @@ const router = new Router();
  * POST     /companies             - Creates a new company in the data base.
  */
 router.get('/', companyController.getCompanies);
-router.post('/', companyController.postCompany);
+router.post('/', auth, verifyRole(["administrador"]), companyController.postCompany);
 
 module.exports = router;

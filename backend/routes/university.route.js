@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const project = require("../controllers/University");
+const { auth, verifyRole } = require("../middleware/auth");
 
 const router = new Router();
 
@@ -12,8 +13,11 @@ router.get("/", async (req, res) => {
   await project.getAllUniversity(req, res);
 });
 
-router.post("/", async (req, res) => {
-  await project.newUniversity(req, res);
-});
+router.post("/",
+  auth,
+  verifyRole(["administrador"]),
+  async (req, res) => {
+    await project.newUniversity(req, res);
+  });
 
 module.exports = router;
