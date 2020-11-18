@@ -22,19 +22,22 @@ const newProject = async function (req, res) {
   project.createdBy = req.user._id;
   project.nombre = req.body.nombre;
   project.encargado = req.body.encargado;
-  project.socios = JSON.parse(req.body.socios);
+  try {
+    project.socios = JSON.parse(req.body.socios);
+  } catch(e) {
+    res.statusMessage = 'Error al parsear el arreglo de socios';
+    return res.status(400).json(e);
+  }
   project.descripcionCorta = req.body.descripcionCorta;
   project.descripcionLarga = req.body.descripcionLarga;
   project.fechaInicio = req.body.fechaInicio;
-  project.finalizo = req.body.finalizo;
-  //If que valida si el proyecto ya finalizo tiene que tener una fecha
-  if (JSON.parse(req.body.finalizo)) {
-    if (!req.body.fechaFinalizo) {
-      res.statusMessage = "La fecha de finalización del proyecto es requerida";
-      return res.status(400).end();
-    }
-    project.fechaFinalizo = req.body.fechaFinalizo;
+  try {
+    project.finalizo = JSON.parse(req.body.finalizo);
+  } catch (e) {
+    res.statusMessage = 'Error al parsear finalizo';
+    return res.status(400).json(e);
   }
+  project.fechaFinalizo = req.body.fechaFinalizo;
 
   try {
     var s3Response = await s3.uploadS3(req, "projects");
@@ -92,7 +95,13 @@ const editProjectByID = async function (req, res) {
   let project = req.body;
   let fileName = query.imagen.split("/");
   fileName = fileName[fileName.length - 1];
-
+  try {
+    delete project.imagen
+  } catch(e) {
+    res.statusMessage = "Error borrando project.imagen";
+    return res.status(500).json(e);
+  }
+  
   if (req.file) {
     try {
       let s3Response = await s3.uploadS3(req, "projects");
@@ -111,7 +120,7 @@ const editProjectByID = async function (req, res) {
   }
 
   try {
-    await projectModel.updateOne(query, project);
+    await projectModel.updateOne(query, project, {runValidators: true});
     let response = {
       ...query,
       ...project,

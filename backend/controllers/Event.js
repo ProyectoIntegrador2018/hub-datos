@@ -84,6 +84,12 @@ const editEventByID = async function (req, res) {
   let event = req.body;
   let fileName = query.imagen.split("/");
   fileName = fileName[fileName.length - 1];
+  try {
+    delete event.imagen
+  } catch(e) {
+    res.statusMessage = "Error borrando event.imagen";
+    return res.status(500).json(e);
+  }
 
   if (req.file) {
     try {
@@ -103,7 +109,7 @@ const editEventByID = async function (req, res) {
   }
 
   try {
-    await eventModel.updateOne(query, event);
+    await eventModel.updateOne(query, event, {runValidators: true});
     let response = {
       ...query,
       ...event,
