@@ -32,17 +32,17 @@ function EditarProyecto() {
       setAbstract(data.descripcionCorta);
       setDescription(data.descripcionLarga);
       setImgUrl(data.imagen);
-
       // get dates
       let start = data.fechaInicio.slice(0, 10);
       setStartDate(start);
-      //let end = data.fechaFin.slice(0,10);
-      //setEndDate(end); // using dummy data until model updates
+      let end = data.fechaFin.slice(0,10);
+      setEndDate(end); // using dummy data until model updates
       const stat = data.finalizado ? "Finalizado" : "Activo";
       setStatus(stat);
       setEncargado(data.encargado);
       setPartners(data.socios);
       setLoading(false);
+      console.log(data);
     };
 
     fetchData();
@@ -78,7 +78,9 @@ function EditarProyecto() {
     data.append("fechaInicio", new Date(startDate));
     data.append("finalizo", finalizado);
     data.append("fechaFin", fechaFinalizo);
-    data.append("imagen", image);
+    if(image !== null) {
+      data.append("imagen", image);
+    }
     data.append("createdBy", localStorage.getItem("id"));
 
     return axios
