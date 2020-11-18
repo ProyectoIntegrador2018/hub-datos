@@ -3,12 +3,15 @@ import RoundedButton from '../components/RoundedButton';
 import { Subbutton } from '../components/Subbutton';
 import Logo from '../assets/Picture2.png';
 import axios from 'axios';
+import Form from 'react-bootstrap/Form';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import URI from '../URI';
+import { _handlePreview } from '../Utilities';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './IniciarSesion.css';
-
+import MiPerfil from '../MiPerfil';
+/*
 const initialState = {
 	username: '',
 	email: '',
@@ -20,11 +23,12 @@ const initialState = {
 	universidad: '',
 	compañia: '',
 	password: '',
-	imagen: '',
+	imagen: null,
+	imgUrl: '',
 	error: '',
 	valueUniversidad: 'hide',
 	valueCompania: 'hide',
-};
+};*/
 
 function reducer(state, { field, value }) {
 	return {
@@ -33,7 +37,7 @@ function reducer(state, { field, value }) {
 	};
 }
 
-function checkInputs(state) {
+/*function checkInputs(state) {
 	if (
 		(state.username !== '' &&
 			state.email !== '' &&
@@ -43,7 +47,7 @@ function checkInputs(state) {
 			state.genero !== '' &&
 			state.role !== '' &&
 			state.universidad !== '') ||
-		(state.compañia !== '' && state.password !== '' && state.imagen !== '')
+		(state.compañia !== '' && state.password !== '' && state.imagen !== null)
 	) {
 		if (state.password.length < 6) {
 			return toast.error('La contraseña debe tener mínimo 6 carácteres');
@@ -51,13 +55,62 @@ function checkInputs(state) {
 		return true;
 	}
 	return false;
+}*/
+{
+	/*<Form.File
+accept="image/jpeg, imgage/jpg, image/png"
+className="mt-5"
+id="fileItem"
+name="imagen"
+multiple={false}
+onChange={onChange}
+onKeyDown={_handleKeyDown}
+/>*/
 }
-
 const Registro = (props) => {
-	const [state, dispatch] = useReducer(reducer, initialState);
+	const [username, setUsername] = useState('');
+	const [email, setEmail] = useState('');
+	const [nombre, setNombre] = useState('');
+	const [apellido, setApellido] = useState('');
+	const [fechaDeNacimiento, setFechaDeNacimiento] = useState('');
+	const [genero, setGenero] = useState('');
+	const [role, setRole] = useState('');
+	const [universidad, setUniversidad] = useState('');
+	const [compañia, setCompañia] = useState('');
+	const [password, setPassword] = useState('');
+	const [imagen, setImagen] = useState('');
+	const [imgUrl, setImgUrl] = useState('');
 	const [valueUniversidad, setValueUniversidad] = useState('hide');
 	const [valueCompania, setValueCompania] = useState('hide');
+	const initialState = {
+		username: '',
+		email: '',
+		nombre: '',
+		apellido: '',
+		fechaDeNacimiento: '',
+		genero: '',
+		role: '',
+		universidad: '',
+		compañia: '',
+		password: '',
+		imagen: null,
+		imgUrl: '',
+		error: '',
+		valueUniversidad: 'hide',
+		valueCompania: 'hide',
+	};
+
+	const [state, dispatch] = useReducer(reducer, initialState);
+	const _handleChange = (e) => {
+		e.preventDefault();
+		_handlePreview(e, setImagen, setImgUrl);
+	};
+
+	const rolefunc = (e) => {};
 	const onChange = (e) => {
+		//rolefunc(e)
+		setRole(e.target.value);
+		console.log(role);
 		dispatch({ field: e.target.name, value: e.target.value });
 		if (e.target.value === 'alumno' || e.target.value === 'maestro') {
 			setValueCompania('hide');
@@ -74,20 +127,31 @@ const Registro = (props) => {
 			setValueUniversidad('show');
 		}*/
 	};
+
 	const _signup = async (e) => {
 		e.preventDefault();
 		let respError = await _signupHandler();
 		if (respError) {
 			console.log(respError);
-			dispatch({ field: 'error', value: respError });
+			//dispatch({ field: 'error', value: respError });
 		} else {
 			//toast.success('Registro éxitoso!');
 			//props.history.push('/', {sucess: "Registro éxitoso"});
 		}
 	};
 	const _signupHandler = (_) => {
-		if (checkInputs(state)) {
-			let {
+		if (
+			username !== '' &&
+			email !== '' &&
+			nombre !== '' &&
+			apellido !== '' &&
+			fechaDeNacimiento !== '' &&
+			genero !== '' // &&
+			//role !== '') //&&
+			//((universidad !== '') ||(compañia !== '') )&& password !== '' && imagen !== null)*/
+		) {
+			const data = new FormData();
+			/*let {
 				username,
 				email,
 				nombre,
@@ -97,25 +161,30 @@ const Registro = (props) => {
 				role,
 				universidad,
 				compañia,
-				password,
 				imagen,
-			} = state;
+				imgUrl,
+				password,
+			} = state;*/
+			console.log(imagen);
+			console.log(role);
+			data.append('username', username);
+			data.append('email', email);
+			data.append('nombre', nombre);
+			data.append('apellido', apellido);
+			data.append('fechaDeNacimiento', new Date(fechaDeNacimiento));
+			data.append('genero', genero);
+			data.append('role', role);
+			data.append('universidad', universidad);
+			data.append('compañia', compañia);
+			data.append('password', password);
+			data.append('imagen', imagen);
+
+			console.log(...data);
 			return axios
-				.post(`${URI.base}${URI.routes.signUpUser}`, {
-					username,
-					email,
-					nombre,
-					apellido,
-					fechaDeNacimiento,
-					genero,
-					role,
-					universidad,
-					compañia,
-					password,
-					imagen,
-				})
+				.post(`${URI.base}${URI.routes.signUpUser}`, data)
 				.then((response) => {
-					props.history.push("/IniciarSesion")
+					props.history.push('/IniciarSesion');
+					console.log(response);
 					return null;
 				})
 				.catch((error) => {
@@ -166,7 +235,9 @@ const Registro = (props) => {
 										type="text"
 										class="form-control inputRegistro"
 										id="nombre"
-										onChange={onChange}
+										onChange={(e) => {
+											setNombre(e.target.value);
+										}}
 										onKeyDown={_handleKeyDown}
 										name="nombre"
 									/>
@@ -177,7 +248,9 @@ const Registro = (props) => {
 										type="text"
 										class="form-control inputRegistro"
 										id="apellido"
-										onChange={onChange}
+										onChange={(e) => {
+											setApellido(e.target.value);
+										}}
 										onKeyDown={_handleKeyDown}
 										name="apellido"
 									/>
@@ -190,7 +263,9 @@ const Registro = (props) => {
 										class="form-control inputRegistro"
 										type="date"
 										id="fechaNacimiento"
-										onChange={onChange}
+										onChange={(e) => {
+											setFechaDeNacimiento(e.target.value);
+										}}
 										onKeyDown={_handleKeyDown}
 										name="fechaDeNacimiento"
 										required
@@ -201,7 +276,9 @@ const Registro = (props) => {
 									<select
 										class="form-control inputRegistro"
 										id="genero"
-										onChange={onChange}
+										onChange={(e) => {
+											setGenero(e.target.value);
+										}}
 										onKeyDown={_handleKeyDown}
 										name="genero"
 										required
@@ -218,7 +295,9 @@ const Registro = (props) => {
 							<select
 								id="perfilSelect"
 								name="role"
-								onChange={onChange}
+								onChange={(e) => {
+									onChange(e);
+								}}
 								onKeyDown={_handleKeyDown}
 								className="form-control inputDependency inputRegistro"
 								required
@@ -236,7 +315,9 @@ const Registro = (props) => {
 								<select
 									id="univInput"
 									name="compañia"
-									onChange={onChange}
+									onChange={(e) => {
+										setCompañia(e.target.value);
+									}}
 									onKeyDown={_handleKeyDown}
 									className="form-control inputRegistro inputDependency"
 									required
@@ -253,7 +334,9 @@ const Registro = (props) => {
 								<select
 									id="univInput"
 									name="universidad"
-									onChange={onChange}
+									onChange={(e) => {
+										setUniversidad(e.target.value);
+									}}
 									onKeyDown={_handleKeyDown}
 									className="form-control inputRegistro inputDependency"
 									required
@@ -266,20 +349,18 @@ const Registro = (props) => {
 							</div>
 
 							<div class="form-group">
-								<div class="custom-file inputFile">
-									<input
-										type="file"
-										class="custom-file-input inputRegistro"
-										id="credencial"
-										name="imagen"
-										onChange={onChange}
-										onKeyDown={_handleKeyDown}
-										required
-									/>
-									<label class="custom-file-label" for="validatedCustomFile">
-										Adjunta tus credenciales...
-									</label>
-								</div>
+								<label for="inputAddress">Sube tus credenciales</label>
+								<input
+									type="file"
+									class="form-control-file"
+									id="exampleFormControlFile1"
+									accept="image/jpeg, imgage/jpg, image/png"
+									//className="mt-5"
+									id="fileItem"
+									name="imagen"
+									multiple={false}
+									onChange={_handleChange}
+								/>
 							</div>
 							<div class="form-group">
 								<label for="inputAddress">Nombre de usuario</label>
@@ -288,7 +369,9 @@ const Registro = (props) => {
 									class="form-control inputRegistro"
 									id="username"
 									name="username"
-									onChange={onChange}
+									onChange={(e) => {
+										setUsername(e.target.value);
+									}}
 									onKeyDown={_handleKeyDown}
 									className="form-control inputRegistro"
 								/>
@@ -301,7 +384,9 @@ const Registro = (props) => {
 										class="form-control inputRegistro"
 										name="email"
 										//value={values.email}
-										onChange={onChange}
+										onChange={(e) => {
+											setEmail(e.target.value);
+										}}
 										onKeyDown={_handleKeyDown}
 										className=" form-control inputRegistro"
 									/>
@@ -314,7 +399,9 @@ const Registro = (props) => {
 										id="passwordSignup"
 										name="password"
 										//value={values.password}
-										onChange={onChange}
+										onChange={(e) => {
+											setPassword(e.target.value);
+										}}
 										onKeyDown={_handleKeyDown}
 										className="form-control inputRegistro"
 										/*{classnames(

@@ -52,7 +52,7 @@ function CrearProyecto(props) {
     data.append('ubicacion', 'Tec Campus MTY');
     data.append('imagen', image);
     data.append('createdBy', localStorage.getItem('id'));
-
+console.log(...data);
     return axios
       .post(`${URI.base}${URI.routes.createEvent}`, data, {
         headers: {
