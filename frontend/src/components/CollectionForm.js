@@ -95,9 +95,9 @@ function CollectionForm({
       const edDateObj = new Date(endDate);
 
       if (edDateObj < stDateObj && edDateObj !== "Invalid Date") {
-        setEndDateError("La fecha de fin tiene que ser después del inicio")
+        setEndDateError("La fecha de fin tiene que ser después del inicio");
       } else if (edDateObj === "Invalid Date") {
-        setEndDateError("Favor de elegir una fecha de fin")
+        setEndDateError("Favor de elegir una fecha de fin");
       }
       flag = edDateObj > stDateObj;
 
@@ -239,37 +239,41 @@ function CollectionForm({
                   {encargadoError === "" ? "" : encargadoError}
                 </Form.Text>
               </Form.Group>
-              <Form.Group>
-                <Form.Label className="pt-3 mr-4 font-weight-bold">
-                  Estatus del {variant}:
-                </Form.Label>
-                <div
-                  onChange={(e) => {
-                    setStatus(e.target.value);
-                  }}
-                >
-                  <Form.Check
-                    inline
-                    label="Activo"
-                    type="radio"
-                    className="pr-5"
-                    size="lg"
-                    name="status"
-                    value="Activo"
-                    defaultChecked={status === "Activo" ? true : false}
-                  />
-                  <Form.Check
-                    inline
-                    label="Finalizado"
-                    type="radio"
-                    className="pl-5"
-                    size="lg"
-                    name="status"
-                    value="Finalizado"
-                    defaultChecked={status === "Finalizado" ? true : false}
-                  />
-                </div>
-              </Form.Group>
+              {variant !== "Proyecto" ? (
+                <Form.Group>
+                  <Form.Label className="pt-3 mr-4 font-weight-bold">
+                    Estatus del {variant}:
+                  </Form.Label>
+                  <div
+                    onChange={(e) => {
+                      setStatus(e.target.value);
+                    }}
+                  >
+                    <Form.Check
+                      inline
+                      label="Activo"
+                      type="radio"
+                      className="pr-5"
+                      size="lg"
+                      name="status"
+                      value="Activo"
+                      defaultChecked={status === "Activo" ? true : false}
+                    />
+                    <Form.Check
+                      inline
+                      label="Finalizado"
+                      type="radio"
+                      className="pl-5"
+                      size="lg"
+                      name="status"
+                      value="Finalizado"
+                      defaultChecked={status === "Finalizado" ? true : false}
+                    />
+                  </div>
+                </Form.Group>
+              ) : (
+                ""
+              )}
               <Form.Row className="pt-2">
                 <Form.Group as={Col}>
                   <Form.Label className="font-weight-bold">
