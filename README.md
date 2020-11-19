@@ -58,6 +58,7 @@ Realizar un sitio que preste servicios web para los miembros del hub de ciencia 
 | react-dom                   | 16.13.1 |
 | react-hook-form             | 6.9.2   |
 | react-icons                 | 3.11.0  |
+| react-markdown              | 5.0.2   |
 | react-router-dom            | 5.2.0   |
 | react-scripts               | 3.4.3   |
 | react-toastify              | 6.0.9   |
@@ -72,6 +73,7 @@ Realizar un sitio que preste servicios web para los miembros del hub de ciencia 
 | NodeJs LTS     | 12.18.3 |
 | Express        | 4.17.1  |
 | @sendgrid/mail | 7.3.0   |
+| aws-sdk        | 2.790.0 |
 | bcrypt         | 5.0.0   |
 | bcryptjs       | 2.4.3   |
 | cors           | 2.8.5   |
@@ -97,7 +99,7 @@ You should ask for access to this tools if you don't have it already:
 
 - [Github repo](https://github.com/ProyectoIntegrador2018/hub-datos.git)
 - [Backlog](https://trello.com/b/SV5uVhjY/product-backlog)
-- [Heroku](https://crowdfront-staging.herokuapp.com/)
+- [Heroku](https://data-hub-app.herokuapp.com)
 - [Documentation](https://drive.com)
 
 ## Development
@@ -123,5 +125,20 @@ After installing please you can follow this simple steps:
 3. Request the MongoDB Atlas login information to Lorena Gomez. Generate an appropriate user for each team member and then modify the following link in the mongoose.js document according to the link provided by mongoDB Atlas
 
    ```bash
-   mongodb+srv://hubdatos:<password>@hubdatos.oijcd.mongodb.net/<dbname>?retryWrites=true&w=majority
+   mongodb+srv://admin:<password>@hubdatos.oijcd.mongodb.net/<dbname>?retryWrites=true&w=majority
+   ```
+
+4. To run the server locally run the following commands
+
+   **Backend**
+
+   ```bash
+   node server.js
+   nodemon server.js
+   ```
+
+   **Frontend**
+
+   ```bash
+   npm start
    ```
