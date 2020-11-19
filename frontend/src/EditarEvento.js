@@ -37,12 +37,10 @@ function EditarProyecto() {
       // get dates
       let date = data.fecha.slice(0, 10);
       setDate(date);
-      // //let end = data.fechaFin.slice(0,10);
-      // //setEndDate(end); // using dummy data until model updates
       const stat = data.finalizado ? "Finalizado" : "Activo";
       setStatus(stat);
       setEncargado(data.encargado);
-      //setPartners(data.socios);
+      setPartners(data.socios);
       setLoading(false);
     };
 
